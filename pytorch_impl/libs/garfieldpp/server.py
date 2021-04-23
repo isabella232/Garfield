@@ -78,7 +78,7 @@ class Server:
         self.num_workers = num_workers
         self.byz_wrk = byz_wrk
         self.byz_ps = byz_ps
-        if world_size > 1:
+        if world_size > 0:
             self.workers_types, self.workers_rref = self.get_rrefs(wrk_base_name,0,num_workers, True)
         self.num_ps = num_ps
         self.model = tools.select_model(model, torch.device("cpu:0"), dataset)	#We should always put the model on CPU because RPC is not supported on GPUs
@@ -88,7 +88,7 @@ class Server:
         self.optimizer = tools.select_optimizer(self.model, optimizer,  *args, **kwargs)
 #        self.grads = []						#placeholder to carry gradients in each iteration
         tools.server_instance = self
-        if self.num_ps > 1:			#This should be done after the server announces itself; otherwise, we'd fall in deadlock
+        if self.num_ps > 0:			#This should be done after the server announces itself; otherwise, we'd fall in deadlock
             self.ps_types, self.ps_rref = self.get_rrefs(ps_base_name,0, num_ps, False)
 #        self.pool_wrk = ThreadPool()                            #No need to specify the number of concurrent processes; try to use max anyway
         self.latest_aggr_grad = None

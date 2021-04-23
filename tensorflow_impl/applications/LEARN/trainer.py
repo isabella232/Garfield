@@ -87,6 +87,8 @@ def main():
         if iter % 200 == 0:
             accuracy = p.compute_accuracy()
 
+    print("Waiting for termination...")
+
     p.wait_until_termination()
     w.wait_until_termination()
 

@@ -55,6 +55,8 @@ from garfieldpp.tools import get_bytes_com,convert_to_gbit, adjust_learning_rate
 
 import aggregators
 
+torch.multiprocessing.set_sharing_strategy('file_system')
+
 CIFAR_NUM_SAMPLES = 50000
 #First, parse the inputs
 parser = argparse.ArgumentParser(description="AggregaThor implementation using Garfield++ library", formatter_class=argparse.RawTextHelpFormatter)
