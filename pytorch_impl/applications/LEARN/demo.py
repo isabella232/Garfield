@@ -35,6 +35,7 @@ def avg_agree(ps, gar, aggr_grad, num_iter, num_wait_ps, f):
         aggr_grad	the initial aggregated gradient
         num_iter	the number of iterations to be done; should be log2(t)
         num_wait_ps	the number of servers that should be waited for
+        f               the number of byzantine servers
   """
     for _ in range(num_iter):
         ps.latest_aggr_grad = aggr_grad
@@ -57,22 +58,23 @@ def node(
     optimizer,
     opt_args,
     non_iid,
-    log,
+    debug,
     q,
 ):
-    print("**** SETUP AT NODE {} ***".format(rank))
-    print("Number of nodes: ", n)
-    print("Number of declared Byzantine nodes: ", f)
-    print("GAR: ", gar)
-    print("Dataset: ", dataset)
-    print("Model: ", model)
-    print("Batch size: ", batch)
-    print("Loss function: ", loss)
-    print("Optimizer: ", optimizer)
-    print("Optimizer Args", opt_args)
-    print("Assume Non-iid data? ", non_iid)
-    print("Logging loss at each iteration?", log)
-    print("------------------------------------")
+    if debug:
+        print("**** SETUP AT NODE {} ***".format(rank))
+        print("Number of nodes: ", n)
+        print("Number of declared Byzantine nodes: ", f)
+        print("GAR: ", gar)
+        print("Dataset: ", dataset)
+        print("Model: ", model)
+        print("Batch size: ", batch)
+        print("Loss function: ", loss)
+        print("Optimizer: ", optimizer)
+        print("Optimizer Args", opt_args)
+        print("Assume Non-iid data? ", non_iid)
+        print("Debug traces: ", debug)
+        print("------------------------------------")
 
     lr = opt_args["lr"]
     gar = aggregators.gars.get(gar)
@@ -91,12 +93,14 @@ def node(
             init_method="tcp://localhost:29700", rpc_timeout=10
         ),
     )
-    print("RPC initialized")
+    if debug:
+        print("RPC initialized")
 
     # rpc._set_rpc_timeout(100000)
     # initialize a worker here...the worker is created first because the server relies on the worker creation
     Worker(rank, world_size, n, batch, model, dataset, loss)
-    print("Worker created")
+    if debug:
+        print("Worker created")
 
     # Initialize a parameter server
     ps = Server(
@@ -114,10 +118,12 @@ def node(
         optimizer,
         **opt_args,
     )
-    print("Server created")
+    if debug:
+        print("Server created")
 
     sleep(5)  # works as a synchronization step
-    print("Sleep done")
+    if debug:
+        print("Sleep done")
 
     scheduler = torch.optim.lr_scheduler.MultiStepLR(
         ps.optimizer, milestones=[150, 250, 350], gamma=0.1
@@ -126,7 +132,8 @@ def node(
     iter_per_epoch = CIFAR_NUM_SAMPLES // (
         n * batch
     )  # this value records how many iteration per sample
-    print("One EPOCH consists of {} iterations".format(iter_per_epoch))
+    if debug:
+        print("One EPOCH consists of {} iterations".format(iter_per_epoch))
     sys.stdout.flush()
 
     accuracies = []
@@ -146,43 +153,52 @@ def node(
         if non_iid:
             aggr_grad = avg_agree(ps, gar, aggr_grad, ceil(log2(i + 1)), n - f, f)
         ps.update_model(aggr_grad)
+
         # Then, communicate models, aggregate, and write the new model
         models = ps.get_models(n - f)
         aggr_models = gar(gradients=models, f=f)
         ps.write_model(aggr_models)
         ps.model.to("cpu:0")
 
-        if i % iter_per_epoch == 0:
+        if (i + 1) % iter_per_epoch == 0:
             # Test step
             acc = ps.compute_accuracy()
-            num_epochs = i / iter_per_epoch
-            print(
-                "Epoch: {} Accuracy: {} Time: {}".format(
-                    num_epochs, acc, time() - start_time
+            num_epochs = (i + 1) / iter_per_epoch
+            if debug:
+                print(
+                    "Epoch: {} Accuracy: {} Time: {}".format(
+                        num_epochs, acc, time() - start_time
+                    )
                 )
-            )
             sys.stdout.flush()
 
             accuracies.append(acc)
 
     rpc.shutdown()
 
-    q.put(accuracies)
+    q.put(accuracies[-1])
 
 
 def main():
-    n = 2
+    n = 4
     f = 0
     assert f * 2 < n
 
-    from multiprocessing import Process, Queue
+    import multiprocessing as mp
+#     import logging
+# 
+#     logging.basicConfig()
+#     log = logging.getLogger()
+#     log.setLevel(logging.DEBUG)
+# 
+#     log.debug("START")
 
-    q = Queue()
+    q = mp.Queue()
 
     ps = []
     for rank in range(n):
-        print(f"Starting process with rank {rank}")
-        p = Process(
+        print(f"*** Starting process with rank {rank}")
+        p = mp.Process(
             target=node,
             kwargs=dict(
                 rank=rank,
@@ -191,20 +207,21 @@ def main():
                 model="convnet",
                 dataset="mnist",
                 loss="cross-entropy",
-                num_iter=201,
+                num_iter=200,
                 n=n,
                 f=f,
                 gar="average",
                 optimizer="sgd",
                 opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
                 non_iid=False,
-                log=False,
+                debug=True,
                 q=q,
             ),
         )
         p.start()
         ps.append(p)
 
+    print("*** Waiting for results...")
     acc = [q.get(timeout=60) for _ in ps]
 
     for p in ps:
