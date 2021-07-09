@@ -94,36 +94,28 @@ def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, opt
       if i%(iter_per_epoch*30) == 0 and i!=0:			#One hack for better convergence with Cifar10
         lr*=0.2
         adjust_learning_rate(ps.optimizer, lr)
-      #training loop goes here
-      def train_step():
-        with torch.autograd.profiler.profile(enabled=False) as prof:
-          gradients = ps.get_gradients(i, n-f)     #get_gradients(iter_num, num_wait_wrk)
-          #Aggregating gradients once is good for IID data; for non-IID, one should execute this log2(i)
-          aggr_grad = gar(gradients=gradients, f=f)
-          if non_iid:
-            aggr_grad = avg_agree(ps, gar, aggr_grad, ceil(log2(i+1)), n-f, f)
-          ps.update_model(aggr_grad)
-          #Then, communicate models, aggregate, and write the new model
-          models = ps.get_models(n-f)
-          aggr_models = gar(gradients=models,f=f)
-          ps.write_model(aggr_models)
-          ps.model.to('cpu:0')
 
-      train_step()
+      # Training step
+      gradients = ps.get_gradients(i, n-f)     #get_gradients(iter_num, num_wait_wrk)
+      #Aggregating gradients once is good for IID data; for non-IID, one should execute this log2(i)
+      aggr_grad = gar(gradients=gradients, f=f)
+      if non_iid:
+        aggr_grad = avg_agree(ps, gar, aggr_grad, ceil(log2(i+1)), n-f, f)
+      ps.update_model(aggr_grad)
+      #Then, communicate models, aggregate, and write the new model
+      models = ps.get_models(n-f)
+      aggr_models = gar(gradients=models,f=f)
+      ps.write_model(aggr_models)
+      ps.model.to('cpu:0')
 
       if i%iter_per_epoch == 0:
-        def test_step():
-          acc = ps.compute_accuracy()
-          num_epochs = i/iter_per_epoch
-          print("Epoch: {} Accuracy: {} Time: {}".format(num_epochs,acc,time()-start_time))
-          sys.stdout.flush()
+        # Test step
+        acc = ps.compute_accuracy()
+        num_epochs = i/iter_per_epoch
+        print("Epoch: {} Accuracy: {} Time: {}".format(num_epochs,acc,time()-start_time))
+        sys.stdout.flush()
 
-          accuracies.append(acc)
-
-        test_step()		#Though threading is a good idea, applying it here messes the use of CPU with GPU
-    #      if model.startswith('resnet') and i!=0:
-    #        scheduler.step()
-    #      threading.Thread(target=test_step).start()
+        accuracies.append(acc)
 
     rpc.shutdown()
 
