@@ -42,7 +42,7 @@ def avg_agree(ps, gar, aggr_grad, num_iter, num_wait_ps, f):
   return aggr_grad
 
 
-def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, optimizer, opt_args, non_iid, bench, log, q):
+def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, optimizer, opt_args, non_iid, log, q):
     print("**** SETUP AT NODE {} ***".format(rank))
     print("Number of nodes: ", n)
     print("Number of declared Byzantine nodes: ", f)
@@ -54,23 +54,15 @@ def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, opt
     print("Optimizer: ", optimizer)
     print("Optimizer Args", opt_args)
     print("Assume Non-iid data? ", non_iid)
-    print("Benchmarking? ", bench)
     print("Logging loss at each iteration?", log)
     print("------------------------------------")
 
     lr = opt_args['lr']
     gar = aggregators.gars.get(gar)
-    if bench:
-      from timeit import timeit
-    else:
-      timeit = None
-    print(f"lr={lr} ; gar={gar}")
 
     torch.manual_seed(1234)					#For reproducibility
     if torch.cuda.is_available():
       torch.cuda.manual_seed_all(1234)                                    #For reproducibility
-    if bench:
-      torch.backends.cudnn.benchmark=True
 
     #No branching here! All nodes are created equal: no PS and no workers
     #Basically, each node has one PS object and one worker object
@@ -104,9 +96,7 @@ def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, opt
         adjust_learning_rate(ps.optimizer, lr)
       #training loop goes here
       def train_step():
-        if bench:
-          bytes_rec = get_bytes_com()			#record number of bytes sent before the training step to work as a checkpoint
-        with torch.autograd.profiler.profile(enabled=bench) as prof:
+        with torch.autograd.profiler.profile(enabled=False) as prof:
           gradients = ps.get_gradients(i, n-f)     #get_gradients(iter_num, num_wait_wrk)
           #Aggregating gradients once is good for IID data; for non-IID, one should execute this log2(i)
           aggr_grad = gar(gradients=gradients, f=f)
@@ -118,18 +108,8 @@ def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, opt
           aggr_models = gar(gradients=models,f=f)
           ps.write_model(aggr_models)
           ps.model.to('cpu:0')
-          if bench:
-            print(prof.key_averages().table(sort_by="self_cpu_time_total"))
-            bytes_train = get_bytes_com()
-            print("Consumed bandwidth in this iteration: {} Gbits".format(convert_to_gbit(bytes_train-bytes_rec)))
-    #        print("Memory allocated to GPU {} Memory cached on GPU {}".format(torch.cuda.memory_allocated(0), torch.cuda.memory_cached(0)))
-            sys.stdout.flush()
-      if timeit is not None:
-        res = timeit(train_step,number=1)
-        print("Training step {} takes {} seconds".format(i,res))
-        sys.stdout.flush()
-      else:
-        train_step()
+
+      train_step()
 
       if i%iter_per_epoch == 0:
         def test_step():
@@ -139,11 +119,8 @@ def node(rank, world_size, batch, model, dataset, loss, num_iter, n, f, gar, opt
           sys.stdout.flush()
 
           accuracies.append(acc)
-        if timeit is not None:
-          res = timeit(test_step,number=1)
-          print("Test step takes {} seconds".format(res))
-        else:
-          test_step()		#Though threading is a good idea, applying it here messes the use of CPU with GPU
+
+        test_step()		#Though threading is a good idea, applying it here messes the use of CPU with GPU
     #      if model.startswith('resnet') and i!=0:
     #        scheduler.step()
     #      threading.Thread(target=test_step).start()
@@ -179,7 +156,6 @@ def main():
             optimizer='sgd',
             opt_args={"lr":0.2,"momentum":0.9,"weight_decay":0.0005},
             non_iid=False,
-            bench=False,
             log=False,
             q=q,
             ))
