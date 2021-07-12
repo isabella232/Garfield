@@ -25,6 +25,12 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 
 CIFAR_NUM_SAMPLES = 50000
 
+import logging
+
+logging.basicConfig(format="%(asctime)s [%(name)-10s] %(levelname)-10s %(message)s")
+log = logging.getLogger(__name__)
+log.setLevel(logging.DEBUG)
+
 
 def avg_agree(ps, gar, aggr_grad, num_iter, num_wait_ps, f):
     """Execute the average agreement protocol as in the paper
@@ -58,23 +64,20 @@ def node(
     optimizer,
     opt_args,
     non_iid,
-    debug,
     q,
 ):
-    if debug:
-        print("**** SETUP AT NODE {} ***".format(rank))
-        print("Number of nodes: ", n)
-        print("Number of declared Byzantine nodes: ", f)
-        print("GAR: ", gar)
-        print("Dataset: ", dataset)
-        print("Model: ", model)
-        print("Batch size: ", batch)
-        print("Loss function: ", loss)
-        print("Optimizer: ", optimizer)
-        print("Optimizer Args", opt_args)
-        print("Assume Non-iid data? ", non_iid)
-        print("Debug traces: ", debug)
-        print("------------------------------------")
+    log.debug(f"**** SETUP AT NODE {rank} ***")
+    log.debug(f"Number of nodes: {n}")
+    log.debug(f"Number of declared Byzantine nodes: {f}")
+    log.debug(f"GAR: {gar}")
+    log.debug(f"Dataset: {dataset}")
+    log.debug(f"Model: {model}")
+    log.debug(f"Batch size: {batch}")
+    log.debug(f"Loss function: {loss}")
+    log.debug(f"Optimizer: {optimizer}")
+    log.debug(f"Optimizer Args: {opt_args}")
+    log.debug(f"Assume Non-iid data? {non_iid}")
+    log.debug(f"------------------------------------")
 
     lr = opt_args["lr"]
     gar = aggregators.gars.get(gar)
@@ -93,14 +96,12 @@ def node(
             init_method="tcp://localhost:29700", rpc_timeout=10
         ),
     )
-    if debug:
-        print("RPC initialized")
+    log.debug("RPC initialized")
 
     # rpc._set_rpc_timeout(100000)
     # initialize a worker here...the worker is created first because the server relies on the worker creation
     Worker(rank, world_size, n, batch, model, dataset, loss)
-    if debug:
-        print("Worker created")
+    log.debug("Worker created")
 
     # Initialize a parameter server
     ps = Server(
@@ -118,12 +119,10 @@ def node(
         optimizer,
         **opt_args,
     )
-    if debug:
-        print("Server created")
+    log.debug("Server created")
 
     sleep(5)  # works as a synchronization step
-    if debug:
-        print("Sleep done")
+    log.debug("Sleep done")
 
     scheduler = torch.optim.lr_scheduler.MultiStepLR(
         ps.optimizer, milestones=[150, 250, 350], gamma=0.1
@@ -132,8 +131,7 @@ def node(
     iter_per_epoch = CIFAR_NUM_SAMPLES // (
         n * batch
     )  # this value records how many iteration per sample
-    if debug:
-        print("One EPOCH consists of {} iterations".format(iter_per_epoch))
+    log.debug("One EPOCH consists of {} iterations".format(iter_per_epoch))
     sys.stdout.flush()
 
     accuracies = []
@@ -164,12 +162,11 @@ def node(
             # Test step
             acc = ps.compute_accuracy()
             num_epochs = (i + 1) / iter_per_epoch
-            if debug:
-                print(
-                    "Epoch: {} Accuracy: {} Time: {}".format(
-                        num_epochs, acc, time() - start_time
-                    )
+            log.debug(
+                "Epoch: {} Accuracy: {} Time: {}".format(
+                    num_epochs, acc, time() - start_time
                 )
+            )
             sys.stdout.flush()
 
             accuracies.append(acc)
@@ -180,24 +177,19 @@ def node(
 
 
 def main():
-    n = 4
+    n = 2
     f = 0
     assert f * 2 < n
 
     import multiprocessing as mp
-#     import logging
-# 
-#     logging.basicConfig()
-#     log = logging.getLogger()
-#     log.setLevel(logging.DEBUG)
-# 
-#     log.debug("START")
+
+    log.info("Demo start")
 
     q = mp.Queue()
 
     ps = []
     for rank in range(n):
-        print(f"*** Starting process with rank {rank}")
+        log.info(f"Starting process with rank {rank}")
         p = mp.Process(
             target=node,
             kwargs=dict(
@@ -214,20 +206,19 @@ def main():
                 optimizer="sgd",
                 opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
                 non_iid=False,
-                debug=True,
                 q=q,
             ),
         )
         p.start()
         ps.append(p)
 
-    print("*** Waiting for results...")
-    acc = [q.get(timeout=60) for _ in ps]
+    log.info("Waiting for results")
+    acc = [q.get(timeout=90) for _ in ps]
 
     for p in ps:
         p.join()
 
-    print(f"*** Final accuracies: {acc}")
+    log.info(f"Final accuracies: {acc}")
 
 
 if __name__ == "__main__":
