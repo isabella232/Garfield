@@ -37,6 +37,10 @@ import torch
 from random import Random
 from torchvision import datasets, transforms
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 datasets_list = ['mnist', 'cifar10']
 MNIST = datasets_list.index('mnist')
 CIFAR10 = datasets_list.index('cifar10')
@@ -175,7 +179,7 @@ class DatasetManager(object):
         partition_sizes = [1.0 / size for _ in range(size)]
         partition = DataPartitioner(train_set, partition_sizes)
         partition = partition.use(self.rank - self.num_ps)
-        print("Using batch size = ", bsz)
+        logger.debug(f"Using batch size = {bsz}")
         train_set = torch.utils.data.DataLoader(
             partition, batch_size=bsz, shuffle=False, pin_memory=True, num_workers=2)
         return [sample for sample in train_set]

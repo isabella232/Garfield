@@ -43,6 +43,10 @@ from torch.distributed.rpc import RRef, rpc_async, remote
 from time import sleep, time
 import sys
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 class Worker:
     """ Byzantine-resilient worker """
     def __init__(self, rank, world_size, num_workers, batch_size, model, dataset, loss):
@@ -60,7 +64,7 @@ class Worker:
             self.device = torch.device("cuda")
         else:
             self.device = torch.device("cpu:0")
-            print("Using CPU at rank {}".format(rank))
+            logger.debug(f"Using CPU at rank {rank}")
         self.rank = rank
         self.batch_size = batch_size
         self.loss = tools.select_loss(loss)

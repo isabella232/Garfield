@@ -26,10 +26,31 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 CIFAR_NUM_SAMPLES = 50000
 
 import logging
+import logging.config
 
-logging.basicConfig(format="%(asctime)s [%(name)-10s] %(levelname)-10s %(message)s")
-log = logging.getLogger(__name__)
-log.setLevel(logging.DEBUG)
+logging_config = {
+    "version": 1,
+    "formatters": {
+        "simple": {"format": "%(asctime)s [%(name)-10s] %(levelname)-10s %(message)s"}
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "DEBUG",
+            "formatter": "simple",
+            "stream": "ext://sys.stdout",
+        }
+    },
+    "loggers": {
+        "garfieldpp.worker": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
+        "garfieldpp.server": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
+        "garfieldpp.datasets": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
+    },
+    "root": {"level": "DEBUG", "handlers": ["console"]},
+}
+
+logging.config.dictConfig(logging_config)
+logger = logging.getLogger(__name__)
 
 
 def avg_agree(ps, gar, aggr_grad, num_iter, num_wait_ps, f):
@@ -66,18 +87,18 @@ def node(
     non_iid,
     q,
 ):
-    log.debug(f"**** SETUP AT NODE {rank} ***")
-    log.debug(f"Number of nodes: {n}")
-    log.debug(f"Number of declared Byzantine nodes: {f}")
-    log.debug(f"GAR: {gar}")
-    log.debug(f"Dataset: {dataset}")
-    log.debug(f"Model: {model}")
-    log.debug(f"Batch size: {batch}")
-    log.debug(f"Loss function: {loss}")
-    log.debug(f"Optimizer: {optimizer}")
-    log.debug(f"Optimizer Args: {opt_args}")
-    log.debug(f"Assume Non-iid data? {non_iid}")
-    log.debug(f"------------------------------------")
+    logger.debug(f"**** SETUP AT NODE {rank} ***")
+    logger.debug(f"Number of nodes: {n}")
+    logger.debug(f"Number of declared Byzantine nodes: {f}")
+    logger.debug(f"GAR: {gar}")
+    logger.debug(f"Dataset: {dataset}")
+    logger.debug(f"Model: {model}")
+    logger.debug(f"Batch size: {batch}")
+    logger.debug(f"Loss function: {loss}")
+    logger.debug(f"Optimizer: {optimizer}")
+    logger.debug(f"Optimizer Args: {opt_args}")
+    logger.debug(f"Assume Non-iid data? {non_iid}")
+    logger.debug(f"------------------------------------")
 
     lr = opt_args["lr"]
     gar = aggregators.gars.get(gar)
@@ -96,12 +117,12 @@ def node(
             init_method="tcp://localhost:29700", rpc_timeout=10
         ),
     )
-    log.debug("RPC initialized")
+    logger.debug("RPC initialized")
 
     # rpc._set_rpc_timeout(100000)
     # initialize a worker here...the worker is created first because the server relies on the worker creation
     Worker(rank, world_size, n, batch, model, dataset, loss)
-    log.debug("Worker created")
+    logger.debug("Worker created")
 
     # Initialize a parameter server
     ps = Server(
@@ -119,10 +140,10 @@ def node(
         optimizer,
         **opt_args,
     )
-    log.debug("Server created")
+    logger.debug("Server created")
 
     sleep(5)  # works as a synchronization step
-    log.debug("Sleep done")
+    logger.debug("Sleep done")
 
     scheduler = torch.optim.lr_scheduler.MultiStepLR(
         ps.optimizer, milestones=[150, 250, 350], gamma=0.1
@@ -131,7 +152,7 @@ def node(
     iter_per_epoch = CIFAR_NUM_SAMPLES // (
         n * batch
     )  # this value records how many iteration per sample
-    log.debug("One EPOCH consists of {} iterations".format(iter_per_epoch))
+    logger.debug("One EPOCH consists of {} iterations".format(iter_per_epoch))
     sys.stdout.flush()
 
     accuracies = []
@@ -162,7 +183,7 @@ def node(
             # Test step
             acc = ps.compute_accuracy()
             num_epochs = (i + 1) / iter_per_epoch
-            log.debug(
+            logger.debug(
                 "Epoch: {} Accuracy: {} Time: {}".format(
                     num_epochs, acc, time() - start_time
                 )
@@ -183,13 +204,13 @@ def main():
 
     import multiprocessing as mp
 
-    log.info("Demo start")
+    logger.info(">>> Demo start")
 
     q = mp.Queue()
 
     ps = []
     for rank in range(n):
-        log.info(f"Starting process with rank {rank}")
+        logger.info(f"Starting process with rank {rank}")
         p = mp.Process(
             target=node,
             kwargs=dict(
@@ -212,13 +233,15 @@ def main():
         p.start()
         ps.append(p)
 
-    log.info("Waiting for results")
+    logger.info("Waiting for results")
     acc = [q.get(timeout=90) for _ in ps]
 
     for p in ps:
         p.join()
 
-    log.info(f"Final accuracies: {acc}")
+    logger.info(f"Final accuracies: {acc}")
+
+    logger.info("<<< Demo end")
 
 
 if __name__ == "__main__":

@@ -49,6 +49,10 @@ import sys
 import threading
 from multiprocessing.dummy import Pool as ThreadPool
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 class Server:
     """ Byzantine-resilient parameter server """
     def __init__(self, rank, world_size, num_workers, num_ps, byz_wrk, byz_ps, wrk_base_name, ps_base_name, batch, model, dataset, optimizer,  *args, **kwargs):
@@ -72,7 +76,7 @@ class Server:
             self.device = torch.device("cuda")
         else:
             self.device = torch.device("cpu:0")
-            print("Using CPU at rank {}".format(rank))
+            logger.debug(f"Using CPU at rank {rank}")
         self.rank = rank
         self.world_size = world_size
         self.num_workers = num_workers
