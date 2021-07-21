@@ -13,6 +13,7 @@ import threading
 
 import garfieldpp
 from garfieldpp.worker import Worker
+from garfieldpp.byzWorker import ByzWorker
 from garfieldpp.server import Server
 from garfieldpp.tools import get_bytes_com, convert_to_gbit, adjust_learning_rate
 
@@ -73,6 +74,7 @@ def avg_agree(ps, gar, aggr_grad, num_iter, num_wait_ps, f):
 
 def node(
     rank,
+    is_byzantine,
     world_size,
     batch,
     model,
@@ -121,8 +123,12 @@ def node(
 
     # rpc._set_rpc_timeout(100000)
     # initialize a worker here...the worker is created first because the server relies on the worker creation
-    Worker(rank, world_size, n, batch, model, dataset, loss)
-    logger.debug("Worker created")
+    if is_byzantine:
+        ByzWorker(rank, world_size, n, batch, model, dataset, loss, "random", f)
+        logger.debug("Byzantine Worker created")
+    else:
+        Worker(rank, world_size, n, batch, model, dataset, loss)
+        logger.debug("Worker created")
 
     # Initialize a parameter server
     ps = Server(
@@ -159,6 +165,7 @@ def node(
 
     # Training loop
     for i in range(num_iter):
+        logger.debug(f"Iteration {i}")
         if (
             i % (iter_per_epoch * 30) == 0 and i != 0
         ):  # One hack for better convergence with Cifar10
@@ -198,8 +205,8 @@ def node(
 
 
 def main():
-    n = 2
-    f = 0
+    n = 6
+    f = 2
     assert f * 2 < n
 
     import multiprocessing as mp
@@ -215,6 +222,7 @@ def main():
             target=node,
             kwargs=dict(
                 rank=rank,
+                is_byzantine=(rank < f),
                 world_size=n,
                 batch=125,
                 model="convnet",
@@ -223,7 +231,7 @@ def main():
                 num_iter=200,
                 n=n,
                 f=f,
-                gar="average",
+                gar="median",
                 optimizer="sgd",
                 opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
                 non_iid=False,
@@ -234,7 +242,7 @@ def main():
         ps.append(p)
 
     logger.info("Waiting for results")
-    acc = [q.get(timeout=90) for _ in ps]
+    acc = [q.get(timeout=15*60) for _ in ps]
 
     for p in ps:
         p.join()
