@@ -24,6 +24,9 @@ from math import log2, ceil
 #   https://github.com/pytorch/pytorch/issues/973#issuecomment-449756587
 torch.multiprocessing.set_sharing_strategy("file_system")
 
+import multiprocessing as mp
+import asyncio
+
 CIFAR_NUM_SAMPLES = 50000
 
 import logging
@@ -88,6 +91,7 @@ def node(
     opt_args,
     non_iid,
     q,
+    port,
 ):
     logger.debug(f"**** SETUP AT NODE {rank} ***")
     logger.debug(f"Number of nodes: {n}")
@@ -116,7 +120,7 @@ def node(
         rank=rank,
         world_size=world_size,
         rpc_backend_options=rpc.ProcessGroupRpcBackendOptions(
-            init_method="tcp://localhost:29700", rpc_timeout=10
+            init_method=f"tcp://localhost:{port}", rpc_timeout=10
         ),
     )
     logger.debug("RPC initialized")
@@ -161,11 +165,10 @@ def node(
     logger.debug("One EPOCH consists of {} iterations".format(iter_per_epoch))
     sys.stdout.flush()
 
-    accuracies = []
-
     # Training loop
     for i in range(num_iter):
-        logger.debug(f"Iteration {i}")
+        if (i + 1) % 10 == 0:
+            logger.debug(f"[{rank}@{port}]: {i + 1}")
         if (
             i % (iter_per_epoch * 30) == 0 and i != 0
         ):  # One hack for better convergence with Cifar10
@@ -197,21 +200,17 @@ def node(
             )
             sys.stdout.flush()
 
-            accuracies.append(acc)
+    final_acc = ps.compute_accuracy()
 
     rpc.shutdown()
 
-    q.put(accuracies[-1])
+    q.put(final_acc)
 
 
-def main():
-    n = 6
-    f = 2
+def training_run(n, f, port):
     assert f * 2 < n
 
-    import multiprocessing as mp
-
-    logger.info(">>> Demo start")
+    logger.info(f">>> Training run start: n={n} ; f={f}")
 
     q = mp.Queue()
 
@@ -231,11 +230,12 @@ def main():
                 num_iter=200,
                 n=n,
                 f=f,
-                gar="median",
+                gar=("average" if f == 0 else "median"),
                 optimizer="sgd",
                 opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
                 non_iid=False,
                 q=q,
+                port=port,
             ),
         )
         p.start()
@@ -249,8 +249,21 @@ def main():
 
     logger.info(f"Final accuracies: {acc}")
 
-    logger.info("<<< Demo end")
+    logger.info("<<< Training run end")
+
+    return acc
+
+
+async def main():
+    loop = asyncio.get_running_loop()
+
+    result = await asyncio.gather(
+            loop.run_in_executor(None, training_run, 2, 0, 29700),
+            loop.run_in_executor(None, training_run, 4, 1, 29701),
+            )
+
+    print(f"Result: {result}")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
