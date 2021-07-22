@@ -20,17 +20,21 @@ from garfieldpp.tools import get_bytes_com, convert_to_gbit, adjust_learning_rat
 import aggregators
 from math import log2, ceil
 
+import multiprocessing as mp
+import asyncio
+from quart import Quart, request, session, abort
+import threading
+import json
+
+import logging
+import logging.config
+
 # The following fixes a `RuntimeError: received 0 items of ancdata` error, see:
 #   https://github.com/pytorch/pytorch/issues/973#issuecomment-449756587
 torch.multiprocessing.set_sharing_strategy("file_system")
 
-import multiprocessing as mp
-import asyncio
 
 CIFAR_NUM_SAMPLES = 50000
-
-import logging
-import logging.config
 
 logging_config = {
     "version": 1,
@@ -46,9 +50,21 @@ logging_config = {
         }
     },
     "loggers": {
-        "garfieldpp.worker": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
-        "garfieldpp.server": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
-        "garfieldpp.datasets": {"level": "DEBUG", "handlers": ["console"], "propagate": False},
+        "garfieldpp.worker": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "garfieldpp.server": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "garfieldpp.datasets": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
     "root": {"level": "DEBUG", "handlers": ["console"]},
 }
@@ -168,7 +184,8 @@ def node(
     # Training loop
     for i in range(num_iter):
         if (i + 1) % 10 == 0:
-            logger.debug(f"[{rank}@{port}]: {i + 1}")
+            logger.debug(f"[{rank}@{port}]: {(i + 1) * 100 // num_iter}%")
+
         if (
             i % (iter_per_epoch * 30) == 0 and i != 0
         ):  # One hack for better convergence with Cifar10
@@ -207,8 +224,9 @@ def node(
     q.put(final_acc)
 
 
-def training_run(n, f, port):
-    assert f * 2 < n
+def training_run(n, f, gar, port):
+    if n <= 2 * f:
+        raise ValueError("n must be > 2 * f")
 
     logger.info(f">>> Training run start: n={n} ; f={f}")
 
@@ -230,7 +248,7 @@ def training_run(n, f, port):
                 num_iter=200,
                 n=n,
                 f=f,
-                gar=("average" if f == 0 else "median"),
+                gar=gar,
                 optimizer="sgd",
                 opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
                 non_iid=False,
@@ -242,7 +260,7 @@ def training_run(n, f, port):
         ps.append(p)
 
     logger.info("Waiting for results")
-    acc = [q.get(timeout=15*60) for _ in ps]
+    acc = [q.get(timeout=15 * 60) for _ in ps]
 
     for p in ps:
         p.join()
@@ -254,16 +272,45 @@ def training_run(n, f, port):
     return acc
 
 
-async def main():
-    loop = asyncio.get_running_loop()
+class PortManager:
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.port = 29700
 
-    result = await asyncio.gather(
-            loop.run_in_executor(None, training_run, 2, 0, 29700),
-            loop.run_in_executor(None, training_run, 4, 1, 29701),
-            )
+    def get_next_port(self):
+        with self.lock:
+            port = self.port
+            self.port += 1
 
-    print(f"Result: {result}")
+        logger.debug(f"Returning port: {port}")
+        return port
 
+
+app = Quart(__name__)
+
+
+@app.route("/", methods=["POST"])
+async def train():
+    form = await request.form
+    loop = asyncio.get_event_loop()
+
+    try:
+        n = int(form["n"])
+        f = int(form["f"])
+        gar = form.get("gar", "average")
+
+        result = await loop.run_in_executor(
+            None, training_run, n, f, gar, pm.get_next_port()
+        )
+
+    except Exception as e:
+        logger.error(e)
+        abort(400, e)
+
+    return json.dumps({"result": result})
+
+
+pm = PortManager()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    app.run()
