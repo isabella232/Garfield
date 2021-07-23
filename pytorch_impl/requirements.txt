@@ -3,3 +3,4 @@ torchvision==0.7.0
 numpy==1.19.1
 scipy==1.5.2
 psutil==5.8.0
+Quart==0.15.1
