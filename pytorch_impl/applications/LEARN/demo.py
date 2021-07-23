@@ -310,6 +310,15 @@ async def train():
     return json.dumps({"result": result})
 
 
+@app.cli.command("init_demo")
+def init_demo():
+    from garfieldpp.datasets import DatasetManager
+
+    # Pre-load the MNIST dataset, and build the C++ aggretors as a side-effect
+    dm = DatasetManager("mnist", 0, 0, 0, 0)
+    dm.fetch_dataset(dm.dataset)
+
+
 pm = PortManager()
 
 if __name__ == "__main__":
