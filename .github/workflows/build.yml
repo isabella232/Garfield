@@ -1,4 +1,4 @@
-name: Build and push Docker image
+name: Build and push Docker image, deploy on target
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: "Build and push Docker image"
+    name: "Build and push Docker image, deploy on c4dtsrv1"
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,12 @@ jobs:
           --username ${{ secrets.DOCKER_USERNAME }}
           --password ${{ secrets.DOCKER_PASSWORD }} &&
           docker push c4dt/garfield-pytorch-demo:latest
+
+      - name: Deploy
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H c4dtsrv1.epfl.ch > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+          cat scripts/deploy.sh | ssh -i ssh-key garfield@c4dtsrv1.epfl.ch

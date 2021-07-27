@@ -22,7 +22,7 @@ from math import log2, ceil
 
 import multiprocessing as mp
 import asyncio
-from quart import Quart, request, session, abort
+from quart import Quart, request, session, abort, render_template
 import threading
 import json
 
@@ -289,6 +289,11 @@ class PortManager:
 app = Quart(__name__)
 
 
+@app.route("/", methods=["GET"])
+async def index():
+    return await render_template("index.html")
+
+
 @app.route("/", methods=["POST"])
 async def train():
     form = await request.form
@@ -307,7 +312,7 @@ async def train():
         logger.error(e)
         abort(400, e)
 
-    return json.dumps({"result": result})
+    return await render_template("index.html", result=result)
 
 
 @app.cli.command("init_demo")
