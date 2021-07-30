@@ -1,26 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <title>Garfield Demonstrator</title>
+  <head>
+    <title>Garfield Demonstrator</title>
+    <style>
+      table,
+      th,
+      td {
+      }
+    </style>
+  </head>
+
   <body>
     <h1>Garfield Demonstrator</h1>
 
     <form action="{{ url_for('train') }}" method="post">
-      <div>
-        <label for="n">Total number of nodes:</label>
-        <input type="text" size="30" name="n" />
-      </div>
-      <div>
-        <label for="f">Number of byzantine nodes:</label>
-        <input type="text" size="30" name="f" />
-      </div>
-      <div>
-        <label for="aggregator">Aggregator:</label>
-        <select id="aggregator" name="gar">
-          <option value="average">average</option>
-          <option value="median">median</option>
-        </select>
-      </div>
-      <div><input type="submit" value="Train" /></div>
+      <table>
+        <tr>
+          <td>
+            <label for="n">Total number of nodes:</label>
+          </td>
+          <td>
+            <input type="text" size="30" name="n" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="f">Number of byzantine nodes:</label>
+          </td>
+          <td>
+            <input type="text" size="30" name="f" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="aggregator">Aggregator:</label>
+          </td>
+          <td>
+            <select id="aggregator" name="gar">
+              <option value="average">average</option>
+              <option value="median">median</option>
+            </select>
+          </td>
+        </tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr>
+          <td colspan="2" align="center">
+            <input type="submit" value="Train" />
+          </td>
+        </tr>
+      </table>
     </form>
   </body>
 </html>
