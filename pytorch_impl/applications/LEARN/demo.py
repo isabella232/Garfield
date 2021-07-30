@@ -185,6 +185,7 @@ def node(
     for i in range(num_iter):
         if (i + 1) % 10 == 0:
             logger.debug(f"[{rank}@{port}]: {(i + 1) * 100 // num_iter}%")
+            q.put({"rank": rank, "progress": (i + 1) * 100 // num_iter})
 
         if (
             i % (iter_per_epoch * 30) == 0 and i != 0
@@ -221,55 +222,92 @@ def node(
 
     rpc.shutdown()
 
-    q.put(final_acc)
+    q.put({"rank": rank, "progress": 100, "result": final_acc})
 
 
-def training_run(n, f, gar, port):
-    if n <= 2 * f:
-        raise ValueError("n must be > 2 * f")
+class Trainer:
+    def __init__(self, n, f, gar, port):
+        if n <= 2 * f:
+            raise ValueError("n must be > 2 * f")
 
-    logger.info(f">>> Training run start: n={n} ; f={f}")
+        self.n = n
+        self.f = f
+        self.gar = gar
+        self.port = port
 
-    q = mp.Queue()
+        self.lock = threading.Lock()
 
-    ps = []
-    for rank in range(n):
-        logger.info(f"Starting process with rank {rank}")
-        p = mp.Process(
-            target=node,
-            kwargs=dict(
-                rank=rank,
-                is_byzantine=(rank < f),
-                world_size=n,
-                batch=125,
-                model="convnet",
-                dataset="mnist",
-                loss="cross-entropy",
-                num_iter=200,
-                n=n,
-                f=f,
-                gar=gar,
-                optimizer="sgd",
-                opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
-                non_iid=False,
-                q=q,
-                port=port,
-            ),
-        )
-        p.start()
-        ps.append(p)
+    def train(self):
+        logger.info(f">>> Training run start: n={self.n} ; f={self.f}")
 
-    logger.info("Waiting for results")
-    acc = [q.get(timeout=15 * 60) for _ in ps]
+        self.status = {rank: 0 for rank in range(self.n)}
 
-    for p in ps:
-        p.join()
+        q = mp.Queue()
 
-    logger.info(f"Final accuracies: {acc}")
+        ps = []
+        for rank in range(self.n):
+            logger.info(f"Starting process with rank {rank}")
+            p = mp.Process(
+                target=node,
+                kwargs=dict(
+                    rank=rank,
+                    is_byzantine=(rank < self.f),
+                    world_size=self.n,
+                    batch=125,
+                    model="convnet",
+                    dataset="mnist",
+                    loss="cross-entropy",
+                    num_iter=200,
+                    n=self.n,
+                    f=self.f,
+                    gar=self.gar,
+                    optimizer="sgd",
+                    opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
+                    non_iid=False,
+                    q=q,
+                    port=self.port,
+                ),
+            )
+            p.start()
+            ps.append(p)
 
-    logger.info("<<< Training run end")
+        logger.info("Waiting for results")
 
-    return acc
+        acc = []
+        while len(acc) < len(ps):
+            prog = q.get(timeout=15 * 60)
+            logger.debug(f"Prog received: {prog}")
+
+            with self.lock:
+                self.status[prog["rank"]] = prog["progress"]
+
+            if "result" in prog:
+                acc.append(prog["result"])
+
+        for p in ps:
+            p.join()
+
+        logger.info(f"Final accuracies: {acc}")
+
+        logger.info("<<< Training run end")
+
+        return acc
+
+    def run(self):
+        loop = asyncio.get_event_loop()
+        self.exec = loop.run_in_executor(None, self.train)
+
+    def get_status(self):
+        if self.exec.done():
+            res = self.exec.result()
+            status = {"result": sum(res) / len(res)}
+        else:
+            with self.lock:
+                status = {"progress": sum(self.status.values()) // len(self.status)}
+
+        logger.debug(f"Returning status: {status}")
+
+        return status
 
 
 class PortManager:
@@ -284,6 +322,35 @@ class PortManager:
 
         logger.debug(f"Returning port: {port}")
         return port
+
+
+class Trainers:
+    def __init__(self):
+        self.lock = threading.Lock()
+        self.trainers = {}
+        self.id = 0
+
+    def submit(self, trainer):
+        loop = asyncio.get_event_loop()
+
+        with self.lock:
+            trainer_id = self.id
+            self.id += 1
+
+            self.trainers[trainer_id] = trainer
+
+        trainer.run()
+
+        return trainer_id
+
+    def get_status(self, trainer_id):
+        with self.lock:
+            trainer = self.trainers.get(trainer_id)
+
+        if trainer is None:
+            raise ValueError(f"Trainer ID {trainer_id} does not exist")
+
+        return trainer.get_status()
 
 
 app = Quart(__name__)
@@ -304,15 +371,31 @@ async def train():
         f = int(form["f"])
         gar = form.get("gar", "average")
 
-        result = await loop.run_in_executor(
-            None, training_run, n, f, gar, pm.get_next_port()
-        )
+        trainer = Trainer(n, f, gar, pm.get_next_port())
+        trainer_id = trainers.submit(trainer)
 
     except Exception as e:
         logger.error(e)
         abort(400, e)
 
-    return await render_template("index.html", result=result)
+    return await render_template(
+        "status.html", n=n, f=f, gar=gar, trainer_id=trainer_id
+    )
+
+
+@app.route("/status", methods=["GET"])
+async def get_status():
+    args = request.args
+
+    try:
+        trainer_id = int(args["trainer_id"])
+        status = trainers.get_status(trainer_id)
+
+    except Exception as e:
+        logger.error(e)
+        abort(400, e)
+
+    return status
 
 
 @app.cli.command("init_demo")
@@ -325,6 +408,7 @@ def init_demo():
 
 
 pm = PortManager()
+trainers = Trainers()
 
 if __name__ == "__main__":
     app.run()

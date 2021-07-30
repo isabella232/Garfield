@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Garfield Demonstrator</title>
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+    />
+    <link rel="stylesheet" href="/resources/demos/style.css" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      async function check_status() {
+        var response = await fetch(
+          '{{ url_for("get_status") }}?trainer_id={{ trainer_id }}'
+        );
+        var data = JSON.parse(await response.text());
+
+        if (data.result !== undefined) {
+          document.getElementById(
+            "progressData"
+          ).innerHTML = `&nbsp;<center>Accuracy: ${data.result.toFixed(
+            2
+          )}%</center>`;
+        } else {
+          $("#progressBar").progressbar({ value: data.progress });
+
+          var text;
+          switch (data.progress) {
+            case 0:
+              text = "Initializing...";
+              break;
+
+            case 100:
+              text = "Finalizing...";
+              break;
+
+            default:
+              text = `${data.progress}%`;
+              break;
+          }
+
+          document.getElementById(
+            "progressData"
+          ).innerHTML = `&nbsp;<center>${text}</center>`;
+
+          setTimeout(check_status, 1000);
+        }
+      }
+
+      check_status();
+    </script>
+  </head>
+
+  <body>
+    <h1>Training status</h1>
+    <h2>Training parameters for job #{{ trainer_id }}:</h2>
+
+    <ul>
+      <li>n = {{ n }}</li>
+      <li>f = {{ f }}</li>
+      <li>aggregator = {{ gar }}</li>
+    </ul>
+
+    <hr />
+
+    <div id="progressBar"></div>
+    <div id="progressData" name="progressData"><center></center></div>
+  </body>
+</html>
