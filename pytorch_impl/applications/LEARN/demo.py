@@ -22,7 +22,7 @@ from math import log2, ceil
 
 import multiprocessing as mp
 import asyncio
-from quart import Quart, request, session, abort, render_template
+from quart import Quart, request, session, abort, render_template, url_for
 import threading
 import json
 
@@ -331,8 +331,6 @@ class Trainers:
         self.id = 0
 
     def submit(self, trainer):
-        loop = asyncio.get_event_loop()
-
         with self.lock:
             trainer_id = self.id
             self.id += 1
@@ -363,8 +361,7 @@ async def index():
 
 @app.route("/", methods=["POST"])
 async def train():
-    form = await request.form
-    loop = asyncio.get_event_loop()
+    form = await request.get_json()
 
     try:
         n = int(form["n"])
@@ -378,9 +375,7 @@ async def train():
         logger.error(e)
         abort(400, e)
 
-    return await render_template(
-        "status.html", n=n, f=f, gar=gar, trainer_id=trainer_id
-    )
+    return {"trainerId": trainer_id}
 
 
 @app.route("/status", methods=["GET"])
