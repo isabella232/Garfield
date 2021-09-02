@@ -32,18 +32,61 @@
 
 #!/usr/bin/env python
 
+import os
 import pathlib
 import torch
 from random import Random
 from torchvision import datasets, transforms
+import pandas as pd
+import numpy as np
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-datasets_list = ['mnist', 'cifar10']
+datasets_list = ['mnist', 'cifar10', 'pima']
 MNIST = datasets_list.index('mnist')
 CIFAR10 = datasets_list.index('cifar10')
+PIMA = datasets_list.index('pima')
+
+class PimaDiabetesDataset(torch.utils.data.Dataset):
+    """ Pima Indians Diabetes Database
+    Predict the onset of diabetes based on diagnostic measures
+
+    See https://www.kaggle.com/uciml/pima-indians-diabetes-database
+    """
+    TRAIN_SPLIT = 500
+    TEST_SPLIT = 600
+
+    def __init__(self, train, transform=None, target_transform=None):
+        libdir = os.path.dirname(__file__)
+        raw = pd.read_csv(os.path.join(libdir, 'pima_diabetes.csv'))
+
+        raw = raw[:self.TRAIN_SPLIT] if train else raw[self.TEST_SPLIT:]
+
+        data, targets = raw.iloc[:, :-1], raw.iloc[:, -1]
+        data -= data.mean(axis=0)
+        data /= data.std(axis=0)
+
+        self.data= np.array(data).astype('float32')
+        self.targets = np.array(targets).astype('float32').reshape(-1, 1)
+
+        self.transform = transform
+        self.target_transform = target_transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        val, target = self.data[idx], self.targets[idx]
+
+        if self.transform is not None:
+            val = self.transform(val)
+        if self.target_transform is not None:
+            target = self.target_transform(target)
+
+        return val, target
+
 
 class Partition(object):
     """ Dataset-like object, but only access a subset of it. """
@@ -112,22 +155,21 @@ class DatasetManager(object):
 		rank		rank of the current worker
 	"""
         if dataset not in datasets_list:
-            print("Existing datasets are: ", datasets_list)
-            raise
+            raise Exception("Existing datasets are: ", datasets_list)
         self.dataset = datasets_list.index(dataset)
         self.batch = minibatch * num_workers
         self.num_workers = num_workers
         self.num_ps = size - num_workers
         self.rank = rank
 
-    def fetch_dataset(self, dataset, train=True):
+    def fetch_dataset(self, train=True):
         """ Fetch train or test set of some dataset
 		Args
 		dataset		dataset index from the global "datasets" array
 		train		boolean to determine whether to fetch train or test set
 	"""
         homedir = str(pathlib.Path.home())
-        if dataset == MNIST:
+        if self.dataset == MNIST:
             return datasets.MNIST(
               homedir+'/data',
               train=train,
@@ -137,7 +179,7 @@ class DatasetManager(object):
                  transforms.Normalize((0.1307, ), (0.3081, ))
               ]))
 
-        if dataset == CIFAR10:
+        if self.dataset == CIFAR10:
             if train:
               transforms_train = transforms.Compose([
                 transforms.RandomCrop(32, padding=4),
@@ -171,9 +213,15 @@ class DatasetManager(object):
 #                  [transforms.ToTensor(),
 #                  transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]))
 
+        if self.dataset == PIMA:
+            logger.debug(f"Using Pima Indians Diabetes dataset")
+            return PimaDiabetesDataset(
+                    train=train,
+                    )
+
     def get_train_set(self):
         """ Fetch my partition of the train set"""
-        train_set = self.fetch_dataset(self.dataset, train=True)
+        train_set = self.fetch_dataset(train=True)
         size = self.num_workers
         bsz = int(self.batch / float(size))
         partition_sizes = [1.0 / size for _ in range(size)]
@@ -186,7 +234,7 @@ class DatasetManager(object):
 
     def get_test_set(self):
         """ Fetch test set, which is global, i.e., same for all entities in the deployment"""
-        test_set = self.fetch_dataset(self.dataset, train=False)
+        test_set = self.fetch_dataset(train=False)
         test_set = torch.utils.data.DataLoader(test_set, batch_size=100, #len(test_set),
 		 pin_memory=True, shuffle=False, num_workers=2)
         return test_set

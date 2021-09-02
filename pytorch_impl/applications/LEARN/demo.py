@@ -16,6 +16,7 @@ from garfieldpp.worker import Worker
 from garfieldpp.byzWorker import ByzWorker
 from garfieldpp.server import Server
 from garfieldpp.tools import get_bytes_com, convert_to_gbit, adjust_learning_rate
+from garfieldpp.datasets import DatasetManager
 
 import aggregators
 from math import log2, ceil
@@ -99,7 +100,7 @@ def node(
     model,
     dataset,
     loss,
-    num_iter,
+    nb_epochs,
     n,
     f,
     gar,
@@ -132,7 +133,7 @@ def node(
     # No branching here! All nodes are created equal: no PS and no workers
     # Basically, each node has one PS object and one worker object
     rpc.init_rpc(
-        "node:{}".format(rank),
+        f"node:{rank}",
         rank=rank,
         world_size=world_size,
         rpc_backend_options=rpc.ProcessGroupRpcBackendOptions(
@@ -175,23 +176,28 @@ def node(
         ps.optimizer, milestones=[150, 250, 350], gamma=0.1
     )  # This line shows sophisticated stuff that can be done out of the Garfield++ library
     start_time = time()
-    iter_per_epoch = CIFAR_NUM_SAMPLES // (
-        n * batch
-    )  # this value records how many iteration per sample
-    logger.debug("One EPOCH consists of {} iterations".format(iter_per_epoch))
+
+    dataset_size = len(DatasetManager(dataset, 0, 0, 0, 0).fetch_dataset())
+
+    iter_per_epoch = ceil(dataset_size / (n * batch))  # this value records how many iteration per sample
+    logger.debug(f"One EPOCH consists of {iter_per_epoch} iterations")
+    num_iter = nb_epochs * iter_per_epoch
+    logger.debug(f"Doing {num_iter} iterations to cover {nb_epochs} epochs")
     sys.stdout.flush()
+
+    q.put({"rank": rank, "progress": 0})
 
     # Training loop
     for i in range(num_iter):
         if (i + 1) % 10 == 0:
             logger.debug(f"[{rank}@{port}]: {(i + 1) * 100 // num_iter}%")
-            q.put({"rank": rank, "progress": (i + 1) * 100 // num_iter})
+        q.put({"rank": rank, "progress": (i + 1) * 100 // num_iter})
 
-        if (
-            i % (iter_per_epoch * 30) == 0 and i != 0
-        ):  # One hack for better convergence with Cifar10
-            lr *= 0.2
-            adjust_learning_rate(ps.optimizer, lr)
+        ## if (
+        ##     i % (iter_per_epoch * 30) == 0 and i != 0
+        ## ):  # One hack for better convergence with Cifar10
+        ##     lr *= 0.2
+        ##     adjust_learning_rate(ps.optimizer, lr)
 
         # Training step
         gradients = ps.get_gradients(i, n - f)  # get_gradients(iter_num, num_wait_wrk)
@@ -209,7 +215,7 @@ def node(
 
         if (i + 1) % iter_per_epoch == 0:
             # Test step
-            acc = ps.compute_accuracy()
+            acc = ps.compute_binary_accuracy()
             num_epochs = (i + 1) / iter_per_epoch
             logger.debug(
                 "Epoch: {} Accuracy: {} Time: {}".format(
@@ -218,7 +224,7 @@ def node(
             )
             sys.stdout.flush()
 
-    final_acc = ps.compute_accuracy()
+    final_acc = ps.compute_binary_accuracy()
 
     rpc.shutdown()
 
@@ -240,6 +246,11 @@ class Trainer:
     def train(self):
         logger.info(f">>> Training run start: n={self.n} ; f={self.f}")
 
+        dataset = "pima"
+        model = "pimanet"
+        batch_size = 16
+        nb_epochs = 15
+
         self.status = {rank: 0 for rank in range(self.n)}
 
         q = mp.Queue()
@@ -253,16 +264,16 @@ class Trainer:
                     rank=rank,
                     is_byzantine=(rank < self.f),
                     world_size=self.n,
-                    batch=125,
-                    model="convnet",
-                    dataset="mnist",
-                    loss="cross-entropy",
-                    num_iter=200,
+                    batch=batch_size,
+                    model=model,
+                    dataset=dataset,
+                    loss="binary-cross-entropy",
+                    nb_epochs=nb_epochs,
                     n=self.n,
                     f=self.f,
                     gar=self.gar,
-                    optimizer="sgd",
-                    opt_args={"lr": 0.2, "momentum": 0.9, "weight_decay": 0.0005},
+                    optimizer="rmsprop",
+                    opt_args={"lr": 0.001, "momentum": 0.9, "weight_decay": 0.0005},
                     non_iid=False,
                     q=q,
                     port=self.port,
@@ -276,7 +287,7 @@ class Trainer:
         acc = []
         while len(acc) < len(ps):
             prog = q.get(timeout=15 * 60)
-            logger.debug(f"Prog received: {prog}")
+            # logger.debug(f"Progress received: {prog}")
 
             with self.lock:
                 self.status[prog["rank"]] = prog["progress"]
@@ -397,9 +408,9 @@ async def get_status():
 def init_demo():
     from garfieldpp.datasets import DatasetManager
 
-    # Pre-load the MNIST dataset, and build the C++ aggretors as a side-effect
-    dm = DatasetManager("mnist", 0, 0, 0, 0)
-    dm.fetch_dataset(dm.dataset)
+    # Pre-load the Pima Indians Diabetes dataset, and build the C++ aggretors as a side-effect
+    dm = DatasetManager("pima", 0, 0, 0, 0)
+    dm.fetch_dataset()
 
 
 pm = PortManager()

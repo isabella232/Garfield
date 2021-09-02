@@ -252,6 +252,27 @@ class Server:
         del model_cpy
         return (correct * 100 / total)
 
+    def compute_binary_accuracy(self):
+        """ compute the accuracy of the current model, based on the test set
+        Args
+        """
+        correct = 0
+        total = 0
+        model_cpy = copy.deepcopy(self.model)
+        if torch.cuda.is_available():
+            model_cpy = model_cpy.cuda()
+
+        model_cpy.eval()
+        with torch.no_grad():
+          for idx, (inputs, targets) in enumerate(self.test_set):
+            inputs, targets = inputs.to(self.device), targets.to(self.device)
+            outputs = model_cpy(inputs)
+            predicted = outputs.round()
+            total += targets.size(0)
+            correct += predicted.eq(targets).sum().item()
+        del model_cpy
+        return (correct * 100 / total)
+
     def update_model(self, grad):
         """ update the local model using the updating gradient
         Args

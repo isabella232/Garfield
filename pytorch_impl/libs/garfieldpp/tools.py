@@ -49,7 +49,7 @@ def select_loss(loss_fn):
     Args
     loss_fn        Name of the loss function to optimize against
     """
-    losses = {'nll': nn.NLLLoss, 'cross-entropy':nn.CrossEntropyLoss}
+    losses = {'nll': nn.NLLLoss, 'cross-entropy':nn.CrossEntropyLoss, 'binary-cross-entropy': nn.BCELoss}
     if loss_fn in losses.keys():
         return losses[loss_fn]()
     else:
@@ -83,8 +83,10 @@ def select_model(model, device, dataset):
 		'shufflenetg2': ShuffleNetG2,
 		'senet18': SENet18,
 		'efficientnetb0': EfficientNetB0,
-		'regnetx200': RegNetX_200MF}
-    num_classes_dict={"cifar10":10, "cifar100":100, "mnist":10, "imagenet":1000}
+		'regnetx200': RegNetX_200MF,
+                'pimanet': PimaNet,
+                }
+    num_classes_dict={"cifar10":10, "cifar100":100, "mnist":10, "imagenet":1000, "pima": 1}
     if dataset in num_classes_dict.keys():
         num_classes = num_classes_dict[dataset]
     else:
