@@ -232,6 +232,9 @@ def node(
 
 
 class Trainer:
+    TIMEOUT_PROGRESS_SEC = 1 * 60
+    TIMEOUT_TERMINATE_SEC = 10
+
     def __init__(self, n, f, gar, port):
         if n <= 2 * f:
             raise ValueError("n must be > 2 * f")
@@ -284,19 +287,32 @@ class Trainer:
 
         logger.info("Waiting for results")
 
-        acc = []
-        while len(acc) < len(ps):
-            prog = q.get(timeout=15 * 60)
-            # logger.debug(f"Progress received: {prog}")
+        try:
+            acc = []
+            while len(acc) < len(ps):
+                prog = q.get(timeout=self.TIMEOUT_PROGRESS_SEC)
+                # logger.debug(f"Progress received: {prog}")
 
-            with self.lock:
-                self.status[prog["rank"]] = prog["progress"]
+                with self.lock:
+                    self.status[prog["rank"]] = prog["progress"]
 
-            if "result" in prog:
-                acc.append(prog["result"])
+                if "result" in prog:
+                    acc.append(prog["result"])
+
+        except Exception as exc:
+            # Try to cleanup
+            for p in ps:
+                p.kill()
+
+            logger.exception("Exception occurred while waiting for results")
+
+            raise
+
 
         for p in ps:
-            p.join()
+            p.join(timeout=self.TIMEOUT_TERMINATE_SEC)
+            if p.exitcode is None:
+                logger.warning(f"Process {p} did not terminate")
 
         logger.info(f"Final accuracies: {acc}")
 
@@ -306,12 +322,15 @@ class Trainer:
 
     def run(self):
         loop = asyncio.get_event_loop()
-        self.exec = loop.run_in_executor(None, self.train)
+        self.fut = loop.run_in_executor(None, self.train)
 
     def get_status(self):
-        if self.exec.done():
-            res = self.exec.result()
-            status = {"result": sum(res) / len(res)}
+        if self.fut.done():
+            try:
+                res = self.fut.result()
+                status = {"result": sum(res) / len(res)}
+            except Exception as exc:
+                status = {"error": str(exc)}
         else:
             with self.lock:
                 status = {"progress": sum(self.status.values()) // len(self.status)}

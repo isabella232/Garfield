@@ -39,6 +39,26 @@
         <h3 class="md-display-1">Garfield Demonstrator</h3>
       </md-toolbar>
 
+      <md-dialog
+        :md-active.sync="showProgressDialog"
+        :md-close-on-esc="false"
+        :md-click-outside-to-close="false"
+      >
+        <md-dialog-title>Training progress</md-dialog-title>
+        <md-progress-bar
+          :md-mode="progressMode"
+          :md-value="progressValue"
+        ></md-progress-bar>
+        <div class="md-body-2 garfield-center">[[ progressStatus ]]</div>
+      </md-dialog>
+
+      <md-dialog-alert
+        :md-active.sync="showErrorDialog"
+        md-title="An error occurred, please try again"
+        :md-content="errorMessage"
+      >
+      </md-dialog-alert>
+
       <md-steppers :md-active-step.sync="currentStep" md-linear>
         <md-step id="one" md-label="Introduction">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
@@ -135,19 +155,6 @@
               </div>
             </md-app-content>
           </md-app>
-
-          <md-dialog
-            :md-active.sync="showProgressDialog"
-            :md-close-on-esc="false"
-            :md-click-outside-to-close="false"
-          >
-            <md-dialog-title>Training progress</md-dialog-title>
-            <md-progress-bar
-              :md-mode="progressMode"
-              :md-value="progressValue"
-            ></md-progress-bar>
-            <div class="md-body-2 garfield-center">[[ progressStatus ]]</div>
-          </md-dialog>
         </md-step>
 
         <md-step id="four" md-label="Byzantine behavior">
@@ -249,6 +256,8 @@
           progressValue: 0,
           progressStatus: "",
           trainingResult: null,
+          showErrorDialog: false,
+          errorMessage: null,
         },
         computed: {
           backDisabled: function () {
@@ -300,7 +309,11 @@
             );
             var data = await response.json();
 
-            if (data.result !== undefined) {
+            if (data.error !== undefined) {
+              this.showProgressDialog = false;
+              this.showErrorDialog = true;
+              this.errorMessage = data.error;
+            } else if (data.result !== undefined) {
               this.trainingResult = `${data.result.toFixed(2)}%`;
               this.showProgressDialog = false;
             } else {
