@@ -2,10 +2,12 @@
 <html>
   <head>
     <title>Garfield Demonstrator</title>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-material@1.0.0-beta-15"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.6/dist/vuelidate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vuelidate@0.7.6/dist/validators.min.js"></script>
+
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Material+Icons"
@@ -18,6 +20,7 @@
       rel="stylesheet"
       href="https://unpkg.com/vue-material/dist/theme/default.css"
     />
+
     <style>
       .garfield-center {
         margin: auto;
@@ -151,7 +154,7 @@
               </form>
 
               <div class="md-headline" v-if="trainingResult">
-                Training result: [[ trainingResult ]]
+                Model accuracy after training: [[ trainingResult ]]
               </div>
             </md-app-content>
           </md-app>
@@ -314,7 +317,7 @@
               this.showErrorDialog = true;
               this.errorMessage = data.error;
             } else if (data.result !== undefined) {
-              this.trainingResult = `${data.result.toFixed(2)}%`;
+              this.trainingResult = `${data.result.toFixed(1)}%`;
               this.showProgressDialog = false;
             } else {
               this.progressValue = data.progress;

@@ -36,6 +36,7 @@ torch.multiprocessing.set_sharing_strategy("file_system")
 
 
 CIFAR_NUM_SAMPLES = 50000
+NB_SAMPLES_PER_NODE = 100
 
 logging_config = {
     "version": 1,
@@ -142,13 +143,15 @@ def node(
     )
     logger.debug("RPC initialized")
 
+    train_size = n * NB_SAMPLES_PER_NODE
+
     # rpc._set_rpc_timeout(100000)
     # initialize a worker here...the worker is created first because the server relies on the worker creation
     if is_byzantine:
-        ByzWorker(rank, world_size, n, batch, model, dataset, loss, "random", f)
+        ByzWorker(rank, world_size, n, batch, model, dataset, loss, "random", f, train_size=train_size)
         logger.debug("Byzantine Worker created")
     else:
-        Worker(rank, world_size, n, batch, model, dataset, loss)
+        Worker(rank, world_size, n, batch, model, dataset, loss, train_size=train_size)
         logger.debug("Worker created")
 
     # Initialize a parameter server
@@ -165,6 +168,7 @@ def node(
         model,
         dataset,
         optimizer,
+        train_size=train_size,
         **opt_args,
     )
     logger.debug("Server created")
@@ -177,7 +181,7 @@ def node(
     )  # This line shows sophisticated stuff that can be done out of the Garfield++ library
     start_time = time()
 
-    dataset_size = len(DatasetManager(dataset, 0, 0, 0, 0).fetch_dataset())
+    dataset_size = len(DatasetManager(dataset, 0, 0, 0, 0, train_size=train_size).fetch_dataset())
 
     iter_per_epoch = ceil(dataset_size / (n * batch))  # this value records how many iteration per sample
     logger.debug(f"One EPOCH consists of {iter_per_epoch} iterations")

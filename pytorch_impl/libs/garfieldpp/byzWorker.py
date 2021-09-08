@@ -43,7 +43,7 @@ import sys
 
 class ByzWorker(Worker):
     """ Byzantine worker """
-    def __init__(self, rank, world_size, num_workers, batch_size, model, dataset, loss, attack, fw=1):
+    def __init__(self, rank, world_size, num_workers, batch_size, model, dataset, loss, attack, fw=1, train_size=None):
         """ Constructor of Byzanrtine worker Object
         Args
         world_size     total number of nodes in the deployment
@@ -55,15 +55,16 @@ class ByzWorker(Worker):
         loss           the name of the loss function to be applied
         attack	       name of the attack to be applied by this worker
         fw             the number of Byzantine workers; used to simulate sophisticated attacks
+        train_size     number of training samples to partition between workers (if None, use all training set)
         """
-        super().__init__(rank, world_size, num_workers, batch_size, model, dataset, loss)
+        super().__init__(rank, world_size, num_workers, batch_size, model, dataset, loss, train_size)
         self.fw = fw
         attacks = {'random':self.random_attack,
 			'reverse':self.reverse_attack,
 			'drop':self.partial_drop_attack,
 			'lie':self.little_is_enough_attack,
 			'empire':self.fall_empires_attack}
-        assert attack in attacks, "The requested attack is not implemeneted; available attacks are:"+str(attacks.keys())
+        assert attack in attacks, "The requested attack is not implemented; available attacks are:"+str(attacks.keys())
         self.attack = attacks[attack]
 
     def compute_gradients(self, iter_num, model):

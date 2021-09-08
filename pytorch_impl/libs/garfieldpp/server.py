@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 
 class Server:
     """ Byzantine-resilient parameter server """
-    def __init__(self, rank, world_size, num_workers, num_ps, byz_wrk, byz_ps, wrk_base_name, ps_base_name, batch, model, dataset, optimizer,  *args, **kwargs):
+    def __init__(self, rank, world_size, num_workers, num_ps, byz_wrk, byz_ps, wrk_base_name, ps_base_name, batch, model, dataset, optimizer,  train_size=None, *args, **kwargs):
         """ Constructor of server Object
         Args
         rank           unique ID of this worker node in the deployment
@@ -70,6 +70,7 @@ class Server:
         model          the name of the NN model to be used
         dataset        the name of the dataset to be used for training
         optimizer      the name of the optimizer used by the server
+        train_size     number of training samples to partition between workers (if None, use all training set)
         args, kwargs   additional arguments to be passed to the optimizer constructor
         """
         if torch.cuda.device_count() > 0:
@@ -86,7 +87,7 @@ class Server:
             self.workers_types, self.workers_rref = self.get_rrefs(wrk_base_name,0,num_workers, True)
         self.num_ps = num_ps
         self.model = tools.select_model(model, torch.device("cpu:0"), dataset)	#We should always put the model on CPU because RPC is not supported on GPUs
-        manager = DatasetManager(dataset, batch*num_workers, 1, 2, 1)			#The parameters actually are dummy
+        manager = DatasetManager(dataset, batch*num_workers, 1, 2, 1, train_size)			#The parameters actually are dummy
         self.test_set = manager.get_test_set()
         self.train_set = manager.get_train_set()
         self.optimizer = tools.select_optimizer(self.model, optimizer,  *args, **kwargs)

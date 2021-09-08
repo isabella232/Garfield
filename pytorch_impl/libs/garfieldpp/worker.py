@@ -49,7 +49,7 @@ logger = logging.getLogger(__name__)
 
 class Worker:
     """ Byzantine-resilient worker """
-    def __init__(self, rank, world_size, num_workers, batch_size, model, dataset, loss):
+    def __init__(self, rank, world_size, num_workers, batch_size, model, dataset, loss, train_size=None):
         """ Constructor of worker Object
         Args
         rank           unique ID of this worker node in the deployment
@@ -59,6 +59,7 @@ class Worker:
         model          the name of the NN model to be used   FIXME: not used?
         dataset        the name of the dataset to be used for training
         loss           the name of the loss function to be applied
+        train_size     number of training samples to partition between workers (if None, use all training set)
         """
         if torch.cuda.device_count() > 0:
             self.device = torch.device("cuda")
@@ -68,7 +69,7 @@ class Worker:
         self.rank = rank
         self.batch_size = batch_size
         self.loss = tools.select_loss(loss)
-        manager = DatasetManager(dataset, batch_size, num_workers, world_size, rank)
+        manager = DatasetManager(dataset, batch_size, num_workers, world_size, rank, train_size)
         self.train_set = manager.get_train_set()        #train_set is a list of pairs: (data, target)
         self.num_train_samples = len(self.train_set)
         tools.worker_instance = self

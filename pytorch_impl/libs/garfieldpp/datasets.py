@@ -56,13 +56,19 @@ class PimaDiabetesDataset(torch.utils.data.Dataset):
     See https://www.kaggle.com/uciml/pima-indians-diabetes-database
     """
     TRAIN_SPLIT = 500
-    TEST_SPLIT = 600
+    TEST_SPLIT = 200
 
-    def __init__(self, train, transform=None, target_transform=None):
+    def __init__(self, train, train_size=None, transform=None, target_transform=None):
         libdir = os.path.dirname(__file__)
         raw = pd.read_csv(os.path.join(libdir, 'pima_diabetes.csv'))
 
-        raw = raw[:self.TRAIN_SPLIT] if train else raw[self.TEST_SPLIT:]
+        train_split = self.TRAIN_SPLIT
+        if train_size is not None and train_size < train_split:
+            train_split = train_size
+
+        logger.debug(f"Using {train_split} samples for training")
+
+        raw = raw[:train_split] if train else raw[-self.TEST_SPLIT:]
 
         data, targets = raw.iloc[:, :-1], raw.iloc[:, -1]
         data -= data.mean(axis=0)
@@ -128,11 +134,12 @@ class DataPartitioner(object):
         rng.seed(seed)
         data_len = len(data)
         indexes = [x for x in range(0, data_len)]
-        rng.shuffle(indexes)
 
         for frac in sizes:
             part_len = int(frac * data_len)
-            self.partitions.append(indexes[0:part_len])
+            tmp = indexes[0:part_len]
+            rng.shuffle(tmp)
+            self.partitions.append(tmp)
             indexes = indexes[part_len:]
 
     def use(self, partition):
@@ -145,14 +152,15 @@ class DataPartitioner(object):
 class DatasetManager(object):
     """ Manages training and test sets"""
 
-    def __init__(self, dataset, minibatch, num_workers, size, rank):
+    def __init__(self, dataset, minibatch, num_workers, size, rank, train_size=None):
         """ Constrctor of DatasetManager Object
 	    Args
 		dataset		dataset name to be used
 		minibatch	minibatch size to be employed by each worker
-		num_workers	number of works employed in the setup
-		size		FIXME
+		num_workers	number of workers employed in the setup
+		size		total number of nodes in the deployment
 		rank		rank of the current worker
+                train_size      number of training samples to use (all if None)
 	"""
         if dataset not in datasets_list:
             raise Exception("Existing datasets are: ", datasets_list)
@@ -161,6 +169,7 @@ class DatasetManager(object):
         self.num_workers = num_workers
         self.num_ps = size - num_workers
         self.rank = rank
+        self.train_size = train_size
 
     def fetch_dataset(self, train=True):
         """ Fetch train or test set of some dataset
@@ -217,6 +226,7 @@ class DatasetManager(object):
             logger.debug(f"Using Pima Indians Diabetes dataset")
             return PimaDiabetesDataset(
                     train=train,
+                    train_size=self.train_size,
                     )
 
     def get_train_set(self):
