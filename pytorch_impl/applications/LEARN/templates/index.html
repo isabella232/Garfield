@@ -47,7 +47,7 @@
         :md-close-on-esc="false"
         :md-click-outside-to-close="false"
       >
-        <md-dialog-title>Training progress</md-dialog-title>
+        <md-dialog-title>Training in progress...</md-dialog-title>
         <md-progress-bar
           :md-mode="progressMode"
           :md-value="progressValue"
@@ -79,13 +79,81 @@
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
-              In this step, we will train a model on a known set of images, and
-              see how well it can label a new set of images.
+              <p>
+                In this step, we will train a model on data from the
+                <a
+                  href="https://www.kaggle.com/uciml/pima-indians-diabetes-database"
+                  >Pima Indian Diabetes dataset.</a
+                >. This data consists of several patient medical values (such as
+                number of pregnancies, age, etc.), and indicates for each
+                patient whether they had diabetes.
+              </p>
             </md-app-drawer>
-            <md-app-content> This is the contents </md-app-content>
+
+            <md-app-content>
+              <p>
+                We will use a subset of the data to train the model, and use the
+                rest as test values to evaluate how well our model can predict
+                the outcome.
+              </p>
+
+              <form @submit.prevent="runSimpleTraining">
+                <md-button type="submit" class="md-primary">Train</md-button>
+              </form>
+
+              <div class="md-headline" v-if="simpleTrainingResult">
+                Model accuracy after training: [[ simpleTrainingResult ]]
+              </div>
+            </md-app-content>
           </md-app>
         </md-step>
 
+        <md-step id="three" md-label="Adding data">
+          <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
+          <md-app>
+            <md-app-drawer md-permanent="clipped">
+              <p>
+                If we can add data from other sources, the accuracy will likely
+                improve, but we don't always want to share data [elaborate on
+                federated learning bla bla bla].
+              </p>
+            </md-app-drawer>
+
+            <md-app-content>
+              <p>
+                Select the number of additional datasets with which you would
+                like to train.
+              </p>
+
+              <form @submit.prevent="runMultiNodeTraining">
+                <md-field :class="getValidationClass('n')">
+                  <label for="n">Additional number of nodes:</label>
+                  <md-input
+                    type="number"
+                    id="n"
+                    name="n"
+                    v-model="$v.form.n.$model"
+                  ></md-input>
+                  <span class="md-error" v-if="!$v.form.n.required"
+                    >n is required</span
+                  >
+                  <span class="md-error" v-else-if="!$v.form.n.between"
+                    >n must be between [[ $v.form.n.$params.between.min ]] and
+                    [[ $v.form.n.$params.between.max ]]</span
+                  >
+                </md-field>
+
+                <md-button type="submit" class="md-primary">Train</md-button>
+              </form>
+
+              <div class="md-headline" v-if="multiNodeTrainingResult">
+                Model accuracy after training: [[ multiNodeTrainingResult ]]
+              </div>
+            </md-app-content>
+          </md-app>
+        </md-step>
+
+        <!--
         <md-step id="three" md-label="Adding data">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
@@ -159,6 +227,7 @@
             </md-app-content>
           </md-app>
         </md-step>
+        -->
 
         <md-step id="four" md-label="Byzantine behavior">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
@@ -172,13 +241,41 @@
                 [Explain that Byzantine components can adversely affect the
                 learning if the system is not prepared for it.]
               </p>
-              <p>
-                We have currently [[ nbDatasets ]] datasets, each served by
-                reliable systems. Select the number of these systems which you
-                would like to exhibit failures.
-              </p>
             </md-app-drawer>
-            <md-app-content> This is the contents </md-app-content>
+
+            <md-app-content>
+              <p>
+                We have currently [[ Number(form.n) + 1 ]] datasets, each served
+                by reliable systems. Select the number of these systems which
+                you would like to exhibit failures.
+              </p>
+
+              <form @submit.prevent="runByzantineTraining">
+                <md-field :class="getValidationClass('f')">
+                  <label for="f">Number of byzantine nodes:</label>
+                  <md-input
+                    type="number"
+                    id="f"
+                    name="f"
+                    v-model="$v.form.f.$model"
+                  ></md-input>
+                  <span class="md-error" v-if="!$v.form.f.required"
+                    >f is required</span
+                  >
+                  <span class="md-error" v-else-if="!$v.form.f.between"
+                    >f must be between [[ $v.form.f.$params.between.min ]] and
+                    the total number of nodes (i.e. currently [[
+                    $v.form.f.$params.between.max ]])</span
+                  >
+                </md-field>
+
+                <md-button type="submit" class="md-primary">Train</md-button>
+              </form>
+
+              <div class="md-headline" v-if="byzantineTrainingResult">
+                Model accuracy after training: [[ byzantineTrainingResult ]]
+              </div>
+            </md-app-content>
           </md-app>
         </md-step>
 
@@ -190,12 +287,22 @@
                 [Explain that Garfield is designed to be applied with any ML
                 algorithm to render it resilient to Byzantine failures.]
               </p>
-              <p>
-                We have currently [[ nbDatasets ]], of which [[ nbByzantine ]]
-                exhibit failures.
-              </p>
             </md-app-drawer>
-            <md-app-content> This is the contents </md-app-content>
+            <md-app-content>
+              <p>
+                We have currently [[ Number(form.n) + 1 ]] nodes, of which [[
+                form.f ]] exhibit failures.
+              </p>
+
+              <form @submit.prevent="runByzantineTolerantTraining">
+                <md-button type="submit" class="md-primary">Train</md-button>
+              </form>
+
+              <div class="md-headline" v-if="byzantineTolerantTrainingResult">
+                Model accuracy after training: [[
+                byzantineTolerantTrainingResult ]]
+              </div>
+            </md-app-content>
           </md-app>
         </md-step>
 
@@ -237,8 +344,6 @@
         el: "#app",
         delimiters: ["[[", "]]"],
         data: {
-          nbDatasets: 3,
-          nbByzantine: 1,
           steps: ["one", "two", "three", "four", "five", "six"],
           stepTitles: [
             "Introduction",
@@ -250,14 +355,18 @@
           ],
           currentStep: "one",
           form: {
-            n: 0,
-            f: 0,
+            n: 1,
+            f: 1,
             gar: "average",
           },
           showProgressDialog: false,
           progressMode: "query",
           progressValue: 0,
           progressStatus: "",
+          simpleTrainingResult: null,
+          multiNodeTrainingResult: null,
+          byzantineTrainingResult: null,
+          byzantineTolerantTrainingResult: null,
           trainingResult: null,
           showErrorDialog: false,
           errorMessage: null,
@@ -283,6 +392,23 @@
             const index = this.steps.indexOf(this.currentStep);
             this.currentStep = this.steps[index - 1];
           },
+          runSimpleTraining: async function () {
+            const query = {
+              n: 1,
+              f: 0,
+              gar: "average",
+            };
+            const response = await fetch("{{ url_for('train') }}", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(query),
+            });
+            const data = await response.json();
+
+            this.followProgress(data.trainerId).then((result) => {
+              this.simpleTrainingResult = `${result.toFixed(1)}%`;
+            });
+          },
           getValidationClass: function (fieldName) {
             const field = this.$v.form[fieldName];
 
@@ -292,55 +418,129 @@
               };
             }
           },
-          validateData: async function () {
+          runMultiNodeTraining: async function () {
             this.$v.$touch();
 
             if (!this.$v.$invalid) {
+              const query = {
+                n: Number(this.form.n) + 1,
+                f: 0,
+                gar: "average",
+              };
               const response = await fetch("{{ url_for('train') }}", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(this.form),
+                body: JSON.stringify(query),
               });
               const data = await response.json();
-              this.showProgressDialog = true;
-              this.checkProgress(data.trainerId);
+
+              this.followProgress(data.trainerId).then((result) => {
+                this.multiNodeTrainingResult = `${result.toFixed(1)}%`;
+              });
             }
           },
-          checkProgress: async function (trainerId) {
-            var response = await fetch(
-              `{{ url_for("get_status") }}?trainer_id=${trainerId}`
-            );
-            var data = await response.json();
+          runByzantineTraining: async function () {
+            this.$v.$touch();
 
-            if (data.error !== undefined) {
-              this.showProgressDialog = false;
-              this.showErrorDialog = true;
-              this.errorMessage = data.error;
-            } else if (data.result !== undefined) {
-              this.trainingResult = `${data.result.toFixed(1)}%`;
-              this.showProgressDialog = false;
-            } else {
-              this.progressValue = data.progress;
+            if (!this.$v.$invalid) {
+              const query = {
+                n: Number(this.form.n) + 1,
+                f: Number(this.form.f),
+                gar: "average",
+              };
+              const response = await fetch("{{ url_for('train') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(query),
+              });
+              const data = await response.json();
 
-              switch (data.progress) {
-                case 0:
-                  this.progressStatus = "Initializing...";
-                  this.progressMode = "query";
-                  break;
-
-                case 100:
-                  this.progressStatus = "Finalizing...";
-                  this.progressMode = "query";
-                  break;
-
-                default:
-                  this.progressStatus = `${data.progress}%`;
-                  this.progressMode = "determinate";
-                  break;
-              }
-
-              setTimeout(this.checkProgress, 1000, trainerId);
+              this.followProgress(data.trainerId).then((result) => {
+                this.byzantineTrainingResult = `${result.toFixed(1)}%`;
+              });
             }
+          },
+          runByzantineTolerantTraining: async function () {
+            this.$v.$touch();
+
+            if (!this.$v.$invalid) {
+              const query = {
+                n: Number(this.form.n) + 1,
+                f: Number(this.form.f),
+                gar: "median",
+              };
+              const response = await fetch("{{ url_for('train') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(query),
+              });
+              const data = await response.json();
+
+              this.followProgress(data.trainerId).then((result) => {
+                this.byzantineTolerantTrainingResult = `${result.toFixed(1)}%`;
+              });
+            }
+          },
+          // validateData: async function () {
+          //   this.$v.$touch();
+
+          //   if (!this.$v.$invalid) {
+          //     const response = await fetch("{{ url_for('train') }}", {
+          //       method: "POST",
+          //       headers: { "Content-Type": "application/json" },
+          //       body: JSON.stringify(this.form),
+          //     });
+          //     const data = await response.json();
+
+          //     this.followProgress(data.trainerId).then((result) => {
+          //       this.trainingResult = `${result.toFixed(1)}%`;
+          //     });
+          //   }
+          // },
+          followProgress: async function (trainerId) {
+            // Memorize Vue's `this`
+            const this_ = this;
+
+            const f = async function (resolve, reject) {
+              var response = await fetch(
+                `{{ url_for("get_status") }}?trainer_id=${trainerId}`
+              );
+              var data = await response.json();
+
+              if (data.error !== undefined) {
+                this_.showProgressDialog = false;
+                this_.showErrorDialog = true;
+                this_.errorMessage = data.error;
+              } else if (data.result !== undefined) {
+                this_.showProgressDialog = false;
+                resolve(data.result);
+              } else {
+                this_.progressValue = data.progress;
+
+                switch (data.progress) {
+                  case 0:
+                    this_.progressStatus = "Initializing...";
+                    this_.progressMode = "query";
+                    break;
+
+                  case 100:
+                    this_.progressStatus = "Finalizing...";
+                    this_.progressMode = "query";
+                    break;
+
+                  default:
+                    this_.progressStatus = `${data.progress}%`;
+                    this_.progressMode = "determinate";
+                    break;
+                }
+
+                setTimeout(f, 1000, resolve, reject);
+              }
+            };
+
+            this.showProgressDialog = true;
+
+            return new Promise(f);
           },
         },
         validations: function () {
@@ -348,11 +548,11 @@
             form: {
               n: {
                 required: validators.required,
-                between: validators.between(1, 5),
+                between: validators.between(1, 4),
               },
               f: {
                 required: validators.required,
-                between: validators.between(0, this.form.n),
+                between: validators.between(1, Number(this.form.n) + 1),
               },
               gar: {
                 required: validators.required,
