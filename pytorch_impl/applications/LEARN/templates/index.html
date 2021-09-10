@@ -153,82 +153,6 @@
           </md-app>
         </md-step>
 
-        <!--
-        <md-step id="three" md-label="Adding data">
-          <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
-          <md-app>
-            <md-app-drawer md-permanent="clipped">
-              <p>
-                If we can add data from other sources, the accuracy will likely
-                improve, but we don't always want to share data [elaborate on
-                federated learning bla bla bla].
-              </p>
-              <p>
-                Select the number of additional datasets with which you would
-                like to train.
-              </p>
-            </md-app-drawer>
-            <md-app-content>
-              <form @submit.prevent="validateData">
-                <md-field :class="getValidationClass('n')">
-                  <label for="n">Total number of nodes:</label>
-                  <md-input
-                    type="number"
-                    id="n"
-                    name="n"
-                    v-model="$v.form.n.$model"
-                  ></md-input>
-                  <span class="md-error" v-if="!$v.form.n.required"
-                    >n is required</span
-                  >
-                  <span class="md-error" v-else-if="!$v.form.n.between"
-                    >n must be between [[ $v.form.n.$params.between.min ]] and
-                    [[ $v.form.n.$params.between.max ]]</span
-                  >
-                </md-field>
-                <md-field :class="getValidationClass('f')">
-                  <label for="f">Number of byzantine nodes:</label>
-                  <md-input
-                    type="number"
-                    id="f"
-                    name="f"
-                    v-model="$v.form.f.$model"
-                  ></md-input>
-                  <span class="md-error" v-if="!$v.form.f.required"
-                    >f is required</span
-                  >
-                  <span class="md-error" v-else-if="!$v.form.f.between"
-                    >f must be between [[ $v.form.f.$params.between.min ]] and
-                    the total number of nodes (i.e. currently [[
-                    $v.form.f.$params.between.max ]])</span
-                  >
-                </md-field>
-                <md-field :class="getValidationClass('gar')">
-                  <label for="aggregator">Aggregator:</label>
-                  <md-select
-                    name="gar"
-                    id="aggregator"
-                    md-dense
-                    v-model="$v.form.gar.$model"
-                  >
-                    <md-option value="average">average</md-option>
-                    <md-option value="median">median</md-option>
-                  </md-select>
-                </md-field>
-                <span class="md-error" v-if="!$v.form.gar.required"
-                  >The aggregator is required</span
-                >
-                <md-button type="submit" class="md-primary">Train</md-button>
-              </form>
-
-              <div class="md-headline" v-if="trainingResult">
-                Model accuracy after training: [[ trainingResult ]]
-              </div>
-            </md-app-content>
-          </md-app>
-        </md-step>
-        -->
-
         <md-step id="four" md-label="Byzantine behavior">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
@@ -290,8 +214,12 @@
             </md-app-drawer>
             <md-app-content>
               <p>
-                We have currently [[ Number(form.n) + 1 ]] nodes, of which [[
+                We have currently [[ Number(form.n) + 1 ]] systems, of which [[
                 form.f ]] exhibit failures.
+              </p>
+              <p>
+                We will now make use of Garfield's ability to train a model even
+                though some of the systems exhibit failures.
               </p>
 
               <form @submit.prevent="runByzantineTolerantTraining">
@@ -307,7 +235,7 @@
         </md-step>
 
         <md-step id="six" md-label="Conclusion">
-          <h3 class="md-headlin garfield-centere">[[ stepTitle ]]</h3>
+          <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-content>
               <p>
@@ -326,7 +254,7 @@
           v-on:click="prevStep"
           >Back</md-button
         >
-        <p>Step [[ steps.indexOf(currentStep) + 1 ]] / [[ steps.length ]]</p>
+        <p>Step [[ currentStepIndex + 1 ]] / [[ steps.length ]]</p>
         <md-button
           class="md-raised"
           :disabled="nextDisabled"
@@ -353,7 +281,7 @@
             "Byzantine resilience",
             "Comparison to other projects",
           ],
-          currentStep: "one",
+          currentStepIndex: 0,
           form: {
             n: 1,
             f: 1,
@@ -372,25 +300,41 @@
           errorMessage: null,
         },
         computed: {
+          currentStep: function () {
+            return this.steps[this.currentStepIndex];
+          },
           backDisabled: function () {
-            return this.currentStep === this.steps[0];
+            return this.currentStepIndex === 0;
           },
           nextDisabled: function () {
-            return this.currentStep === this.steps[this.steps.length - 1];
+            switch (this.currentStepIndex) {
+              case 1:
+                return this.simpleTrainingResult === null;
+              case 2:
+                return this.multiNodeTrainingResult === null;
+              case 3:
+                return this.byzantineTrainingResult === null;
+              case 4:
+                return this.byzantineTolerantTrainingResult === null;
+              case this.steps.length - 1:
+                return true;
+              default:
+                return false;
+            }
           },
           stepTitle: function () {
-            const index = this.steps.indexOf(this.currentStep);
-            return this.stepTitles[index];
+            return this.stepTitles[this.currentStepIndex];
           },
         },
         methods: {
           nextStep: function () {
-            const index = this.steps.indexOf(this.currentStep);
-            this.currentStep = this.steps[index + 1];
+            this.currentStepIndex += 1;
+            this.currentStepIndex %= this.steps.length;
           },
           prevStep: function () {
-            const index = this.steps.indexOf(this.currentStep);
-            this.currentStep = this.steps[index - 1];
+            // JavaScript's "%" is not a modulo, -1 % n === -1
+            this.currentStepIndex -= 1 - this.steps.length;
+            this.currentStepIndex %= this.steps.length;
           },
           runSimpleTraining: async function () {
             const query = {
@@ -481,22 +425,6 @@
               });
             }
           },
-          // validateData: async function () {
-          //   this.$v.$touch();
-
-          //   if (!this.$v.$invalid) {
-          //     const response = await fetch("{{ url_for('train') }}", {
-          //       method: "POST",
-          //       headers: { "Content-Type": "application/json" },
-          //       body: JSON.stringify(this.form),
-          //     });
-          //     const data = await response.json();
-
-          //     this.followProgress(data.trainerId).then((result) => {
-          //       this.trainingResult = `${result.toFixed(1)}%`;
-          //     });
-          //   }
-          // },
           followProgress: async function (trainerId) {
             // Memorize Vue's `this`
             const this_ = this;
