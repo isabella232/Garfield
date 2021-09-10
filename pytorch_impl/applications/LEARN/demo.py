@@ -187,16 +187,11 @@ def node(
     logger.debug(f"One EPOCH consists of {iter_per_epoch} iterations")
     num_iter = nb_epochs * iter_per_epoch
     logger.debug(f"Doing {num_iter} iterations to cover {nb_epochs} epochs")
-    sys.stdout.flush()
 
     q.put({"rank": rank, "progress": 0})
 
     # Training loop
     for i in range(num_iter):
-        if (i + 1) % 10 == 0:
-            logger.debug(f"[{rank}@{port}]: {(i + 1) * 100 // num_iter}%")
-        q.put({"rank": rank, "progress": (i + 1) * 100 // num_iter})
-
         ## if (
         ##     i % (iter_per_epoch * 30) == 0 and i != 0
         ## ):  # One hack for better convergence with Cifar10
@@ -226,7 +221,10 @@ def node(
                     num_epochs, acc, time() - start_time
                 )
             )
-            sys.stdout.flush()
+
+        if (i + 1) % 10 == 0:
+            logger.debug(f"[{rank}@{port}]: {(i + 1) * 100 // num_iter}%")
+        q.put({"rank": rank, "progress": (i + 1) * 100 // num_iter})
 
     final_acc = ps.compute_binary_accuracy()
 
@@ -258,7 +256,7 @@ class Trainer:
         batch_size = 16
         nb_epochs = 15
 
-        self.status = {rank: 0 for rank in range(self.n)}
+        self.status = {rank: -1 for rank in range(self.n)}
 
         q = mp.Queue()
 

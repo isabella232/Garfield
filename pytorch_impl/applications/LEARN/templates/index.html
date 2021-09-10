@@ -446,7 +446,7 @@
                 this_.progressValue = data.progress;
 
                 switch (data.progress) {
-                  case 0:
+                  case -1:
                     this_.progressStatus = "Initializing...";
                     this_.progressMode = "query";
                     break;
@@ -462,7 +462,7 @@
                     break;
                 }
 
-                setTimeout(f, 1000, resolve, reject);
+                setTimeout(f, 500, resolve, reject);
               }
             };
 
