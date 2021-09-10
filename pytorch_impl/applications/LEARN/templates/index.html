@@ -27,11 +27,29 @@
         text-align: center;
       }
 
-      .md-app {
-        height: 67vh;
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
+
+      div#app {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+      }
+
       .md-toolbar {
         justify-content: center;
+      }
+      .md-steppers {
+        flex: 1 1 auto;
+      }
+      .md-dialog-title {
+        align-self: center;
       }
     </style>
   </head>
@@ -47,7 +65,7 @@
         :md-close-on-esc="false"
         :md-click-outside-to-close="false"
       >
-        <md-dialog-title>Training in progress...</md-dialog-title>
+        <md-dialog-title>Training...</md-dialog-title>
         <md-progress-bar
           :md-mode="progressMode"
           :md-value="progressValue"
