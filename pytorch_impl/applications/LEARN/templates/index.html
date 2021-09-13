@@ -81,7 +81,7 @@
       </md-dialog-alert>
 
       <md-steppers :md-active-step.sync="currentStep" md-linear>
-        <md-step id="one" md-label="Introduction">
+        <md-step id="intro" md-label="Introduction">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-content>
@@ -93,7 +93,7 @@
           </md-app>
         </md-step>
 
-        <md-step id="two" md-label="Simple training">
+        <md-step id="simple" md-label="Simple training">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -126,7 +126,7 @@
           </md-app>
         </md-step>
 
-        <md-step id="three" md-label="Adding data">
+        <md-step id="multi" md-label="Adding data">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -171,7 +171,7 @@
           </md-app>
         </md-step>
 
-        <md-step id="four" md-label="Byzantine behavior">
+        <md-step id="byz" md-label="Byzantine behavior">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -221,7 +221,7 @@
           </md-app>
         </md-step>
 
-        <md-step id="five" md-label="Byzantine resilience">
+        <md-step id="byzres" md-label="Byzantine resilience">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -252,7 +252,7 @@
           </md-app>
         </md-step>
 
-        <md-step id="six" md-label="Conclusion">
+        <md-step id="end" md-label="Conclusion">
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-content>
@@ -290,7 +290,7 @@
         el: "#app",
         delimiters: ["[[", "]]"],
         data: {
-          steps: ["one", "two", "three", "four", "five", "six"],
+          steps: ["intro", "simple", "multi", "byz", "byzres", "end"],
           stepTitles: [
             "Introduction",
             "Simple training",
@@ -299,7 +299,7 @@
             "Byzantine resilience",
             "Comparison to other projects",
           ],
-          currentStepIndex: 0,
+          currentStep: "intro",
           form: {
             n: 1,
             f: 1,
@@ -318,23 +318,23 @@
           errorMessage: null,
         },
         computed: {
-          currentStep: function () {
-            return this.steps[this.currentStepIndex];
+          currentStepIndex: function () {
+            return this.steps.indexOf(this.currentStep);
           },
           backDisabled: function () {
             return this.currentStepIndex === 0;
           },
           nextDisabled: function () {
-            switch (this.currentStepIndex) {
-              case 1:
+            switch (this.currentStep) {
+              case "simple":
                 return this.simpleTrainingResult === null;
-              case 2:
+              case "multi":
                 return this.multiNodeTrainingResult === null;
-              case 3:
+              case "byz":
                 return this.byzantineTrainingResult === null;
-              case 4:
+              case "byzres":
                 return this.byzantineTolerantTrainingResult === null;
-              case this.steps.length - 1:
+              case "end":
                 return true;
               default:
                 return false;
@@ -346,13 +346,18 @@
         },
         methods: {
           nextStep: function () {
-            this.currentStepIndex += 1;
-            this.currentStepIndex %= this.steps.length;
+            let idx = this.currentStepIndex + 1;
+            if (idx >= this.steps.length) {
+              idx = this.steps.length - 1;
+            }
+            this.currentStep = this.steps[idx];
           },
           prevStep: function () {
-            // JavaScript's "%" is not a modulo, -1 % n === -1
-            this.currentStepIndex -= 1 - this.steps.length;
-            this.currentStepIndex %= this.steps.length;
+            let idx = this.currentStepIndex - 1;
+            if (idx < 0) {
+              idx = 0;
+            }
+            this.currentStep = this.steps[idx];
           },
           runSimpleTraining: async function () {
             const query = {
