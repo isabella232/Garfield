@@ -38,8 +38,8 @@
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
+        margin-top: 3vh;
+        margin-bottom: 3vh;
       }
 
       .md-toolbar {
@@ -359,22 +359,41 @@
             }
             this.currentStep = this.steps[idx];
           },
+          sendTrainingQuery: async function (query) {
+            const response = await fetch("{{ url_for('train') }}", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(query),
+            });
+
+            let data;
+            try {
+              data = await response.json();
+            } catch (e) {
+              data = { error: "Unknown error" };
+            }
+
+            if (response.ok && data.error === undefined) {
+              return data.trainerId;
+            } else {
+              this.showProgressDialog = false;
+              this.showErrorDialog = true;
+              this.errorMessage = data.error;
+            }
+          },
           runSimpleTraining: async function () {
             const query = {
               n: 1,
               f: 0,
               gar: "average",
             };
-            const response = await fetch("{{ url_for('train') }}", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(query),
-            });
-            const data = await response.json();
 
-            this.followProgress(data.trainerId).then((result) => {
-              this.simpleTrainingResult = `${result.toFixed(1)}%`;
-            });
+            const trainerId = await this.sendTrainingQuery(query);
+            if (trainerId !== undefined) {
+              this.followProgress(trainerId).then((result) => {
+                this.simpleTrainingResult = `${result.toFixed(1)}%`;
+              });
+            }
           },
           getValidationClass: function (fieldName) {
             const field = this.$v.form[fieldName];
@@ -394,16 +413,13 @@
                 f: 0,
                 gar: "average",
               };
-              const response = await fetch("{{ url_for('train') }}", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(query),
-              });
-              const data = await response.json();
 
-              this.followProgress(data.trainerId).then((result) => {
-                this.multiNodeTrainingResult = `${result.toFixed(1)}%`;
-              });
+              const trainerId = await this.sendTrainingQuery(query);
+              if (trainerId !== undefined) {
+                this.followProgress(trainerId).then((result) => {
+                  this.multiNodeTrainingResult = `${result.toFixed(1)}%`;
+                });
+              }
             }
           },
           runByzantineTraining: async function () {
@@ -415,16 +431,13 @@
                 f: Number(this.form.f),
                 gar: "average",
               };
-              const response = await fetch("{{ url_for('train') }}", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(query),
-              });
-              const data = await response.json();
 
-              this.followProgress(data.trainerId).then((result) => {
-                this.byzantineTrainingResult = `${result.toFixed(1)}%`;
-              });
+              const trainerId = await this.sendTrainingQuery(query);
+              if (trainerId !== undefined) {
+                this.followProgress(trainerId).then((result) => {
+                  this.byzantineTrainingResult = `${result.toFixed(1)}%`;
+                });
+              }
             }
           },
           runByzantineTolerantTraining: async function () {
@@ -436,16 +449,15 @@
                 f: Number(this.form.f),
                 gar: "median",
               };
-              const response = await fetch("{{ url_for('train') }}", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(query),
-              });
-              const data = await response.json();
 
-              this.followProgress(data.trainerId).then((result) => {
-                this.byzantineTolerantTrainingResult = `${result.toFixed(1)}%`;
-              });
+              const trainerId = await this.sendTrainingQuery(query);
+              if (trainerId !== undefined) {
+                this.followProgress(trainerId).then((result) => {
+                  this.byzantineTolerantTrainingResult = `${result.toFixed(
+                    1
+                  )}%`;
+                });
+              }
             }
           },
           followProgress: async function (trainerId) {
