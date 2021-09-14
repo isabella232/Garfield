@@ -23,7 +23,7 @@ from math import log2, ceil
 
 import multiprocessing as mp
 import asyncio
-from quart import Quart, request, session, abort, render_template, url_for
+from quart import Quart, request, session, abort, render_template, url_for, make_response
 import threading
 import json
 
@@ -138,7 +138,7 @@ def node(
         rank=rank,
         world_size=world_size,
         rpc_backend_options=rpc.ProcessGroupRpcBackendOptions(
-            init_method=f"tcp://localhost:{port}", rpc_timeout=10
+            init_method=f"tcp://localhost:{port}",
         ),
     )
     logger.debug("RPC initialized")
@@ -239,7 +239,7 @@ class Trainer:
 
     def __init__(self, n, f, gar, port):
         if n <= 2 * f:
-            raise ValueError("n must be > 2 * f")
+            raise ValueError("The total number of nodes must be > 2 * the number of byzantine nodes")
 
         self.n = n
         self.f = f
@@ -405,7 +405,7 @@ async def train():
 
     except Exception as e:
         logger.error(e)
-        abort(400, e)
+        return await make_response({"error": str(e)}, 400)
 
     return {"trainerId": trainer_id}
 
@@ -420,7 +420,7 @@ async def get_status():
 
     except Exception as e:
         logger.error(e)
-        abort(400, e)
+        return await make_response({"error": str(e)}, 400)
 
     return status
 

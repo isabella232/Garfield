@@ -6,6 +6,7 @@ on:
       - demonstrator
   pull_request:
     branches:
+      - demonstrator
 
 jobs:
   build:
@@ -24,6 +25,7 @@ jobs:
           .
 
       - name: Push
+        if: github.event_name == 'push'
         run: >
           docker login
           --username ${{ secrets.DOCKER_USERNAME }}
@@ -31,6 +33,7 @@ jobs:
           docker push c4dt/garfield-pytorch-demo:latest
 
       - name: Deploy
+        if: github.event_name == 'push'
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_DEPLOY_KEY }}" > ~/.ssh/id_ed25519
