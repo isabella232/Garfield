@@ -51,6 +51,15 @@
       .md-dialog-title {
         align-self: center;
       }
+      .md-drawer.md-theme-default {
+        margin-right: 1em;
+      }
+      .md-content#results {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-bottom: 1em;
+      }
     </style>
   </head>
 
@@ -93,7 +102,11 @@
           </md-app>
         </md-step>
 
-        <md-step id="simple" md-label="Simple training">
+        <md-step
+          id="simple"
+          md-label="Simple training"
+          :md-done="simpleTrainingResult !== null"
+        >
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -118,15 +131,15 @@
               <form @submit.prevent="runSimpleTraining">
                 <md-button type="submit" class="md-primary">Train</md-button>
               </form>
-
-              <div class="md-headline" v-if="simpleTrainingResult">
-                Model accuracy after training: [[ simpleTrainingResult ]]
-              </div>
             </md-app-content>
           </md-app>
         </md-step>
 
-        <md-step id="multi" md-label="Adding data">
+        <md-step
+          id="multi"
+          md-label="Adding data"
+          :md-done="multiNodeTrainingResult !== null"
+        >
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -163,15 +176,15 @@
 
                 <md-button type="submit" class="md-primary">Train</md-button>
               </form>
-
-              <div class="md-headline" v-if="multiNodeTrainingResult">
-                Model accuracy after training: [[ multiNodeTrainingResult ]]
-              </div>
             </md-app-content>
           </md-app>
         </md-step>
 
-        <md-step id="byz" md-label="Byzantine behavior">
+        <md-step
+          id="byz"
+          md-label="Byzantine behavior"
+          :md-done="byzantineTrainingResult !== null"
+        >
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -213,15 +226,15 @@
 
                 <md-button type="submit" class="md-primary">Train</md-button>
               </form>
-
-              <div class="md-headline" v-if="byzantineTrainingResult">
-                Model accuracy after training: [[ byzantineTrainingResult ]]
-              </div>
             </md-app-content>
           </md-app>
         </md-step>
 
-        <md-step id="byzres" md-label="Byzantine resilience">
+        <md-step
+          id="byzres"
+          md-label="Byzantine resilience"
+          :md-done="byzantineTolerantTrainingResult !== null"
+        >
           <h3 class="md-headline garfield-center">[[ stepTitle ]]</h3>
           <md-app>
             <md-app-drawer md-permanent="clipped">
@@ -243,11 +256,6 @@
               <form @submit.prevent="runByzantineTolerantTraining">
                 <md-button type="submit" class="md-primary">Train</md-button>
               </form>
-
-              <div class="md-headline" v-if="byzantineTolerantTrainingResult">
-                Model accuracy after training: [[
-                byzantineTolerantTrainingResult ]]
-              </div>
             </md-app-content>
           </md-app>
         </md-step>
@@ -264,6 +272,75 @@
           </md-app>
         </md-step>
       </md-steppers>
+
+      <md-content v-if="simpleTrainingResult">
+        <md-divider class="md-inset"></md-divider>
+        <div class="md-subheading">Results:</div>
+
+        <md-content id="results">
+          <md-card
+            v-bind:class="{'md-primary': currentStep === 'simple'}"
+            v-if="simpleTrainingResult"
+          >
+            <md-card-header
+              ><div class="md-body-2">Single system</div></md-card-header
+            >
+            <md-card-content>
+              <div class="md-body-1">[[ simpleTrainingResult ]] accuracy</div>
+            </md-card-content>
+          </md-card>
+
+          <md-card
+            v-bind:class="{'md-primary': currentStep === 'multi'}"
+            v-if="multiNodeTrainingResult"
+          >
+            <md-card-header
+              ><div class="md-body-2">
+                [[ Number(form.n) + 1 ]] reliable systems
+              </div></md-card-header
+            >
+            <md-card-content>
+              <div class="md-body-1">
+                [[ multiNodeTrainingResult ]] accuracy
+              </div>
+            </md-card-content>
+          </md-card>
+
+          <md-card
+            v-bind:class="{'md-primary': currentStep === 'byz'}"
+            v-if="byzantineTrainingResult"
+          >
+            <md-card-header
+              ><div class="md-body-2">
+                [[ Number(form.n) + 1 ]] systems, [[ Number(form.f) ]] of which
+                unreliable
+              </div></md-card-header
+            >
+            <md-card-content>
+              <div class="md-body-1">
+                [[ byzantineTrainingResult ]] accuracy
+              </div>
+            </md-card-content>
+          </md-card>
+
+          <md-card
+            v-bind:class="{'md-primary': currentStep === 'byzres'}"
+            v-if="byzantineTolerantTrainingResult"
+          >
+            <md-card-header
+              ><div class="md-body-2">
+                [[ Number(form.n) + 1 ]] systems, [[ Number(form.f) ]] of which
+                unreliable, with byzantine-tolerance
+              </div></md-card-header
+            >
+            <md-card-content>
+              <div class="md-body-1">
+                [[ byzantineTolerantTrainingResult ]] accuracy
+              </div>
+            </md-card-content>
+          </md-card>
+        </md-content>
+      </md-content>
 
       <md-toolbar>
         <md-button
@@ -381,7 +458,25 @@
               this.errorMessage = data.error;
             }
           },
+          clearResults: function () {
+            switch (this.currentStep) {
+              case "simple":
+                this.simpleTrainingResult = null;
+              // Fall-through
+              case "multi":
+                this.multiNodeTrainingResult = null;
+              // Fall-through
+              case "byz":
+                this.byzantineTrainingResult = null;
+              // Fall-through
+              case "byzres":
+                this.byzantineTolerantTrainingResult = null;
+              // Fall-through
+            }
+          },
           runSimpleTraining: async function () {
+            this.clearResults();
+
             const query = {
               n: 1,
               f: 0,
@@ -408,6 +503,8 @@
             this.$v.$touch();
 
             if (!this.$v.$invalid) {
+              this.clearResults();
+
               const query = {
                 n: Number(this.form.n) + 1,
                 f: 0,
@@ -426,6 +523,8 @@
             this.$v.$touch();
 
             if (!this.$v.$invalid) {
+              this.clearResults();
+
               const query = {
                 n: Number(this.form.n) + 1,
                 f: Number(this.form.f),
@@ -444,6 +543,8 @@
             this.$v.$touch();
 
             if (!this.$v.$invalid) {
+              this.clearResults();
+
               const query = {
                 n: Number(this.form.n) + 1,
                 f: Number(this.form.f),
