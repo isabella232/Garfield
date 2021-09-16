@@ -57,8 +57,31 @@
       .md-content#results {
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
-        margin-bottom: 1em;
+        justify-content: left;
+      }
+      .md-card {
+        margin: 0.5em;
+      }
+      div#servers {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      i#reliable-node {
+        color: var(--md-theme-default-primary-on-background, #448aff);
+        margin: 0 0.2ch 0 0.2ch;
+      }
+      i#byzantine-node {
+        color: var(--md-theme-default-primary-on-background, #ff5252);
+        margin: 0 0.2ch 0 0.2ch;
+      }
+      div.separator {
+        border-left: 1px solid black;
+        height: 2em;
+        margin: 0 1ch 0 1ch;
+      }
+      div.form-submit {
+        height: 2em;
       }
     </style>
   </head>
@@ -129,7 +152,10 @@
               </p>
 
               <form @submit.prevent="runSimpleTraining">
-                <md-button type="submit" class="md-primary">Train</md-button>
+                <div class="form-submit"></div>
+                <md-button type="submit" class="md-raised md-primary"
+                  >Train</md-button
+                >
               </form>
             </md-app-content>
           </md-app>
@@ -152,29 +178,37 @@
 
             <md-app-content>
               <p>
-                Select the number of additional datasets with which you would
-                like to train.
+                Click to select the number of additional datasets with which you
+                would like to train:
               </p>
 
               <form @submit.prevent="runMultiNodeTraining">
-                <md-field :class="getValidationClass('n')">
-                  <label for="n">Additional number of nodes:</label>
-                  <md-input
-                    type="number"
-                    id="n"
-                    name="n"
-                    v-model="$v.form.n.$model"
-                  ></md-input>
-                  <span class="md-error" v-if="!$v.form.n.required"
-                    >n is required</span
+                <div id="servers">
+                  Original system
+                  <md-icon class="md-size-2x" id="reliable-node"
+                    >storage</md-icon
                   >
-                  <span class="md-error" v-else-if="!$v.form.n.between"
-                    >n must be between [[ $v.form.n.$params.between.min ]] and
-                    [[ $v.form.n.$params.between.max ]]</span
-                  >
-                </md-field>
 
-                <md-button type="submit" class="md-primary">Train</md-button>
+                  <div class="separator"></div>
+
+                  <md-button
+                    class="md-raised"
+                    v-for="idx in 5"
+                    @click="setN(idx)"
+                  >
+                    <md-icon
+                      class="md-size-2x"
+                      v-bind:class="{'md-primary': idx <= form.n}"
+                      >storage</md-icon
+                    >
+                  </md-button>
+                  [[ form.n ]] additional system(s)
+                </div>
+
+                <div class="form-submit"></div>
+                <md-button type="submit" class="md-raised md-primary"
+                  >Train</md-button
+                >
               </form>
             </md-app-content>
           </md-app>
@@ -201,30 +235,36 @@
             <md-app-content>
               <p>
                 We have currently [[ Number(form.n) + 1 ]] datasets, each served
-                by reliable systems. Select the number of these systems which
-                you would like to exhibit failures.
+                by reliable systems. Click to select the number of these systems
+                which you would like to exhibit failures:
               </p>
 
               <form @submit.prevent="runByzantineTraining">
-                <md-field :class="getValidationClass('f')">
-                  <label for="f">Number of byzantine nodes:</label>
-                  <md-input
-                    type="number"
-                    id="f"
-                    name="f"
-                    v-model="$v.form.f.$model"
-                  ></md-input>
-                  <span class="md-error" v-if="!$v.form.f.required"
-                    >f is required</span
+                <div id="servers">
+                  [[ form.f ]] unreliable system(s)
+                  <md-button
+                    class="md-raised"
+                    v-for="idx in form.n"
+                    @click="setF(idx)"
                   >
-                  <span class="md-error" v-else-if="!$v.form.f.between"
-                    >f must be between [[ $v.form.f.$params.between.min ]] and
-                    the total number of nodes (i.e. currently [[
-                    $v.form.f.$params.between.max ]])</span
-                  >
-                </md-field>
+                    <md-icon
+                      class="md-size-2x"
+                      v-bind:class="{'md-accent': idx <= form.f, 'md-primary': idx > form.f}"
+                      >storage</md-icon
+                    >
+                  </md-button>
 
-                <md-button type="submit" class="md-primary">Train</md-button>
+                  <div class="separator"></div>
+
+                  <md-icon class="md-size-2x" id="reliable-node"
+                    >storage</md-icon
+                  >
+                </div>
+
+                <div class="form-submit"></div>
+                <md-button type="submit" class="md-raised md-primary"
+                  >Train</md-button
+                >
               </form>
             </md-app-content>
           </md-app>
@@ -248,13 +288,25 @@
                 We have currently [[ Number(form.n) + 1 ]] systems, of which [[
                 form.f ]] exhibit failures.
               </p>
+              <div id="servers">
+                <md-icon
+                  v-for="idx in form.n + 1"
+                  class="md-size-2x"
+                  v-bind:id="getNodeId(idx)"
+                >
+                  storage</md-icon
+                >
+              </div>
               <p>
                 We will now make use of Garfield's ability to train a model even
                 though some of the systems exhibit failures.
               </p>
 
               <form @submit.prevent="runByzantineTolerantTraining">
-                <md-button type="submit" class="md-primary">Train</md-button>
+                <div class="form-submit"></div>
+                <md-button type="submit" class="md-raised md-primary"
+                  >Train</md-button
+                >
               </form>
             </md-app-content>
           </md-app>
@@ -436,6 +488,18 @@
             }
             this.currentStep = this.steps[idx];
           },
+          setN: function (idx) {
+            this.form.n = idx;
+            this.form.f = 1;
+            this.clearResults();
+          },
+          setF: function (idx) {
+            this.form.f = idx;
+            this.clearResults();
+          },
+          getNodeId: function (idx) {
+            return idx <= this.form.f ? "byzantine-node" : "reliable-node";
+          },
           sendTrainingQuery: async function (query) {
             const response = await fetch("{{ url_for('train') }}", {
               method: "POST",
@@ -612,7 +676,7 @@
             form: {
               n: {
                 required: validators.required,
-                between: validators.between(1, 4),
+                between: validators.between(1, 5),
               },
               f: {
                 required: validators.required,

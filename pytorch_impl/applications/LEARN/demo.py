@@ -22,6 +22,7 @@ import aggregators
 from math import log2, ceil
 
 import multiprocessing as mp
+import queue
 import asyncio
 from quart import Quart, request, session, abort, render_template, url_for, make_response
 import threading
@@ -238,8 +239,11 @@ class Trainer:
     TIMEOUT_TERMINATE_SEC = 10
 
     def __init__(self, n, f, gar, port):
-        if n <= 2 * f:
-            raise ValueError("The total number of nodes must be > 2 * the number of byzantine nodes")
+        if n < 1 or n > 10:
+            raise ValueError("The total number of nodes must be between 1 and 10")
+
+        # if n <= 2 * f:
+        #     raise ValueError("The total number of nodes must be > 2 * the number of byzantine nodes")
 
         self.n = n
         self.f = f
@@ -301,14 +305,14 @@ class Trainer:
                 if "result" in prog:
                     acc.append(prog["result"])
 
-        except Exception as exc:
+        except queue.Empty as exc:
             # Try to cleanup
             for p in ps:
                 p.kill()
 
-            logger.exception("Exception occurred while waiting for results")
+            logger.exception("Timeout occurred while waiting for progress")
 
-            raise
+            raise Exception("Timeout while waiting for progress")
 
 
         for p in ps:

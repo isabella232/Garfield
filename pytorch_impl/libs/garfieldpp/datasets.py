@@ -55,8 +55,8 @@ class PimaDiabetesDataset(torch.utils.data.Dataset):
 
     See https://www.kaggle.com/uciml/pima-indians-diabetes-database
     """
-    TRAIN_SPLIT = 500
-    TEST_SPLIT = 200
+    TRAIN_SPLIT = 600
+    TEST_SPLIT = 168
 
     def __init__(self, train, train_size=None, transform=None, target_transform=None):
         libdir = os.path.dirname(__file__)
