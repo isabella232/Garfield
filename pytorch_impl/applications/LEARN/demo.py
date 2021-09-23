@@ -24,7 +24,15 @@ from math import log2, ceil
 import multiprocessing as mp
 import queue
 import asyncio
-from quart import Quart, request, session, abort, render_template, url_for, make_response
+from quart import (
+    Quart,
+    request,
+    session,
+    abort,
+    render_template,
+    url_for,
+    make_response,
+)
 import threading
 import json
 
@@ -139,7 +147,7 @@ def node(
         rank=rank,
         world_size=world_size,
         rpc_backend_options=rpc.ProcessGroupRpcBackendOptions(
-            init_method=f"tcp://localhost:{port}",
+            init_method=f"tcp://localhost:{port}"
         ),
     )
     logger.debug("RPC initialized")
@@ -149,7 +157,18 @@ def node(
     # rpc._set_rpc_timeout(100000)
     # initialize a worker here...the worker is created first because the server relies on the worker creation
     if is_byzantine:
-        ByzWorker(rank, world_size, n, batch, model, dataset, loss, "random", f, train_size=train_size)
+        ByzWorker(
+            rank,
+            world_size,
+            n,
+            batch,
+            model,
+            dataset,
+            loss,
+            "random",
+            f,
+            train_size=train_size,
+        )
         logger.debug("Byzantine Worker created")
     else:
         Worker(rank, world_size, n, batch, model, dataset, loss, train_size=train_size)
@@ -182,9 +201,13 @@ def node(
     )  # This line shows sophisticated stuff that can be done out of the Garfield++ library
     start_time = time()
 
-    dataset_size = len(DatasetManager(dataset, 0, 0, 0, 0, train_size=train_size).fetch_dataset())
+    dataset_size = len(
+        DatasetManager(dataset, 0, 0, 0, 0, train_size=train_size).fetch_dataset()
+    )
 
-    iter_per_epoch = ceil(dataset_size / (n * batch))  # this value records how many iteration per sample
+    iter_per_epoch = ceil(
+        dataset_size / (n * batch)
+    )  # this value records how many iteration per sample
     logger.debug(f"One EPOCH consists of {iter_per_epoch} iterations")
     num_iter = nb_epochs * iter_per_epoch
     logger.debug(f"Doing {num_iter} iterations to cover {nb_epochs} epochs")
@@ -313,7 +336,6 @@ class Trainer:
             logger.exception("Timeout occurred while waiting for progress")
 
             raise Exception("Timeout while waiting for progress")
-
 
         for p in ps:
             p.join(timeout=self.TIMEOUT_TERMINATE_SEC)
