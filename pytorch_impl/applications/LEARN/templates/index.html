@@ -122,8 +122,48 @@
           <md-app>
             <md-app-content>
               <p>
-                [Describe what use case the demonstrator illustrates, and what
-                the user will be able to do and see during the demonstration.]
+                <a href="https://github.com/LPD-EPFL/Garfield">Garfield</a> is a
+                research project developed at Prof. Rachid Guerraoui's
+                <a href="https://dcl.epfl.ch/">Distributed Computing Lab</a>, at
+                EPFL. It is a framework to write
+                <a href="https://en.wikipedia.org/wiki/Machine_learning"
+                  >Machine Learning</a
+                >
+                applications, built on top of
+                <a href="https://pytorch.org/">PyTorch</a> and
+                <a href="https://www.tensorflow.org/">TensorFlow</a>, two of the
+                most widely used platforms in this field.
+              </p>
+              <p>
+                Garfield focuses on
+                <a
+                  href="https://en.wikipedia.org/wiki/Distributed_artificial_intelligence"
+                  >Distributed ML</a
+                >, which is a way to use multiple machines that work together on
+                training a model with data. This can be done for various
+                reasons, such as efficiency or the preservation of privacy, and
+                leads to diverse distributed architectures and computing
+                algorithms. Garfield can work with any of these architectures,
+                and provides examples for many of the common ones.
+              </p>
+              <p>
+                When working with several machines concurrently, the risk of
+                failures increases, and this can negatively impact the computed
+                results if the system is not ready to handle it. Besides
+                providing an abstraction to develop distributed ML applications,
+                Garfield seamlessly offers means to deal with generic failures
+                (known as
+                <a href="https://en.wikipedia.org/wiki/Byzantine_fault"
+                  >Byzantine Faults</a
+                >). Using Garfield, developers can easily build applications
+                that are tolerant to such failures and still give meaningful
+                results.
+              </p>
+              <p>
+                This demonstrator will focus on the decentralized architecture.
+                It will guide you through training a model, examining how
+                learning evolves when we add more machines, what impact failures
+                can have, and how Garfield helps to manage them.
               </p>
             </md-app-content>
           </md-app>
@@ -138,21 +178,34 @@
           <md-app>
             <md-app-drawer md-permanent="clipped">
               <p>
-                In this step, we will train a model on data from the
+                The data used throughout the demonstrator comes from the
                 <a
                   href="https://www.kaggle.com/uciml/pima-indians-diabetes-database"
-                  >Pima Indian Diabetes dataset.</a
-                >. This data consists of several patient medical values (such as
-                number of pregnancies, age, etc.), and indicates for each
-                patient whether they had diabetes.
+                  >Pima Indian Diabetes dataset</a
+                >. It consists of several medical values from female patients
+                (such as number of pregnancies, blood pressure, age, BMI, etc.),
+                along with an indication of whether they had been diagnosed with
+                diabetes.
+              </p>
+              <p>
+                To determine how good a model is, we proceed as follows. First,
+                we train it over a subset of the available data. After that, we
+                use another subset to measure the accuracy. More precisely, we
+                use the model, computed over the first subset, to predict the
+                diabetes diagnostic on data from the second subset. By comparing
+                these predictions with the actual known information, we can
+                estimate the model's accuracy.
               </p>
             </md-app-drawer>
 
             <md-app-content>
               <p>
-                We will use a subset of the data to train the model, and use the
-                rest as test values to evaluate how well our model can predict
-                the outcome.
+                In this first step, we will train a model using a single
+                machine.
+              </p>
+              <p>
+                This will give us a reference value, to serve as a basis for
+                comparison in the next steps.
               </p>
 
               <form @submit.prevent="runSimpleTraining">
@@ -174,16 +227,44 @@
           <md-app>
             <md-app-drawer md-permanent="clipped">
               <p>
-                If we can add data from other sources, the accuracy will likely
-                improve, but we don't always want to share data [elaborate on
-                federated learning bla bla bla].
+                By using more data to train a model, we are likely to obtain a
+                more accurate model. Therefore, ideally, we gather all the
+                available data in a single large dataset, and train our model
+                over it. We can then use a distributed architecture with many
+                machines running in parallel to perform the computations faster.
+              </p>
+              <p>
+                In some situations, however, it is not possible or desirable to
+                combine all the data and provide it to all the machines. For
+                example, patient medical data from different hospitals cannot
+                generally be combined, due to the requirements to preserve
+                patient privacy. Similarly, different financial institutions
+                will not share their data for business reasons.
+              </p>
+              <p>
+                In these cases, it is still possible to benefit from the larger
+                dataset by using a decentralised architecture known as
+                <a href="https://en.wikipedia.org/wiki/Federated_learning"
+                  >Federated learning</a
+                >. With this approach, each machine trains a model with their
+                locally available data, and the model themselves are then
+                exchanged between machines, combined, and used to feedback into
+                the next learning loop. This allows each system to reach a model
+                over the global data without exchanging the data itself.
               </p>
             </md-app-drawer>
 
             <md-app-content>
               <p>
-                Click to select the number of additional datasets with which you
-                would like to train:
+                We will now add more machines to our computation, forming a
+                distributed system. Each machine has their specific subset of
+                the data. During the training, the partial models are exchanged
+                between the systems, improving the local model. In the end, the
+                accuracy is measured over the same test subset as before.
+              </p>
+              <p>
+                Please click to select how many additional machines you wish to
+                add to form a distributed system:
               </p>
 
               <form @submit.prevent="runMultiNodeTraining">
@@ -227,20 +308,38 @@
           <md-app>
             <md-app-drawer md-permanent="clipped">
               <p>
-                [Explain Byzantine failures in general terms, relating to
-                real-life use cases.]
+                So far, we have assumed that all of our systems are reliable,
+                and always behave correctly. Unfortunately, this is not a
+                realistic expectation. In the real world, systems can fail for a
+                variety of reasons: hardware malfunctions, programming defects,
+                human errors, deliberate attacks, etc. To capture the generic
+                concept of errors stemming for any possible cause, and where
+                even different observers cannot agree on the symptoms, we use
+                the term of
+                <a href="https://en.wikipedia.org/wiki/Byzantine_fault"
+                  >Byzantine faults</a
+                >.
               </p>
               <p>
-                [Explain that Byzantine components can adversely affect the
-                learning if the system is not prepared for it.]
+                If failures happen during a distributed learning computation,
+                and our system is not expecting it, the resulting model is
+                likely to become significantly less accurate.
               </p>
             </md-app-drawer>
 
             <md-app-content>
               <p>
+                In this step, to simulate failures, we will have some of the
+                systems return random data in place of the model updates when
+                exchanging partial models during training. We will not change
+                the computation, which "naively" assumes all systems are
+                reliable.
+              </p>
+              <p>
                 We have currently [[ Number(form.n) + 1 ]] datasets, each served
-                by reliable systems. Click to select the number of these systems
-                which you would like to exhibit failures:
+                by reliable systems. Please click to select how many of these
+                systems you wish to exhibit failures (we are keeping at least
+                one reliable system):
               </p>
 
               <form @submit.prevent="runByzantineTraining">
@@ -283,14 +382,28 @@
           <md-app>
             <md-app-drawer md-permanent="clipped">
               <p>
-                [Explain that Garfield is designed to be applied with any ML
-                algorithm to render it resilient to Byzantine failures.]
+                As briefly mentioned in the introduction, Garfield is designed
+                to develop distributed ML algorithms, and provides means to
+                handle system failures, all the while preserving the model
+                accuracy as much as possible. In other words, Garfield makes our
+                algorithms transparently <b>Byzantine-resilient</b>.
+              </p>
+              <p>
+                The way Garfield achieves this is by using robust rules to
+                combine results from different sources, known as
+                <em>aggregators</em>, which are able to filter out to Byzantine
+                effects. Which aggregator to use, and what kinds of effects they
+                can tolerate, depends on the system parameters and data in use.
+                We will not elaborate on the details here, but interested
+                parties will find this discussed at length in the
+                <a href="https://arxiv.org/pdf/2010.05888.pdf">project paper</a
+                >.
               </p>
             </md-app-drawer>
             <md-app-content>
               <p>
-                We have currently [[ Number(form.n) + 1 ]] systems, of which [[
-                form.f ]] exhibit failures.
+                We have currently [[ Number(form.n) + 1 ]] systems, [[ form.f ]]
+                of which unreliable.
               </p>
               <div id="servers">
                 <md-icon
@@ -304,6 +417,21 @@
               <p>
                 We will now make use of Garfield's ability to train a model even
                 though some of the systems exhibit failures.
+              </p>
+              <p>
+                Please note that the algorithm used for this demonstrator is
+                only able to tolerate about 1/4 of the machines being
+                unreliable, so depending on your parameter choices you will
+                observe varying degrees of success. Feel free to go back a few
+                steps and change the parameters if you are interested in various
+                scenarios.
+              </p>
+              <p>
+                Please also note that, due to the different computation used in
+                this step, along with the random nature of model training, it is
+                possible that the accuracy achieved in this step slightly
+                exceeds the one obtained with all reliable systems. It should
+                nonetheless be within the same ballpark.
               </p>
 
               <form @submit.prevent="runByzantineTolerantTraining">
@@ -321,8 +449,35 @@
           <md-app>
             <md-app-content>
               <p>
-                [Describe the differences with other projects such as Spindle,
-                the pros and cons of each solution.]
+                This concludes the demonstrator, which hopefully gave you a feel
+                of what Garfield can achieve and how it can help you develop
+                more robust distributed ML applications.
+              </p>
+              <p>
+                Federated learning as illustrated with Garfield here has however
+                an issue, in that even though the data itself is not shared
+                between systems, models can leak information about the data on
+                which they were trained. In other words, an attacker might be
+                able to retrieve information about another system's data solely
+                by analyzing the exchanged models.
+              </p>
+              <p>
+                When training a model over several datasets in a
+                privacy-preserving context, other approaches are possible.
+                <a href="https://factory.c4dt.org/showcase/spindle">SPINDLE</a>,
+                for example, employs different techniques and makes other
+                trade-offs.
+              </p>
+              <p>
+                By contrast, SPINDLE uses Secure Multiparty Computation and
+                Homomorphic Encryption to provide more privacy-preserving
+                guarantees. On the other hand, these techniques are much more
+                CPU-intensive and require enormous amounts of storage, making
+                them currently unsuitable to tackle very large datasets.
+              </p>
+              <p>
+                Depending on your needs and requirements, you will find one or
+                the other method more appropriate for your application.
               </p>
             </md-app-content>
           </md-app>
@@ -434,7 +589,7 @@
           ],
           currentStep: "intro",
           form: {
-            n: 1,
+            n: 1, // This is actually the nb of additional nodes, i.e. `n-1` w.r.t. the naming in Garfield
             f: 1,
             gar: "average",
           },
