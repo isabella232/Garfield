@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="92.000cm" height="42.000cm" viewBox="21.000 8.000 92.000 42.000"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<!-- Layer: Background -->
+<g id="Background">
+<!-- Standard - Box -->
+<rect x="21.000" y="8.000" width="92.000" height="42.000" fill="none" stroke="#000000" stroke-width="0.001"  rx="0.000" />
+<!-- Network - A Bigtower PC -->
+<rect x="100.000" y="28.000" width="1.000" height="3.000" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.000" y="28.000" width="1.000" height="3.000" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="100.100" y="28.100" width="0.800" height="1.200" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.100" y="28.100" width="0.800" height="1.200" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="100.100" y1="28.300" x2="100.900" y2="28.300" stroke="#000000" stroke-width="0.010" />
+<line x1="100.900" y1="28.500" x2="100.100" y2="28.500" stroke="#000000" stroke-width="0.010" />
+<line x1="100.100" y1="28.700" x2="100.900" y2="28.700" stroke="#000000" stroke-width="0.010" />
+<line x1="100.100" y1="28.900" x2="100.900" y2="28.900" stroke="#000000" stroke-width="0.010" />
+<line x1="100.900" y1="29.100" x2="100.100" y2="29.100" stroke="#000000" stroke-width="0.010" />
+<rect x="100.100" y="29.400" width="0.550" height="0.300" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.100" y="29.400" width="0.550" height="0.300" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="100.000" y1="29.900" x2="101.000" y2="29.900" stroke="#000000" stroke-width="0.010" />
+<rect x="100.450" y="30.000" width="0.050" height="0.050" fill="#00CD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.450" y="30.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="100.650" y="30.000" width="0.050" height="0.050" fill="#CDCD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.650" y="30.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="100.850" y="30.000" width="0.050" height="0.050" fill="#CD0000" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.850" y="30.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="100.800" y="29.700" width="0.100" height="0.100" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.800" y="29.700" width="0.100" height="0.100" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="100.100" y1="29.550" x2="100.650" y2="29.550" stroke="#000000" stroke-width="0.010" />
+<rect x="100.100" y="29.950" width="0.150" height="0.150" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.100" y="29.950" width="0.150" height="0.150" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="100.150" y="29.150" width="0.700" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.150" y="29.150" width="0.700" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="100.150" y1="29.450" x2="100.600" y2="29.450" stroke="#000000" stroke-width="0.010" />
+<line x1="100.600" y1="29.500" x2="100.550" y2="29.500" stroke="#000000" stroke-width="0.010" />
+<line x1="100.150" y1="29.500" x2="100.200" y2="29.500" stroke="#000000" stroke-width="0.010" />
+<rect x="100.250" y="29.450" width="0.250" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="100.250" y="29.450" width="0.250" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="100.150" y1="29.250" x2="100.200" y2="29.250" stroke="#000000" stroke-width="0.010" />
+<line x1="100.250" y1="29.250" x2="100.300" y2="29.250" stroke="#000000" stroke-width="0.010" />
+<line x1="100.750" y1="29.250" x2="100.850" y2="29.250" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.950" x2="100.950" y2="30.950" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.900" x2="100.050" y2="30.900" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.850" x2="100.950" y2="30.850" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.800" x2="100.050" y2="30.800" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.750" x2="100.950" y2="30.750" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.700" x2="100.050" y2="30.700" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.650" x2="100.950" y2="30.650" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.600" x2="100.050" y2="30.600" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.550" x2="100.950" y2="30.550" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.500" x2="100.050" y2="30.500" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.450" x2="100.950" y2="30.450" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.400" x2="100.050" y2="30.400" stroke="#000000" stroke-width="0.010" />
+<line x1="100.050" y1="30.350" x2="100.950" y2="30.350" stroke="#000000" stroke-width="0.010" />
+<line x1="100.950" y1="30.300" x2="100.050" y2="30.300" stroke="#000000" stroke-width="0.010" />
+<!-- Network - A Bigtower PC -->
+<rect x="91.000" y="28.000" width="1.000" height="3.000" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.000" y="28.000" width="1.000" height="3.000" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="91.100" y="28.100" width="0.800" height="1.200" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.100" y="28.100" width="0.800" height="1.200" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="91.100" y1="28.300" x2="91.900" y2="28.300" stroke="#000000" stroke-width="0.010" />
+<line x1="91.900" y1="28.500" x2="91.100" y2="28.500" stroke="#000000" stroke-width="0.010" />
+<line x1="91.100" y1="28.700" x2="91.900" y2="28.700" stroke="#000000" stroke-width="0.010" />
+<line x1="91.100" y1="28.900" x2="91.900" y2="28.900" stroke="#000000" stroke-width="0.010" />
+<line x1="91.900" y1="29.100" x2="91.100" y2="29.100" stroke="#000000" stroke-width="0.010" />
+<rect x="91.100" y="29.400" width="0.550" height="0.300" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.100" y="29.400" width="0.550" height="0.300" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="91.000" y1="29.900" x2="92.000" y2="29.900" stroke="#000000" stroke-width="0.010" />
+<rect x="91.450" y="30.000" width="0.050" height="0.050" fill="#00CD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.450" y="30.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="91.650" y="30.000" width="0.050" height="0.050" fill="#CDCD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.650" y="30.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="91.850" y="30.000" width="0.050" height="0.050" fill="#CD0000" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.850" y="30.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="91.800" y="29.700" width="0.100" height="0.100" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.800" y="29.700" width="0.100" height="0.100" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="91.100" y1="29.550" x2="91.650" y2="29.550" stroke="#000000" stroke-width="0.010" />
+<rect x="91.100" y="29.950" width="0.150" height="0.150" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.100" y="29.950" width="0.150" height="0.150" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="91.150" y="29.150" width="0.700" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.150" y="29.150" width="0.700" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="91.150" y1="29.450" x2="91.600" y2="29.450" stroke="#000000" stroke-width="0.010" />
+<line x1="91.600" y1="29.500" x2="91.550" y2="29.500" stroke="#000000" stroke-width="0.010" />
+<line x1="91.150" y1="29.500" x2="91.200" y2="29.500" stroke="#000000" stroke-width="0.010" />
+<rect x="91.250" y="29.450" width="0.250" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="91.250" y="29.450" width="0.250" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="91.150" y1="29.250" x2="91.200" y2="29.250" stroke="#000000" stroke-width="0.010" />
+<line x1="91.250" y1="29.250" x2="91.300" y2="29.250" stroke="#000000" stroke-width="0.010" />
+<line x1="91.750" y1="29.250" x2="91.850" y2="29.250" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.950" x2="91.950" y2="30.950" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.900" x2="91.050" y2="30.900" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.850" x2="91.950" y2="30.850" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.800" x2="91.050" y2="30.800" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.750" x2="91.950" y2="30.750" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.700" x2="91.050" y2="30.700" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.650" x2="91.950" y2="30.650" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.600" x2="91.050" y2="30.600" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.550" x2="91.950" y2="30.550" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.500" x2="91.050" y2="30.500" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.450" x2="91.950" y2="30.450" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.400" x2="91.050" y2="30.400" stroke="#000000" stroke-width="0.010" />
+<line x1="91.050" y1="30.350" x2="91.950" y2="30.350" stroke="#000000" stroke-width="0.010" />
+<line x1="91.950" y1="30.300" x2="91.050" y2="30.300" stroke="#000000" stroke-width="0.010" />
+<!-- Network - A Bigtower PC -->
+<rect x="96.000" y="13.000" width="1.000" height="3.000" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.000" y="13.000" width="1.000" height="3.000" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="96.100" y="13.100" width="0.800" height="1.200" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.100" y="13.100" width="0.800" height="1.200" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="96.100" y1="13.300" x2="96.900" y2="13.300" stroke="#000000" stroke-width="0.010" />
+<line x1="96.900" y1="13.500" x2="96.100" y2="13.500" stroke="#000000" stroke-width="0.010" />
+<line x1="96.100" y1="13.700" x2="96.900" y2="13.700" stroke="#000000" stroke-width="0.010" />
+<line x1="96.100" y1="13.900" x2="96.900" y2="13.900" stroke="#000000" stroke-width="0.010" />
+<line x1="96.900" y1="14.100" x2="96.100" y2="14.100" stroke="#000000" stroke-width="0.010" />
+<rect x="96.100" y="14.400" width="0.550" height="0.300" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.100" y="14.400" width="0.550" height="0.300" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="96.000" y1="14.900" x2="97.000" y2="14.900" stroke="#000000" stroke-width="0.010" />
+<rect x="96.450" y="15.000" width="0.050" height="0.050" fill="#00CD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.450" y="15.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="96.650" y="15.000" width="0.050" height="0.050" fill="#CDCD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.650" y="15.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="96.850" y="15.000" width="0.050" height="0.050" fill="#CD0000" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.850" y="15.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="96.800" y="14.700" width="0.100" height="0.100" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.800" y="14.700" width="0.100" height="0.100" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="96.100" y1="14.550" x2="96.650" y2="14.550" stroke="#000000" stroke-width="0.010" />
+<rect x="96.100" y="14.950" width="0.150" height="0.150" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.100" y="14.950" width="0.150" height="0.150" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="96.150" y="14.150" width="0.700" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.150" y="14.150" width="0.700" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="96.150" y1="14.450" x2="96.600" y2="14.450" stroke="#000000" stroke-width="0.010" />
+<line x1="96.600" y1="14.500" x2="96.550" y2="14.500" stroke="#000000" stroke-width="0.010" />
+<line x1="96.150" y1="14.500" x2="96.200" y2="14.500" stroke="#000000" stroke-width="0.010" />
+<rect x="96.250" y="14.450" width="0.250" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="96.250" y="14.450" width="0.250" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="96.150" y1="14.250" x2="96.200" y2="14.250" stroke="#000000" stroke-width="0.010" />
+<line x1="96.250" y1="14.250" x2="96.300" y2="14.250" stroke="#000000" stroke-width="0.010" />
+<line x1="96.750" y1="14.250" x2="96.850" y2="14.250" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.950" x2="96.950" y2="15.950" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.900" x2="96.050" y2="15.900" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.850" x2="96.950" y2="15.850" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.800" x2="96.050" y2="15.800" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.750" x2="96.950" y2="15.750" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.700" x2="96.050" y2="15.700" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.650" x2="96.950" y2="15.650" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.600" x2="96.050" y2="15.600" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.550" x2="96.950" y2="15.550" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.500" x2="96.050" y2="15.500" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.450" x2="96.950" y2="15.450" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.400" x2="96.050" y2="15.400" stroke="#000000" stroke-width="0.010" />
+<line x1="96.050" y1="15.350" x2="96.950" y2="15.350" stroke="#000000" stroke-width="0.010" />
+<line x1="96.950" y1="15.300" x2="96.050" y2="15.300" stroke="#000000" stroke-width="0.010" />
+<!-- Network - A Bigtower PC -->
+<rect x="104.000" y="19.000" width="1.000" height="3.000" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.000" y="19.000" width="1.000" height="3.000" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="104.100" y="19.100" width="0.800" height="1.200" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.100" y="19.100" width="0.800" height="1.200" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="104.100" y1="19.300" x2="104.900" y2="19.300" stroke="#000000" stroke-width="0.010" />
+<line x1="104.900" y1="19.500" x2="104.100" y2="19.500" stroke="#000000" stroke-width="0.010" />
+<line x1="104.100" y1="19.700" x2="104.900" y2="19.700" stroke="#000000" stroke-width="0.010" />
+<line x1="104.100" y1="19.900" x2="104.900" y2="19.900" stroke="#000000" stroke-width="0.010" />
+<line x1="104.900" y1="20.100" x2="104.100" y2="20.100" stroke="#000000" stroke-width="0.010" />
+<rect x="104.100" y="20.400" width="0.550" height="0.300" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.100" y="20.400" width="0.550" height="0.300" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="104.000" y1="20.900" x2="105.000" y2="20.900" stroke="#000000" stroke-width="0.010" />
+<rect x="104.450" y="21.000" width="0.050" height="0.050" fill="#00CD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.450" y="21.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="104.650" y="21.000" width="0.050" height="0.050" fill="#CDCD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.650" y="21.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="104.850" y="21.000" width="0.050" height="0.050" fill="#CD0000" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.850" y="21.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="104.800" y="20.700" width="0.100" height="0.100" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.800" y="20.700" width="0.100" height="0.100" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="104.100" y1="20.550" x2="104.650" y2="20.550" stroke="#000000" stroke-width="0.010" />
+<rect x="104.100" y="20.950" width="0.150" height="0.150" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.100" y="20.950" width="0.150" height="0.150" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="104.150" y="20.150" width="0.700" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.150" y="20.150" width="0.700" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="104.150" y1="20.450" x2="104.600" y2="20.450" stroke="#000000" stroke-width="0.010" />
+<line x1="104.600" y1="20.500" x2="104.550" y2="20.500" stroke="#000000" stroke-width="0.010" />
+<line x1="104.150" y1="20.500" x2="104.200" y2="20.500" stroke="#000000" stroke-width="0.010" />
+<rect x="104.250" y="20.450" width="0.250" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="104.250" y="20.450" width="0.250" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="104.150" y1="20.250" x2="104.200" y2="20.250" stroke="#000000" stroke-width="0.010" />
+<line x1="104.250" y1="20.250" x2="104.300" y2="20.250" stroke="#000000" stroke-width="0.010" />
+<line x1="104.750" y1="20.250" x2="104.850" y2="20.250" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.950" x2="104.950" y2="21.950" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.900" x2="104.050" y2="21.900" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.850" x2="104.950" y2="21.850" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.800" x2="104.050" y2="21.800" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.750" x2="104.950" y2="21.750" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.700" x2="104.050" y2="21.700" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.650" x2="104.950" y2="21.650" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.600" x2="104.050" y2="21.600" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.550" x2="104.950" y2="21.550" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.500" x2="104.050" y2="21.500" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.450" x2="104.950" y2="21.450" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.400" x2="104.050" y2="21.400" stroke="#000000" stroke-width="0.010" />
+<line x1="104.050" y1="21.350" x2="104.950" y2="21.350" stroke="#000000" stroke-width="0.010" />
+<line x1="104.950" y1="21.300" x2="104.050" y2="21.300" stroke="#000000" stroke-width="0.010" />
+<!-- Network - A Bigtower PC -->
+<rect x="88.000" y="19.000" width="1.000" height="3.000" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.000" y="19.000" width="1.000" height="3.000" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="88.100" y="19.100" width="0.800" height="1.200" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.100" y="19.100" width="0.800" height="1.200" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="88.100" y1="19.300" x2="88.900" y2="19.300" stroke="#000000" stroke-width="0.010" />
+<line x1="88.900" y1="19.500" x2="88.100" y2="19.500" stroke="#000000" stroke-width="0.010" />
+<line x1="88.100" y1="19.700" x2="88.900" y2="19.700" stroke="#000000" stroke-width="0.010" />
+<line x1="88.100" y1="19.900" x2="88.900" y2="19.900" stroke="#000000" stroke-width="0.010" />
+<line x1="88.900" y1="20.100" x2="88.100" y2="20.100" stroke="#000000" stroke-width="0.010" />
+<rect x="88.100" y="20.400" width="0.550" height="0.300" fill="#D9D9CD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.100" y="20.400" width="0.550" height="0.300" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="88.000" y1="20.900" x2="89.000" y2="20.900" stroke="#000000" stroke-width="0.010" />
+<rect x="88.450" y="21.000" width="0.050" height="0.050" fill="#00CD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.450" y="21.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="88.650" y="21.000" width="0.050" height="0.050" fill="#CDCD00" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.650" y="21.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="88.850" y="21.000" width="0.050" height="0.050" fill="#CD0000" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.850" y="21.000" width="0.050" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="88.800" y="20.700" width="0.100" height="0.100" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.800" y="20.700" width="0.100" height="0.100" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="88.100" y1="20.550" x2="88.650" y2="20.550" stroke="#000000" stroke-width="0.010" />
+<rect x="88.100" y="20.950" width="0.150" height="0.150" fill="#CDCDBD" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.100" y="20.950" width="0.150" height="0.150" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="88.150" y="20.150" width="0.700" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.150" y="20.150" width="0.700" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="88.150" y1="20.450" x2="88.600" y2="20.450" stroke="#000000" stroke-width="0.010" />
+<line x1="88.600" y1="20.500" x2="88.550" y2="20.500" stroke="#000000" stroke-width="0.010" />
+<line x1="88.150" y1="20.500" x2="88.200" y2="20.500" stroke="#000000" stroke-width="0.010" />
+<rect x="88.250" y="20.450" width="0.250" height="0.050" fill="#CDCDC1" stroke="#000000" stroke-width="0.100"  rx="0.000" />
+<rect x="88.250" y="20.450" width="0.250" height="0.050" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<line x1="88.150" y1="20.250" x2="88.200" y2="20.250" stroke="#000000" stroke-width="0.010" />
+<line x1="88.250" y1="20.250" x2="88.300" y2="20.250" stroke="#000000" stroke-width="0.010" />
+<line x1="88.750" y1="20.250" x2="88.850" y2="20.250" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.950" x2="88.950" y2="21.950" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.900" x2="88.050" y2="21.900" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.850" x2="88.950" y2="21.850" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.800" x2="88.050" y2="21.800" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.750" x2="88.950" y2="21.750" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.700" x2="88.050" y2="21.700" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.650" x2="88.950" y2="21.650" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.600" x2="88.050" y2="21.600" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.550" x2="88.950" y2="21.550" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.500" x2="88.050" y2="21.500" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.450" x2="88.950" y2="21.450" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.400" x2="88.050" y2="21.400" stroke="#000000" stroke-width="0.010" />
+<line x1="88.050" y1="21.350" x2="88.950" y2="21.350" stroke="#000000" stroke-width="0.010" />
+<line x1="88.950" y1="21.300" x2="88.050" y2="21.300" stroke="#000000" stroke-width="0.010" />
+<!-- Network - General Computer (Tower) -->
+<rect x="35.388" y="14.000" width="1.942" height="4.532" fill="#B3B3B3" stroke="#000000" stroke-width="0.080"  rx="0.000" />
+<rect x="35.583" y="14.272" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="35.583" y="14.790" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="35.583" y="15.308" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="35.583" y="15.826" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="35.583" y="16.447" width="0.971" height="0.311" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<ellipse cx="37.039" cy="16.499" rx="0.068" ry="0.068" fill="#00FF00" stroke="#000000"  stroke-width="0.010" />
+<ellipse cx="37.039" cy="16.706" rx="0.068" ry="0.068" fill="#FFFF00" stroke="#000000"  stroke-width="0.010" />
+<rect x="36.651" y="16.551" width="0.233" height="0.207" fill="#FFFFFF" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 35.712,17.172 L 35.712,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 36.036,17.172 L 36.036,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 36.360,17.172 L 36.360,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 36.683,17.172 L 36.683,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 37.007,17.172 L 37.007,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 37.331,17.172 L 37.331,18.305 "/>
+<polygon fill="#999999" stroke="#000000" stroke-width="0.010"  points="35.000,18.920 35.388,18.144 35.388,18.532 37.331,18.532 37.331,18.144 37.849,18.920 "/>
+<text x="36.424" y="19.844"  fill="#000000" text-anchor="middle" font-size="1.06" font-family="sans" font-style="normal" font-weight="400">
+Central Server</text>
+<!-- Network - General Computer (Tower) -->
+<rect x="54.888" y="14.000" width="1.942" height="4.532" fill="#B3B3B3" stroke="#000000" stroke-width="0.080"  rx="0.000" />
+<rect x="55.083" y="14.272" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="55.083" y="14.790" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="55.083" y="15.308" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="55.083" y="15.826" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="55.083" y="16.447" width="0.971" height="0.311" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<ellipse cx="56.539" cy="16.499" rx="0.068" ry="0.068" fill="#00FF00" stroke="#000000"  stroke-width="0.010" />
+<ellipse cx="56.539" cy="16.706" rx="0.068" ry="0.068" fill="#FFFF00" stroke="#000000"  stroke-width="0.010" />
+<rect x="56.151" y="16.551" width="0.233" height="0.207" fill="#FFFFFF" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 55.212,17.172 L 55.212,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 55.536,17.172 L 55.536,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 55.860,17.172 L 55.860,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 56.183,17.172 L 56.183,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 56.507,17.172 L 56.507,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 56.831,17.172 L 56.831,18.305 "/>
+<polygon fill="#999999" stroke="#000000" stroke-width="0.010"  points="54.500,18.920 54.888,18.144 54.888,18.532 56.831,18.532 56.831,18.144 57.349,18.920 "/>
+<text x="55.924" y="19.844"  fill="#000000" text-anchor="middle" font-size="1.06" font-family="sans" font-style="normal" font-weight="400">
+Central Server</text>
+<!-- Network - General Computer (Tower) -->
+<rect x="63.388" y="14.000" width="1.942" height="4.532" fill="#B3B3B3" stroke="#000000" stroke-width="0.080"  rx="0.000" />
+<rect x="63.583" y="14.272" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="63.583" y="14.790" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="63.583" y="15.308" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="63.583" y="15.826" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="63.583" y="16.447" width="0.971" height="0.311" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<ellipse cx="65.039" cy="16.499" rx="0.068" ry="0.068" fill="#00FF00" stroke="#000000"  stroke-width="0.010" />
+<ellipse cx="65.039" cy="16.706" rx="0.068" ry="0.068" fill="#FFFF00" stroke="#000000"  stroke-width="0.010" />
+<rect x="64.651" y="16.551" width="0.233" height="0.207" fill="#FFFFFF" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 63.712,17.172 L 63.712,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 64.036,17.172 L 64.036,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 64.360,17.172 L 64.360,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 64.683,17.172 L 64.683,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 65.007,17.172 L 65.007,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 65.331,17.172 L 65.331,18.305 "/>
+<polygon fill="#999999" stroke="#000000" stroke-width="0.010"  points="63.000,18.920 63.388,18.144 63.388,18.532 65.331,18.532 65.331,18.144 65.849,18.920 "/>
+<text x="64.424" y="19.844"  fill="#000000" text-anchor="middle" font-size="1.06" font-family="sans" font-style="normal" font-weight="400">
+Central Server</text>
+<!-- Network - General Computer (Tower) -->
+<rect x="71.388" y="14.000" width="1.942" height="4.532" fill="#B3B3B3" stroke="#000000" stroke-width="0.080"  rx="0.000" />
+<rect x="71.583" y="14.272" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="71.583" y="14.790" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="71.583" y="15.308" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="71.583" y="15.826" width="1.554" height="0.518" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<rect x="71.583" y="16.447" width="0.971" height="0.311" fill="none" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<ellipse cx="73.039" cy="16.499" rx="0.068" ry="0.068" fill="#00FF00" stroke="#000000"  stroke-width="0.010" />
+<ellipse cx="73.039" cy="16.706" rx="0.068" ry="0.068" fill="#FFFF00" stroke="#000000"  stroke-width="0.010" />
+<rect x="72.651" y="16.551" width="0.233" height="0.207" fill="#FFFFFF" stroke="#000000" stroke-width="0.010"  rx="0.000" />
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 71.712,17.172 L 71.712,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 72.036,17.172 L 72.036,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 72.360,17.172 L 72.360,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 72.683,17.172 L 72.683,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 73.007,17.172 L 73.007,18.305 "/>
+<path stroke="#000000" fill="none" stroke-width="0.010"  d="M 73.331,17.172 L 73.331,18.305 "/>
+<polygon fill="#999999" stroke="#000000" stroke-width="0.010"  points="71.000,18.920 71.388,18.144 71.388,18.532 73.331,18.532 73.331,18.144 73.849,18.920 "/>
+<text x="72.424" y="19.844"  fill="#000000" text-anchor="middle" font-size="1.06" font-family="sans" font-style="normal" font-weight="400">
+Central Server</text>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 27.405,34.887 L 27.862,34.460 L 31.278,34.460 L 30.821,34.887 L 27.405,34.887 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 27.405,34.887 L 27.862,34.460 L 31.278,34.460 L 30.821,34.887 L 27.405,34.887 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 27.405,34.887 L 30.821,34.887 L 30.821,35.528 L 27.405,35.528 L 27.405,34.887 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 27.405,34.887 L 30.821,34.887 L 30.821,35.528 L 27.405,35.528 L 27.405,34.887 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 30.821,35.528 L 31.278,35.073 L 31.278,34.460 L 30.821,34.887 L 30.821,35.528 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 30.821,35.528 L 31.278,35.073 L 31.278,34.460 L 30.821,34.887 L 30.821,35.528 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 27.513,34.806 L 27.862,34.460 L 31.197,34.460 L 30.847,34.806 L 27.513,34.806 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 27.513,34.806 L 27.862,34.460 L 31.197,34.460 L 30.847,34.806 L 27.513,34.806 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 27.405,32.051 L 27.782,31.704 L 31.197,31.704 L 30.821,32.051 L 27.405,32.051 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 27.405,32.051 L 27.782,31.704 L 31.197,31.704 L 30.821,32.051 L 27.405,32.051 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 27.405,32.051 L 30.847,32.051 L 30.847,34.753 L 27.405,34.753 L 27.405,32.051 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 27.405,32.051 L 30.846,32.051 L 30.846,34.752 L 27.405,34.752 L 27.405,32.051 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 27.703,32.399 L 30.552,32.399 L 30.552,34.486 L 27.703,34.486 L 27.703,32.399 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 27.703,32.399 L 30.551,32.399 L 30.551,34.484 L 27.703,34.484 L 27.703,32.399 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 30.821,34.725 L 31.197,34.351 L 31.197,31.704 L 30.821,32.051 L 30.821,34.725 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 30.821,34.725 L 31.197,34.351 L 31.197,31.704 L 30.821,32.051 L 30.821,34.725 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 26.734,36.063 L 27.271,35.395 L 30.981,35.395 L 30.444,36.063 L 26.734,36.063 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 26.737,36.059 L 27.271,35.395 L 30.981,35.395 L 30.444,36.063 L 26.737,36.063 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 30.444,36.198 L 30.981,35.635 L 30.981,35.395 L 30.444,36.063 L 30.444,36.198 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 30.446,36.194 L 30.981,35.635 L 30.981,35.395 L 30.444,36.063 L 30.444,36.194 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 26.734,36.063 L 30.444,36.063 L 30.444,36.198 L 26.734,36.198 L 26.734,36.063 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 26.737,36.063 L 30.444,36.063 L 30.444,36.194 "/>
+<!-- Standard - Text -->
+<text x="67.473" y="16.457"  fill="#000000" text-anchor="start" font-size="2.82" font-family="sans" font-style="normal" font-weight="400">
+...</text>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 92.671,17.183 L 93.128,16.756 L 96.544,16.756 L 96.087,17.183 L 92.671,17.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.671,17.183 L 93.128,16.756 L 96.544,16.756 L 96.087,17.183 L 92.671,17.183 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 92.671,17.183 L 96.087,17.183 L 96.087,17.824 L 92.671,17.824 L 92.671,17.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.671,17.183 L 96.087,17.183 L 96.087,17.824 L 92.671,17.824 L 92.671,17.183 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 96.087,17.824 L 96.544,17.369 L 96.544,16.756 L 96.087,17.183 L 96.087,17.824 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.087,17.824 L 96.544,17.369 L 96.544,16.756 L 96.087,17.183 L 96.087,17.824 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 92.779,17.102 L 93.128,16.756 L 96.463,16.756 L 96.113,17.102 L 92.779,17.102 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 92.779,17.102 L 93.128,16.756 L 96.463,16.756 L 96.113,17.102 L 92.779,17.102 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 92.671,14.347 L 93.048,14.000 L 96.463,14.000 L 96.087,14.347 L 92.671,14.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.671,14.347 L 93.048,14.000 L 96.463,14.000 L 96.087,14.347 L 92.671,14.347 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 92.671,14.347 L 96.113,14.347 L 96.113,17.049 L 92.671,17.049 L 92.671,14.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.671,14.347 L 96.112,14.347 L 96.112,17.048 L 92.671,17.048 L 92.671,14.347 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 92.969,14.695 L 95.818,14.695 L 95.818,16.782 L 92.969,16.782 L 92.969,14.695 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.969,14.695 L 95.818,14.695 L 95.818,16.780 L 92.969,16.780 L 92.969,14.695 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 96.087,17.021 L 96.463,16.647 L 96.463,14.000 L 96.087,14.347 L 96.087,17.021 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.087,17.021 L 96.463,16.647 L 96.463,14.000 L 96.087,14.347 L 96.087,17.021 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 92.000,18.359 L 92.538,17.691 L 96.247,17.691 L 95.710,18.359 L 92.000,18.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.004,18.355 L 92.538,17.691 L 96.247,17.691 L 95.710,18.359 L 92.004,18.359 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 95.710,18.494 L 96.247,17.931 L 96.247,17.691 L 95.710,18.359 L 95.710,18.494 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 95.712,18.490 L 96.247,17.931 L 96.247,17.691 L 95.710,18.359 L 95.710,18.490 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 92.000,18.359 L 95.710,18.359 L 95.710,18.494 L 92.000,18.494 L 92.000,18.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 92.004,18.359 L 95.710,18.359 L 95.710,18.490 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 33.409,34.943 L 33.867,34.516 L 37.282,34.516 L 36.826,34.943 L 33.409,34.943 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 33.409,34.943 L 33.867,34.516 L 37.282,34.516 L 36.826,34.943 L 33.409,34.943 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 33.409,34.943 L 36.826,34.943 L 36.826,35.585 L 33.409,35.585 L 33.409,34.943 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 33.409,34.943 L 36.826,34.943 L 36.826,35.585 L 33.409,35.585 L 33.409,34.943 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 36.826,35.585 L 37.282,35.129 L 37.282,34.516 L 36.826,34.943 L 36.826,35.585 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 36.826,35.585 L 37.282,35.129 L 37.282,34.516 L 36.826,34.943 L 36.826,35.585 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 33.518,34.863 L 33.867,34.516 L 37.202,34.516 L 36.852,34.863 L 33.518,34.863 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 33.518,34.863 L 33.867,34.516 L 37.202,34.516 L 36.852,34.863 L 33.518,34.863 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 33.409,32.107 L 33.787,31.760 L 37.202,31.760 L 36.826,32.107 L 33.409,32.107 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 33.409,32.107 L 33.787,31.760 L 37.202,31.760 L 36.826,32.107 L 33.409,32.107 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 33.409,32.107 L 36.851,32.107 L 36.851,34.810 L 33.409,34.810 L 33.409,32.107 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 33.409,32.107 L 36.850,32.107 L 36.850,34.808 L 33.409,34.808 L 33.409,32.107 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 33.707,32.455 L 36.557,32.455 L 36.557,34.542 L 33.707,34.542 L 33.707,32.455 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 33.707,32.455 L 36.556,32.455 L 36.556,34.541 L 33.707,34.541 L 33.707,32.455 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 36.826,34.781 L 37.202,34.407 L 37.202,31.760 L 36.826,32.107 L 36.826,34.781 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 36.826,34.781 L 37.202,34.407 L 37.202,31.760 L 36.826,32.107 L 36.826,34.781 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 32.739,36.119 L 33.276,35.451 L 36.985,35.451 L 36.448,36.119 L 32.739,36.119 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 32.742,36.115 L 33.276,35.451 L 36.985,35.451 L 36.448,36.119 L 32.742,36.119 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 36.448,36.254 L 36.985,35.692 L 36.985,35.451 L 36.448,36.119 L 36.448,36.254 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 36.451,36.250 L 36.985,35.692 L 36.985,35.451 L 36.448,36.119 L 36.448,36.250 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 32.739,36.119 L 36.448,36.119 L 36.448,36.254 L 32.739,36.254 L 32.739,36.119 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 32.742,36.119 L 36.448,36.119 L 36.448,36.250 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 41.668,34.873 L 42.125,34.447 L 45.541,34.447 L 45.084,34.873 L 41.668,34.873 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.668,34.873 L 42.125,34.447 L 45.541,34.447 L 45.084,34.873 L 41.668,34.873 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 41.668,34.873 L 45.084,34.873 L 45.084,35.515 L 41.668,35.515 L 41.668,34.873 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.668,34.873 L 45.084,34.873 L 45.084,35.515 L 41.668,35.515 L 41.668,34.873 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 45.084,35.515 L 45.541,35.060 L 45.541,34.447 L 45.084,34.873 L 45.084,35.515 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 45.084,35.515 L 45.541,35.060 L 45.541,34.447 L 45.084,34.873 L 45.084,35.515 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 41.776,34.793 L 42.125,34.447 L 45.460,34.447 L 45.110,34.793 L 41.776,34.793 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 41.776,34.793 L 42.125,34.447 L 45.460,34.447 L 45.110,34.793 L 41.776,34.793 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 41.668,32.038 L 42.045,31.691 L 45.460,31.691 L 45.084,32.038 L 41.668,32.038 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.668,32.038 L 42.045,31.691 L 45.460,31.691 L 45.084,32.038 L 41.668,32.038 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 41.668,32.038 L 45.110,32.038 L 45.110,34.740 L 41.668,34.740 L 41.668,32.038 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.668,32.038 L 45.109,32.038 L 45.109,34.739 L 41.668,34.739 L 41.668,32.038 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 41.966,32.386 L 44.815,32.386 L 44.815,34.473 L 41.966,34.473 L 41.966,32.386 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.966,32.386 L 44.815,32.386 L 44.815,34.471 L 41.966,34.471 L 41.966,32.386 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 45.084,34.712 L 45.460,34.338 L 45.460,31.691 L 45.084,32.038 L 45.084,34.712 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 45.084,34.712 L 45.460,34.338 L 45.460,31.691 L 45.084,32.038 L 45.084,34.712 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 40.997,36.050 L 41.535,35.382 L 45.244,35.382 L 44.707,36.050 L 40.997,36.050 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.001,36.045 L 41.535,35.382 L 45.244,35.382 L 44.707,36.050 L 41.001,36.050 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 44.707,36.185 L 45.244,35.622 L 45.244,35.382 L 44.707,36.050 L 44.707,36.185 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 44.709,36.181 L 45.244,35.622 L 45.244,35.382 L 44.707,36.050 L 44.707,36.181 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 40.997,36.050 L 44.707,36.050 L 44.707,36.185 L 40.997,36.185 L 40.997,36.050 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 41.001,36.050 L 44.707,36.050 L 44.707,36.181 "/>
+<!-- Standard - Text -->
+<text x="38.319" y="33.809"  fill="#000000" text-anchor="start" font-size="2.82" font-family="sans" font-style="normal" font-weight="400">
+...</text>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 54.949,34.682 L 55.407,34.255 L 58.822,34.255 L 58.366,34.682 L 54.949,34.682 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 54.949,34.682 L 55.407,34.255 L 58.822,34.255 L 58.366,34.682 L 54.949,34.682 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 54.949,34.682 L 58.366,34.682 L 58.366,35.323 L 54.949,35.323 L 54.949,34.682 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 54.949,34.682 L 58.366,34.682 L 58.366,35.323 L 54.949,35.323 L 54.949,34.682 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 58.366,35.323 L 58.822,34.868 L 58.822,34.255 L 58.366,34.682 L 58.366,35.323 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 58.366,35.323 L 58.822,34.868 L 58.822,34.255 L 58.366,34.682 L 58.366,35.323 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 55.058,34.602 L 55.407,34.255 L 58.741,34.255 L 58.392,34.602 L 55.058,34.602 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 55.058,34.602 L 55.407,34.255 L 58.741,34.255 L 58.392,34.602 L 55.058,34.602 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 54.949,31.846 L 55.327,31.499 L 58.741,31.499 L 58.366,31.846 L 54.949,31.846 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 54.949,31.846 L 55.327,31.499 L 58.741,31.499 L 58.366,31.846 L 54.949,31.846 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 54.949,31.846 L 58.391,31.846 L 58.391,34.548 L 54.949,34.548 L 54.949,31.846 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 54.949,31.846 L 58.390,31.846 L 58.390,34.547 L 54.949,34.547 L 54.949,31.846 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 55.247,32.194 L 58.097,32.194 L 58.097,34.281 L 55.247,34.281 L 55.247,32.194 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 55.247,32.194 L 58.096,32.194 L 58.096,34.280 L 55.247,34.280 L 55.247,32.194 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 58.366,34.520 L 58.741,34.146 L 58.741,31.499 L 58.366,31.846 L 58.366,34.520 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 58.366,34.520 L 58.741,34.146 L 58.741,31.499 L 58.366,31.846 L 58.366,34.520 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 54.278,35.858 L 54.816,35.190 L 58.525,35.190 L 57.988,35.858 L 54.278,35.858 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 54.282,35.854 L 54.816,35.190 L 58.525,35.190 L 57.988,35.858 L 54.282,35.858 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 57.988,35.993 L 58.525,35.431 L 58.525,35.190 L 57.988,35.858 L 57.988,35.993 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 57.990,35.989 L 58.525,35.431 L 58.525,35.190 L 57.988,35.858 L 57.988,35.989 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 54.278,35.858 L 57.988,35.858 L 57.988,35.993 L 54.278,35.993 L 54.278,35.858 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 54.282,35.858 L 57.988,35.858 L 57.988,35.989 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 60.954,34.738 L 61.411,34.311 L 64.827,34.311 L 64.370,34.738 L 60.954,34.738 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 60.954,34.738 L 61.411,34.311 L 64.827,34.311 L 64.370,34.738 L 60.954,34.738 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 60.954,34.738 L 64.370,34.738 L 64.370,35.380 L 60.954,35.380 L 60.954,34.738 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 60.954,34.738 L 64.370,34.738 L 64.370,35.380 L 60.954,35.380 L 60.954,34.738 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 64.370,35.380 L 64.827,34.924 L 64.827,34.311 L 64.370,34.738 L 64.370,35.380 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 64.370,35.380 L 64.827,34.924 L 64.827,34.311 L 64.370,34.738 L 64.370,35.380 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 61.063,34.658 L 61.411,34.311 L 64.746,34.311 L 64.397,34.658 L 61.063,34.658 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 61.063,34.658 L 61.411,34.311 L 64.746,34.311 L 64.397,34.658 L 61.063,34.658 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 60.954,31.902 L 61.331,31.555 L 64.746,31.555 L 64.370,31.902 L 60.954,31.902 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 60.954,31.902 L 61.331,31.555 L 64.746,31.555 L 64.370,31.902 L 60.954,31.902 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 60.954,31.902 L 64.396,31.902 L 64.396,34.605 L 60.954,34.605 L 60.954,31.902 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 60.954,31.902 L 64.395,31.902 L 64.395,34.603 L 60.954,34.603 L 60.954,31.902 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 61.252,32.250 L 64.102,32.250 L 64.102,34.337 L 61.252,34.337 L 61.252,32.250 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 61.252,32.250 L 64.101,32.250 L 64.101,34.336 L 61.252,34.336 L 61.252,32.250 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 64.370,34.576 L 64.746,34.203 L 64.746,31.555 L 64.370,31.902 L 64.370,34.576 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 64.370,34.576 L 64.746,34.203 L 64.746,31.555 L 64.370,31.902 L 64.370,34.576 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 60.283,35.914 L 60.821,35.246 L 64.530,35.246 L 63.993,35.914 L 60.283,35.914 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 60.287,35.910 L 60.821,35.246 L 64.530,35.246 L 63.993,35.914 L 60.287,35.914 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 63.993,36.049 L 64.530,35.487 L 64.530,35.246 L 63.993,35.914 L 63.993,36.049 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 63.995,36.046 L 64.530,35.487 L 64.530,35.246 L 63.993,35.914 L 63.993,36.046 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 60.283,35.914 L 63.993,35.914 L 63.993,36.049 L 60.283,36.049 L 60.283,35.914 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 60.287,35.914 L 63.993,35.914 L 63.993,36.046 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 69.212,34.669 L 69.670,34.242 L 73.086,34.242 L 72.629,34.669 L 69.212,34.669 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 69.212,34.669 L 69.670,34.242 L 73.086,34.242 L 72.629,34.669 L 69.212,34.669 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 69.212,34.669 L 72.629,34.669 L 72.629,35.310 L 69.212,35.310 L 69.212,34.669 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 69.212,34.669 L 72.629,34.669 L 72.629,35.310 L 69.212,35.310 L 69.212,34.669 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 72.629,35.310 L 73.086,34.855 L 73.086,34.242 L 72.629,34.669 L 72.629,35.310 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 72.629,35.310 L 73.086,34.855 L 73.086,34.242 L 72.629,34.669 L 72.629,35.310 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 69.321,34.588 L 69.670,34.242 L 73.005,34.242 L 72.655,34.588 L 69.321,34.588 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 69.321,34.588 L 69.670,34.242 L 73.005,34.242 L 72.655,34.588 L 69.321,34.588 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 69.212,31.833 L 69.590,31.486 L 73.005,31.486 L 72.629,31.833 L 69.212,31.833 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 69.212,31.833 L 69.590,31.486 L 73.005,31.486 L 72.629,31.833 L 69.212,31.833 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 69.212,31.833 L 72.654,31.833 L 72.654,34.535 L 69.212,34.535 L 69.212,31.833 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 69.212,31.833 L 72.654,31.833 L 72.654,34.534 L 69.212,34.534 L 69.212,31.833 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 69.510,32.181 L 72.360,32.181 L 72.360,34.268 L 69.510,34.268 L 69.510,32.181 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 69.510,32.181 L 72.359,32.181 L 72.359,34.267 L 69.510,34.267 L 69.510,32.181 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 72.629,34.507 L 73.005,34.133 L 73.005,31.486 L 72.629,31.833 L 72.629,34.507 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 72.629,34.507 L 73.005,34.133 L 73.005,31.486 L 72.629,31.833 L 72.629,34.507 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 68.542,35.845 L 69.079,35.177 L 72.788,35.177 L 72.251,35.845 L 68.542,35.845 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 68.545,35.841 L 69.079,35.177 L 72.788,35.177 L 72.251,35.845 L 68.545,35.845 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 72.251,35.980 L 72.788,35.417 L 72.788,35.177 L 72.251,35.845 L 72.251,35.980 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 72.254,35.976 L 72.788,35.417 L 72.788,35.177 L 72.251,35.845 L 72.251,35.976 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 68.542,35.845 L 72.251,35.845 L 72.251,35.980 L 68.542,35.980 L 68.542,35.845 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 68.545,35.845 L 72.251,35.845 L 72.251,35.976 "/>
+<!-- Standard - Text -->
+<text x="65.864" y="33.604"  fill="#000000" text-anchor="start" font-size="2.82" font-family="sans" font-style="normal" font-weight="400">
+...</text>
+<!-- Standard - BezierLine -->
+<path stroke="#000000" fill="none" stroke-width="0.100"  d="M 54.542,13.486 C 54.542,11.486 64.542,14.486 64.542,11.486 "/>
+<!-- Standard - BezierLine -->
+<path stroke="#000000" fill="none" stroke-width="0.100"  d="M 73.542,13.486 C 73.542,11.486 64.542,14.486 64.542,11.486 "/>
+<!-- Standard - Text -->
+<text x="59.542" y="10.486"  fill="#000000" text-anchor="start" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Replicated servers</text>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 96.671,32.183 L 97.128,31.756 L 100.544,31.756 L 100.087,32.183 L 96.671,32.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.671,32.183 L 97.128,31.756 L 100.544,31.756 L 100.087,32.183 L 96.671,32.183 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 96.671,32.183 L 100.087,32.183 L 100.087,32.824 L 96.671,32.824 L 96.671,32.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.671,32.183 L 100.087,32.183 L 100.087,32.824 L 96.671,32.824 L 96.671,32.183 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 100.087,32.824 L 100.544,32.369 L 100.544,31.756 L 100.087,32.183 L 100.087,32.824 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.087,32.824 L 100.544,32.369 L 100.544,31.756 L 100.087,32.183 L 100.087,32.824 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 96.779,32.102 L 97.128,31.756 L 100.463,31.756 L 100.113,32.102 L 96.779,32.102 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 96.779,32.102 L 97.128,31.756 L 100.463,31.756 L 100.113,32.102 L 96.779,32.102 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 96.671,29.347 L 97.048,29.000 L 100.463,29.000 L 100.087,29.347 L 96.671,29.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.671,29.347 L 97.048,29.000 L 100.463,29.000 L 100.087,29.347 L 96.671,29.347 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 96.671,29.347 L 100.113,29.347 L 100.113,32.049 L 96.671,32.049 L 96.671,29.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.671,29.347 L 100.112,29.347 L 100.112,32.048 L 96.671,32.048 L 96.671,29.347 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 96.969,29.695 L 99.818,29.695 L 99.818,31.782 L 96.969,31.782 L 96.969,29.695 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.969,29.695 L 99.818,29.695 L 99.818,31.780 L 96.969,31.780 L 96.969,29.695 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 100.087,32.021 L 100.463,31.647 L 100.463,29.000 L 100.087,29.347 L 100.087,32.021 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.087,32.021 L 100.463,31.647 L 100.463,29.000 L 100.087,29.347 L 100.087,32.021 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 96.000,33.359 L 96.538,32.691 L 100.247,32.691 L 99.710,33.359 L 96.000,33.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.004,33.355 L 96.538,32.691 L 100.247,32.691 L 99.710,33.359 L 96.004,33.359 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 99.710,33.494 L 100.247,32.931 L 100.247,32.691 L 99.710,33.359 L 99.710,33.494 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 99.712,33.490 L 100.247,32.931 L 100.247,32.691 L 99.710,33.359 L 99.710,33.490 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 96.000,33.359 L 99.710,33.359 L 99.710,33.494 L 96.000,33.494 L 96.000,33.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 96.004,33.359 L 99.710,33.359 L 99.710,33.490 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 87.671,32.183 L 88.128,31.756 L 91.544,31.756 L 91.087,32.183 L 87.671,32.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.671,32.183 L 88.128,31.756 L 91.544,31.756 L 91.087,32.183 L 87.671,32.183 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 87.671,32.183 L 91.087,32.183 L 91.087,32.824 L 87.671,32.824 L 87.671,32.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.671,32.183 L 91.087,32.183 L 91.087,32.824 L 87.671,32.824 L 87.671,32.183 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 91.087,32.824 L 91.544,32.369 L 91.544,31.756 L 91.087,32.183 L 91.087,32.824 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 91.087,32.824 L 91.544,32.369 L 91.544,31.756 L 91.087,32.183 L 91.087,32.824 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 87.779,32.102 L 88.128,31.756 L 91.463,31.756 L 91.113,32.102 L 87.779,32.102 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 87.779,32.102 L 88.128,31.756 L 91.463,31.756 L 91.113,32.102 L 87.779,32.102 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 87.671,29.347 L 88.048,29.000 L 91.463,29.000 L 91.087,29.347 L 87.671,29.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.671,29.347 L 88.048,29.000 L 91.463,29.000 L 91.087,29.347 L 87.671,29.347 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 87.671,29.347 L 91.113,29.347 L 91.113,32.049 L 87.671,32.049 L 87.671,29.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.671,29.347 L 91.112,29.347 L 91.112,32.048 L 87.671,32.048 L 87.671,29.347 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 87.969,29.695 L 90.818,29.695 L 90.818,31.782 L 87.969,31.782 L 87.969,29.695 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.969,29.695 L 90.818,29.695 L 90.818,31.780 L 87.969,31.780 L 87.969,29.695 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 91.087,32.021 L 91.463,31.647 L 91.463,29.000 L 91.087,29.347 L 91.087,32.021 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 91.087,32.021 L 91.463,31.647 L 91.463,29.000 L 91.087,29.347 L 91.087,32.021 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 87.000,33.359 L 87.538,32.691 L 91.247,32.691 L 90.710,33.359 L 87.000,33.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.004,33.355 L 87.538,32.691 L 91.247,32.691 L 90.710,33.359 L 87.004,33.359 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 90.710,33.494 L 91.247,32.931 L 91.247,32.691 L 90.710,33.359 L 90.710,33.494 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 90.712,33.490 L 91.247,32.931 L 91.247,32.691 L 90.710,33.359 L 90.710,33.490 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 87.000,33.359 L 90.710,33.359 L 90.710,33.494 L 87.000,33.494 L 87.000,33.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.004,33.359 L 90.710,33.359 L 90.710,33.490 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 100.671,23.183 L 101.128,22.756 L 104.544,22.756 L 104.087,23.183 L 100.671,23.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.671,23.183 L 101.128,22.756 L 104.544,22.756 L 104.087,23.183 L 100.671,23.183 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 100.671,23.183 L 104.087,23.183 L 104.087,23.824 L 100.671,23.824 L 100.671,23.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.671,23.183 L 104.087,23.183 L 104.087,23.824 L 100.671,23.824 L 100.671,23.183 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 104.087,23.824 L 104.544,23.369 L 104.544,22.756 L 104.087,23.183 L 104.087,23.824 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 104.087,23.824 L 104.544,23.369 L 104.544,22.756 L 104.087,23.183 L 104.087,23.824 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 100.779,23.102 L 101.128,22.756 L 104.463,22.756 L 104.113,23.102 L 100.779,23.102 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 100.779,23.102 L 101.128,22.756 L 104.463,22.756 L 104.113,23.102 L 100.779,23.102 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 100.671,20.347 L 101.048,20.000 L 104.463,20.000 L 104.087,20.347 L 100.671,20.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.671,20.347 L 101.048,20.000 L 104.463,20.000 L 104.087,20.347 L 100.671,20.347 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 100.671,20.347 L 104.113,20.347 L 104.113,23.049 L 100.671,23.049 L 100.671,20.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.671,20.347 L 104.112,20.347 L 104.112,23.048 L 100.671,23.048 L 100.671,20.347 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 100.969,20.695 L 103.818,20.695 L 103.818,22.782 L 100.969,22.782 L 100.969,20.695 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.969,20.695 L 103.818,20.695 L 103.818,22.780 L 100.969,22.780 L 100.969,20.695 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 104.087,23.021 L 104.463,22.647 L 104.463,20.000 L 104.087,20.347 L 104.087,23.021 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 104.087,23.021 L 104.463,22.647 L 104.463,20.000 L 104.087,20.347 L 104.087,23.021 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 100.000,24.359 L 100.538,23.691 L 104.247,23.691 L 103.710,24.359 L 100.000,24.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.004,24.355 L 100.538,23.691 L 104.247,23.691 L 103.710,24.359 L 100.004,24.359 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 103.710,24.494 L 104.247,23.931 L 104.247,23.691 L 103.710,24.359 L 103.710,24.494 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 103.712,24.490 L 104.247,23.931 L 104.247,23.691 L 103.710,24.359 L 103.710,24.490 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 100.000,24.359 L 103.710,24.359 L 103.710,24.494 L 100.000,24.494 L 100.000,24.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 100.004,24.359 L 103.710,24.359 L 103.710,24.490 "/>
+<!-- Cisco - Terminal -->
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 84.671,23.183 L 85.128,22.756 L 88.544,22.756 L 88.087,23.183 L 84.671,23.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.671,23.183 L 85.128,22.756 L 88.544,22.756 L 88.087,23.183 L 84.671,23.183 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 84.671,23.183 L 88.087,23.183 L 88.087,23.824 L 84.671,23.824 L 84.671,23.183 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.671,23.183 L 88.087,23.183 L 88.087,23.824 L 84.671,23.824 L 84.671,23.183 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 88.087,23.824 L 88.544,23.369 L 88.544,22.756 L 88.087,23.183 L 88.087,23.824 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 88.087,23.824 L 88.544,23.369 L 88.544,22.756 L 88.087,23.183 L 88.087,23.824 "/>
+<path stroke="none" fill="#000000" stroke-width="0.001"  d="M 84.779,23.102 L 85.128,22.756 L 88.463,22.756 L 88.113,23.102 L 84.779,23.102 z"/>
+<path stroke="#000000" fill="none" stroke-width="0.001"  d="M 84.779,23.102 L 85.128,22.756 L 88.463,22.756 L 88.113,23.102 L 84.779,23.102 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 84.671,20.347 L 85.048,20.000 L 88.463,20.000 L 88.087,20.347 L 84.671,20.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.671,20.347 L 85.048,20.000 L 88.463,20.000 L 88.087,20.347 L 84.671,20.347 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 84.671,20.347 L 88.113,20.347 L 88.113,23.049 L 84.671,23.049 L 84.671,20.347 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.671,20.347 L 88.112,20.347 L 88.112,23.048 L 84.671,23.048 L 84.671,20.347 "/>
+<path stroke="none" fill="#FFFFFF" stroke-width="0.001"  d="M 84.969,20.695 L 87.818,20.695 L 87.818,22.782 L 84.969,22.782 L 84.969,20.695 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.969,20.695 L 87.818,20.695 L 87.818,22.780 L 84.969,22.780 L 84.969,20.695 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 88.087,23.021 L 88.463,22.647 L 88.463,20.000 L 88.087,20.347 L 88.087,23.021 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 88.087,23.021 L 88.463,22.647 L 88.463,20.000 L 88.087,20.347 L 88.087,23.021 "/>
+<path stroke="none" fill="#C9C9B6" stroke-width="0.001"  d="M 84.000,24.359 L 84.538,23.691 L 88.247,23.691 L 87.710,24.359 L 84.000,24.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.004,24.355 L 84.538,23.691 L 88.247,23.691 L 87.710,24.359 L 84.004,24.359 "/>
+<path stroke="none" fill="#7A7A5A" stroke-width="0.001"  d="M 87.710,24.494 L 88.247,23.931 L 88.247,23.691 L 87.710,24.359 L 87.710,24.494 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 87.712,24.490 L 88.247,23.931 L 88.247,23.691 L 87.710,24.359 L 87.710,24.490 "/>
+<path stroke="none" fill="#B7B79D" stroke-width="0.001"  d="M 84.000,24.359 L 87.710,24.359 L 87.710,24.494 L 84.000,24.494 L 84.000,24.359 z"/>
+<path stroke="#494936" fill="none" stroke-width="0.001"  d="M 84.004,24.359 L 87.710,24.359 L 87.710,24.490 "/>
+<!-- Standard - Text -->
+<text x="36.000" y="41.000"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Single server, multiple workers</text>
+<text x="36.000" y="43.822"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Workers communicate with the</text>
+<text x="36.000" y="45.233"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+server; all data is managed by</text>
+<text x="36.000" y="46.644"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+the server.</text>
+<!-- Standard - Text -->
+<text x="64.000" y="41.000"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Multiple servers, multiple workers</text>
+<text x="64.000" y="43.822"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Workers communicate with the</text>
+<text x="64.000" y="45.233"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+replicated servers; all data is</text>
+<text x="64.000" y="46.644"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+managed by all the servers.</text>
+<!-- Standard - Text -->
+<text x="95.000" y="41.000"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Decentralized</text>
+<text x="95.000" y="43.822"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+Each node contains a worker and a</text>
+<text x="95.000" y="45.233"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+server; nodes communicate in</text>
+<text x="95.000" y="46.644"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+peer-to-peer; data is managed locally,</text>
+<text x="95.000" y="48.056"  fill="#000000" text-anchor="middle" font-size="1.41" font-family="sans" font-style="normal" font-weight="400">
+only model updates are shared.</text>
+<!-- Standard - Line -->
+<line x1="48.000" y1="9.000" x2="48.000" y2="39.000" stroke="#000000" stroke-width="0.100" />
+<!-- Standard - Line -->
+<line x1="81.000" y1="9.000" x2="81.000" y2="39.000" stroke="#000000" stroke-width="0.100" />
+<!-- Network - Cloud -->
+<path stroke="#000000" fill="#FFFFFF" stroke-width="0.100"  d="M 32.863,23.242 C 31.800,23.213 29.738,23.829 30.028,25.149 C 30.318,26.469 31.703,26.762 32.283,26.381 C 32.863,25.999 31.381,28.229 34.217,28.815 C 37.052,29.402 38.503,28.463 38.084,27.789 C 37.665,27.114 40.565,29.373 41.918,28.082 C 43.272,26.791 40.533,25.559 41.113,25.735 C 41.693,25.911 43.465,25.677 42.885,23.477 C 42.305,21.277 37.085,22.978 37.665,22.656 C 38.245,22.333 36.795,20.720 34.990,21.042 C 33.186,21.365 33.058,21.951 32.864,23.241 L 32.863,23.242 z"/>
+<!-- Network - Cloud -->
+<path stroke="#000000" fill="#FFFFFF" stroke-width="0.100"  d="M 59.863,23.242 C 58.800,23.213 56.738,23.829 57.028,25.149 C 57.318,26.469 58.703,26.762 59.283,26.381 C 59.863,25.999 58.381,28.229 61.217,28.815 C 64.052,29.402 65.503,28.463 65.084,27.789 C 64.665,27.114 67.565,29.373 68.918,28.082 C 70.272,26.791 67.533,25.559 68.113,25.735 C 68.693,25.911 70.465,25.677 69.885,23.477 C 69.305,21.277 64.085,22.978 64.665,22.656 C 65.245,22.333 63.795,20.720 61.990,21.042 C 60.186,21.365 60.058,21.951 59.864,23.241 L 59.863,23.242 z"/>
+<!-- Network - Cloud -->
+<path stroke="#000000" fill="#FFFFFF" stroke-width="0.100"  d="M 91.982,21.962 C 91.246,21.936 89.818,22.475 90.019,23.630 C 90.220,24.785 91.179,25.042 91.581,24.708 C 91.982,24.375 90.956,26.325 92.919,26.838 C 94.882,27.352 95.886,26.530 95.596,25.940 C 95.306,25.350 97.314,27.326 98.251,26.197 C 99.188,25.067 97.292,23.990 97.693,24.144 C 98.095,24.298 99.322,24.092 98.920,22.167 C 98.519,20.242 94.905,21.731 95.306,21.449 C 95.708,21.166 94.704,19.755 93.455,20.037 C 92.205,20.319 92.117,20.832 91.983,21.961 L 91.982,21.962 z"/>
+</g>
+</svg>
