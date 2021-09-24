@@ -213,6 +213,12 @@
                 This will give us a reference value, to serve as a basis for
                 comparison in the next steps.
               </p>
+              <div id="servers">
+                Single system
+                <md-icon class="md-size-2x" id="reliable-node">
+                  storage</md-icon
+                >
+              </div>
 
               <form @submit.prevent="runSimpleTraining">
                 <div class="form-submit"></div>
@@ -363,11 +369,10 @@
                     >
                   </md-button>
 
-                  <div class="separator"></div>
-
                   <md-icon class="md-size-2x" id="reliable-node"
                     >storage</md-icon
                   >
+                  [[ Number(form.n) + 1 - form.f ]] reliable system(s)
                 </div>
 
                 <div class="form-submit"></div>
@@ -408,19 +413,6 @@
             </md-app-drawer>
             <md-app-content>
               <p>
-                We have currently [[ Number(form.n) + 1 ]] systems, [[ form.f ]]
-                of which unreliable.
-              </p>
-              <div id="servers">
-                <md-icon
-                  v-for="idx in form.n + 1"
-                  class="md-size-2x"
-                  v-bind:id="getNodeId(idx)"
-                >
-                  storage</md-icon
-                >
-              </div>
-              <p>
                 We will now make use of Garfield's ability to train a model even
                 though some of the systems exhibit failures.
               </p>
@@ -439,6 +431,18 @@
                 exceeds the one obtained with all reliable systems. It should
                 nonetheless be within the same ballpark.
               </p>
+
+              <p>We have currently [[ Number(form.n) + 1 ]] systems:</p>
+              <div id="servers">
+                [[ form.f ]] unreliable system(s)
+                <md-icon
+                  v-for="idx in form.n + 1"
+                  class="md-size-2x"
+                  v-bind:id="getNodeId(idx)"
+                >
+                  storage</md-icon
+                >[[ Number(form.n) + 1 - form.f ]] reliable system(s)
+              </div>
 
               <form @submit.prevent="runByzantineTolerantTraining">
                 <div class="form-submit"></div>
