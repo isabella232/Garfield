@@ -516,7 +516,9 @@
               ><div class="md-body-2">Single system</div></md-card-header
             >
             <md-card-content>
-              <div class="md-body-1">[[ simpleTrainingResult ]] accuracy</div>
+              <div class="md-body-1">
+                [[ simpleTrainingResult.toFixed(1) ]]% accuracy
+              </div>
             </md-card-content>
           </md-card>
 
@@ -531,7 +533,8 @@
             >
             <md-card-content>
               <div class="md-body-1">
-                [[ multiNodeTrainingResult ]] accuracy
+                [[ multiNodeTrainingResult.toFixed(1) ]]% accuracy<br />
+                [[ formatDiff(simpleTrainingResult, multiNodeTrainingResult) ]]
               </div>
             </md-card-content>
           </md-card>
@@ -548,7 +551,9 @@
             >
             <md-card-content>
               <div class="md-body-1">
-                [[ byzantineTrainingResult ]] accuracy
+                [[ byzantineTrainingResult.toFixed(1) ]]% accuracy<br />
+                [[ formatDiff(multiNodeTrainingResult, byzantineTrainingResult)
+                ]]
               </div>
             </md-card-content>
           </md-card>
@@ -565,7 +570,9 @@
             >
             <md-card-content>
               <div class="md-body-1">
-                [[ byzantineTolerantTrainingResult ]] accuracy
+                [[ byzantineTolerantTrainingResult.toFixed(1) ]]% accuracy<br />
+                [[ formatDiff(byzantineTrainingResult,
+                byzantineTolerantTrainingResult) ]]
               </div>
             </md-card-content>
           </md-card>
@@ -675,6 +682,17 @@
             this.form.f = idx;
             this.clearResults();
           },
+          formatDiff: function (val1, val2) {
+            let diff = Number(val2.toFixed(1)) - Number(val1.toFixed(1));
+
+            if (diff === 0) {
+              return "(no change)";
+            } else if (diff < 0) {
+              return `(${diff.toFixed(1)}%)`;
+            } else {
+              return `(+${diff.toFixed(1)}%)`;
+            }
+          },
           getNodeId: function (idx) {
             return idx <= this.form.f ? "byzantine-node" : "reliable-node";
           },
@@ -728,7 +746,7 @@
             const trainerId = await this.sendTrainingQuery(query);
             if (trainerId !== undefined) {
               this.followProgress(trainerId).then((result) => {
-                this.simpleTrainingResult = `${result.toFixed(1)}%`;
+                this.simpleTrainingResult = result;
               });
             }
           },
@@ -756,7 +774,7 @@
               const trainerId = await this.sendTrainingQuery(query);
               if (trainerId !== undefined) {
                 this.followProgress(trainerId).then((result) => {
-                  this.multiNodeTrainingResult = `${result.toFixed(1)}%`;
+                  this.multiNodeTrainingResult = result;
                 });
               }
             }
@@ -776,7 +794,7 @@
               const trainerId = await this.sendTrainingQuery(query);
               if (trainerId !== undefined) {
                 this.followProgress(trainerId).then((result) => {
-                  this.byzantineTrainingResult = `${result.toFixed(1)}%`;
+                  this.byzantineTrainingResult = result;
                 });
               }
             }
@@ -796,9 +814,7 @@
               const trainerId = await this.sendTrainingQuery(query);
               if (trainerId !== undefined) {
                 this.followProgress(trainerId).then((result) => {
-                  this.byzantineTolerantTrainingResult = `${result.toFixed(
-                    1
-                  )}%`;
+                  this.byzantineTolerantTrainingResult = result;
                 });
               }
             }
