@@ -87,6 +87,9 @@
       div.form-submit {
         height: 2em;
       }
+      p.action {
+        font-weight: bold;
+      }
     </style>
   </head>
 
@@ -222,8 +225,8 @@
                 >
               </div>
 
+              <p class="action">Please click to start the training:</p>
               <form @submit.prevent="runSimpleTraining">
-                <div class="form-submit"></div>
                 <md-button type="submit" class="md-raised md-primary"
                   >Train</md-button
                 >
@@ -277,7 +280,8 @@
                 between the systems, improving the local model. In the end, the
                 accuracy is measured over the same test subset as before.
               </p>
-              <p>
+
+              <p class="action">
                 Please click to select how many additional machines you wish to
                 add to form a distributed system:
               </p>
@@ -305,7 +309,7 @@
                   [[ form.n ]] additional system(s)
                 </div>
 
-                <div class="form-submit"></div>
+                <p class="action">Then click to start the training:</p>
                 <md-button type="submit" class="md-raised md-primary"
                   >Train</md-button
                 >
@@ -351,9 +355,12 @@
               </p>
               <p>
                 We have currently [[ Number(form.n) + 1 ]] datasets, each served
-                by reliable systems. Please click to select how many of these
-                systems you wish to exhibit failures (we are keeping at least
-                one reliable system):
+                by reliable systems.
+              </p>
+
+              <p class="action">
+                Please click to select how many of these systems you wish to
+                exhibit failures (keep 1 if unsure):
               </p>
 
               <form @submit.prevent="runByzantineTraining">
@@ -377,7 +384,7 @@
                   [[ Number(form.n) + 1 - form.f ]] reliable system(s)
                 </div>
 
-                <div class="form-submit"></div>
+                <p class="action">Then click to start the training:</p>
                 <md-button type="submit" class="md-raised md-primary"
                   >Train</md-button
                 >
@@ -446,8 +453,8 @@
                 >[[ Number(form.n) + 1 - form.f ]] reliable system(s)
               </div>
 
+              <p class="action">Please click to start the training:</p>
               <form @submit.prevent="runByzantineTolerantTraining">
-                <div class="form-submit"></div>
                 <md-button type="submit" class="md-raised md-primary"
                   >Train</md-button
                 >
