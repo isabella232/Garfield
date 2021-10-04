@@ -476,30 +476,37 @@
                 more robust distributed ML applications.
               </p>
               <p>
-                Federated learning as illustrated with Garfield here has however
-                an issue, in that even though the data itself is not shared
-                between systems, models can leak information about the data on
-                which they were trained. In other words, an attacker might be
-                able to retrieve information about another system's data solely
-                by analyzing the exchanged model updates.
-              </p>
-              <p>
                 For training a model over several datasets in a
                 privacy-preserving context, other approaches are possible.
+                Depending on your use-case and your requirements, it might be
+                worth to also take a look at a solution such as
                 <a href="https://factory.c4dt.org/showcase/spindle">SPINDLE</a>,
-                for example, employs different techniques and makes other
-                trade-offs.
+                which employs different techniques and makes other trade-offs.
+              </p>
+              <p>
+                For example, with Garfield, even though only model updates are
+                shared between systems,
+                <a href="https://export.arxiv.org/pdf/2004.04676"
+                  >sophisticated attacks</a
+                >
+                exist that can leak information about the data. In other words,
+                an attacker might be able to retrieve information about a
+                system's data solely by analyzing the exchanged model updates.
               </p>
               <p>
                 By contrast, SPINDLE uses Secure Multiparty Computation and
                 Homomorphic Encryption to provide more privacy-preserving
-                guarantees. On the other hand, these techniques are much more
-                CPU-intensive and require enormous amounts of storage, making
-                them currently unsuitable to tackle very large datasets.
+                guarantees. On the other hand, this comes with limitations:
+                these techniques are much more CPU-intensive and require
+                enormous amounts of storage, making them currently difficult to
+                use with very large datasets.
               </p>
               <p>
-                Depending on your needs and requirements, you will find one or
-                the other method more appropriate for your application.
+                Depending on your needs, you will find one or the other method
+                more appropriate for your application. We will be happy to
+                discuss with you in further details the pros and cons of each of
+                these solutions, and help you in your decision. Don't hesitate
+                to <a href="mailto:factory@c4dt.org">contact us</a>!
               </p>
             </md-app-content>
           </md-app>
@@ -614,7 +621,7 @@
             "Adding data",
             "Byzantine behavior",
             "Byzantine resilience",
-            "Comparison to other projects",
+            "Comparison to other projects: which solution for your needs?",
           ],
           currentStep: "intro",
           form: {
