@@ -731,25 +731,29 @@
             return idx <= this.form.f ? "byzantine-node" : "reliable-node";
           },
           sendTrainingQuery: async function (query) {
-            const response = await fetch("{{ url_for('train') }}", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(query),
-            });
+            let response;
+            try {
+              response = await fetch("{{ url_for('train') }}", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(query),
+              });
+            } catch (exc) {
+              this.displayError(exc.message);
+              return;
+            }
 
             let data;
             try {
               data = await response.json();
             } catch (e) {
-              data = { error: "Unknown error" };
+              data = { error: "Invalid response" };
             }
 
             if (response.ok && data.error === undefined) {
               return data.trainerId;
             } else {
-              this.showProgressDialog = false;
-              this.showErrorDialog = true;
-              this.errorMessage = data.error;
+              this.displayError(data.error);
             }
           },
           clearResults: function () {
@@ -858,15 +862,19 @@
             const this_ = this;
 
             const f = async function (resolve, reject) {
-              var response = await fetch(
-                `{{ url_for("get_status") }}?trainer_id=${trainerId}`
-              );
-              var data = await response.json();
+              let response;
+              try {
+                response = await fetch(
+                  `{{ url_for("get_status") }}?trainer_id=${trainerId}`
+                );
+              } catch (exc) {
+                this_.displayError(exc.message);
+                return;
+              }
+              const data = await response.json();
 
               if (data.error !== undefined) {
-                this_.showProgressDialog = false;
-                this_.showErrorDialog = true;
-                this_.errorMessage = data.error;
+                this_.displayError(data.error);
               } else if (data.result !== undefined) {
                 this_.showProgressDialog = false;
                 resolve(data.result);
@@ -897,6 +905,11 @@
             this.showProgressDialog = true;
 
             return new Promise(f);
+          },
+          displayError: function (msg) {
+            this.showProgressDialog = false;
+            this.showErrorDialog = true;
+            this.errorMessage = msg;
           },
         },
         validations: function () {
