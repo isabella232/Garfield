@@ -223,7 +223,7 @@ def node(
         ##     adjust_learning_rate(ps.optimizer, lr)
 
         # Training step
-        gradients = ps.get_gradients(i, n - f)  # get_gradients(iter_num, num_wait_wrk)
+        gradients = ps.get_gradients(i, n)  # get_gradients(iter_num, num_wait_wrk)
         # Aggregating gradients once is good for IID data; for non-IID, one should execute this log2(i)
         aggr_grad = gar(gradients=gradients, f=f)
         if non_iid:
@@ -231,7 +231,7 @@ def node(
         ps.update_model(aggr_grad)
 
         # Then, communicate models, aggregate, and write the new model
-        models = ps.get_models(n - f)
+        models = ps.get_models(n)
         aggr_models = gar(gradients=models, f=f)
         ps.write_model(aggr_models)
         ps.model.to("cpu:0")
