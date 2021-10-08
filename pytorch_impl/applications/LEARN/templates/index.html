@@ -71,6 +71,13 @@
         flex-direction: row;
         align-items: center;
       }
+      i#disabled-node {
+        color: var(
+          --md-theme-default-primary-on-background,
+          rgba(0, 0, 0, 0.54)
+        );
+        margin: 0 0.2ch 0 0.2ch;
+      }
       i#reliable-node {
         color: var(--md-theme-default-primary-on-background, #448aff);
         margin: 0 0.2ch 0 0.2ch;
@@ -89,6 +96,11 @@
       }
       p.action {
         font-weight: bold;
+      }
+      .user-select {
+        display: flex;
+        flex-flow: column;
+        align-items: end;
       }
     </style>
   </head>
@@ -311,17 +323,32 @@
 
                   <div class="separator"></div>
 
-                  <md-button
-                    class="md-raised"
+                  <md-icon
                     v-for="idx in maxExtraNodes"
-                    @click="setN(idx)"
+                    class="md-size-2x"
+                    v-bind:id="getNodeIdAdd(idx)"
                   >
-                    <md-icon
-                      class="md-size-2x"
-                      v-bind:class="{'md-primary': idx <= form.extraNodes}"
-                      >storage</md-icon
+                    storage</md-icon
+                  >
+
+                  <div class="user-select">
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incExtraNodes(1)"
+                      :disabled="this.form.extraNodes === maxExtraNodes"
                     >
-                  </md-button>
+                      <md-icon>add</md-icon>
+                    </md-button>
+
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incExtraNodes(-1)"
+                      :disabled="this.form.extraNodes === 1"
+                    >
+                      <md-icon>remove</md-icon>
+                    </md-button>
+                  </div>
+
                   [[ form.extraNodes ]] additional system(s)
                 </div>
 
@@ -385,22 +412,34 @@
 
               <form @submit.prevent="runByzantineTraining">
                 <div id="servers">
-                  [[ form.f ]] unreliable system(s)
-                  <md-button
-                    class="md-raised"
-                    v-for="idx in form.extraNodes"
-                    @click="setF(idx)"
-                  >
-                    <md-icon
-                      class="md-size-2x"
-                      v-bind:class="{'md-accent': idx <= form.f, 'md-primary': idx > form.f}"
-                      >storage</md-icon
+                  <div class="user-select">
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incF(1)"
+                      :disabled="this.form.f === this.form.extraNodes"
                     >
-                  </md-button>
+                      <md-icon>add</md-icon>
+                    </md-button>
 
-                  <md-icon class="md-size-2x" id="reliable-node"
-                    >storage</md-icon
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incF(-1)"
+                      :disabled="this.form.f === 1"
+                    >
+                      <md-icon>remove</md-icon>
+                    </md-button>
+                  </div>
+
+                  [[ form.f ]] unreliable system(s)
+
+                  <md-icon
+                    v-for="idx in form.extraNodes + 1"
+                    class="md-size-2x"
+                    v-bind:id="getNodeIdByz(idx)"
                   >
+                    storage</md-icon
+                  >
+
                   [[ Number(form.extraNodes) + 1 - form.f ]] reliable system(s)
                 </div>
 
@@ -477,7 +516,7 @@
                 <md-icon
                   v-for="idx in form.extraNodes + 1"
                   class="md-size-2x"
-                  v-bind:id="getNodeId(idx)"
+                  v-bind:id="getNodeIdByz(idx)"
                 >
                   storage</md-icon
                 >[[ Number(form.extraNodes) + 1 - form.f ]] reliable system(s)
@@ -717,14 +756,20 @@
             }
             this.currentStep = this.steps[idx];
           },
-          setN: function (idx) {
-            this.form.extraNodes = idx;
-            this.form.f = 1;
-            this.clearResults();
+          incExtraNodes: function (delta = 1) {
+            const newVal = this.form.extraNodes + delta;
+            if (newVal >= 1 && newVal <= this.maxExtraNodes) {
+              this.form.extraNodes = newVal;
+              this.clearResults();
+              this.form.f = Math.min(this.form.f, newVal);
+            }
           },
-          setF: function (idx) {
-            this.form.f = idx;
-            this.clearResults();
+          incF: function (delta = 1) {
+            const newVal = this.form.f + delta;
+            if (newVal >= 1 && newVal <= this.form.extraNodes) {
+              this.form.f = newVal;
+              this.clearResults();
+            }
           },
           formatDiff: function (val1, val2) {
             const diff = Number(val2.toFixed(1)) - Number(val1.toFixed(1));
@@ -737,7 +782,12 @@
               return `(+${diff.toFixed(1)}%)`;
             }
           },
-          getNodeId: function (idx) {
+          getNodeIdAdd: function (idx) {
+            return idx <= this.form.extraNodes
+              ? "reliable-node"
+              : "disabled-node";
+          },
+          getNodeIdByz: function (idx) {
             return idx <= this.form.f ? "byzantine-node" : "reliable-node";
           },
           sendTrainingQuery: async function (query) {
