@@ -71,6 +71,13 @@
         flex-direction: row;
         align-items: center;
       }
+      i#disabled-node {
+        color: var(
+          --md-theme-default-primary-on-background,
+          rgba(0, 0, 0, 0.54)
+        );
+        margin: 0 0.2ch 0 0.2ch;
+      }
       i#reliable-node {
         color: var(--md-theme-default-primary-on-background, #448aff);
         margin: 0 0.2ch 0 0.2ch;
@@ -89,6 +96,11 @@
       }
       p.action {
         font-weight: bold;
+      }
+      .user-select {
+        display: flex;
+        flex-flow: column;
+        align-items: end;
       }
     </style>
   </head>
@@ -155,13 +167,13 @@
                 training a model with data. This can be done for various
                 reasons, such as efficiency or the preservation of privacy, and
                 leads to diverse distributed architectures and computing
-                algorithms. Garfield can work with any of these architectures,
-                and provides examples for many of the common ones:
+                algorithms. Garfield can work with any architecture, and
+                provides examples for the following common ones:
               </p>
               <div class="garfield-center">
                 <img
                   src="{{ url_for('static', filename='network_topologies.svg') }}"
-                  style="width: 50em"
+                  style="width: 70em"
                 />
               </div>
               <p>
@@ -223,11 +235,12 @@
             <md-app-content>
               <p>
                 In this first step, we will train a model using a single
-                machine.
+                isolated machine.
               </p>
               <p>
                 This will give us a reference value, to serve as a basis for
-                comparison in the next steps.
+                comparison in the next steps, where we will form a distributed
+                system.
               </p>
               <div id="servers">
                 Single system
@@ -257,9 +270,10 @@
               <p>
                 By using more data to train a model, we are likely to obtain a
                 more accurate model. Therefore, ideally, we gather all the
-                available data in a single large dataset, and train our model
+                available data in a large combined dataset, and train our model
                 over it. We can then use a distributed architecture with many
-                machines running in parallel to perform the computations faster.
+                machines running in parallel to perform the computations faster
+                than with a single machine.
               </p>
               <p>
                 In some situations, however, it is
@@ -290,7 +304,7 @@
               <p>
                 We will now add more machines to our computation, forming a
                 distributed system. Each machine has its specific subset of the
-                data. During the training, the model updatess are exchanged
+                data. During the training, the model updates are exchanged
                 between the systems, improving the local model. In the end, the
                 accuracy is measured over the same test subset as before.
               </p>
@@ -309,17 +323,32 @@
 
                   <div class="separator"></div>
 
-                  <md-button
-                    class="md-raised"
+                  <md-icon
                     v-for="idx in maxExtraNodes"
-                    @click="setN(idx)"
+                    class="md-size-2x"
+                    v-bind:id="getNodeIdAdd(idx)"
                   >
-                    <md-icon
-                      class="md-size-2x"
-                      v-bind:class="{'md-primary': idx <= form.extraNodes}"
-                      >storage</md-icon
+                    storage</md-icon
+                  >
+
+                  <div class="user-select">
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incExtraNodes(1)"
+                      :disabled="this.form.extraNodes === maxExtraNodes"
                     >
-                  </md-button>
+                      <md-icon>add</md-icon>
+                    </md-button>
+
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incExtraNodes(-1)"
+                      :disabled="this.form.extraNodes === 1"
+                    >
+                      <md-icon>remove</md-icon>
+                    </md-button>
+                  </div>
+
                   [[ form.extraNodes ]] additional system(s)
                 </div>
 
@@ -347,7 +376,7 @@
                 systems can fail for a variety of reasons: hardware
                 malfunctions, programming defects, human errors, data
                 corruption, deliberate attacks, etc. To capture the generic
-                concept of errors stemming for any possible cause, inducing a
+                concept of errors stemming from any possible cause, inducing a
                 behavior that deviates arbitrarily from the correct one, we use
                 the term of
                 <a
@@ -366,9 +395,10 @@
             <md-app-content>
               <p>
                 In this step, to simulate failures, we will have some of the
-                systems return random data in place of the model updates when
+                systems return random data¹ in place of the model updates when
                 exchanging data during training. We will not change the
-                computation, which "naively" assumes all systems are reliable.
+                computation, which "naively" assumes all systems are reliable,
+                and does not attempt to compensate for unexpected behavior.
               </p>
               <p>
                 We have currently [[ Number(form.extraNodes) + 1 ]] datasets,
@@ -382,22 +412,34 @@
 
               <form @submit.prevent="runByzantineTraining">
                 <div id="servers">
-                  [[ form.f ]] unreliable system(s)
-                  <md-button
-                    class="md-raised"
-                    v-for="idx in form.extraNodes"
-                    @click="setF(idx)"
-                  >
-                    <md-icon
-                      class="md-size-2x"
-                      v-bind:class="{'md-accent': idx <= form.f, 'md-primary': idx > form.f}"
-                      >storage</md-icon
+                  <div class="user-select">
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incF(1)"
+                      :disabled="this.form.f === this.form.extraNodes"
                     >
-                  </md-button>
+                      <md-icon>add</md-icon>
+                    </md-button>
 
-                  <md-icon class="md-size-2x" id="reliable-node"
-                    >storage</md-icon
+                    <md-button
+                      class="md-icon-button md-dense md-raised"
+                      @click="incF(-1)"
+                      :disabled="this.form.f === 1"
+                    >
+                      <md-icon>remove</md-icon>
+                    </md-button>
+                  </div>
+
+                  [[ form.f ]] unreliable system(s)
+
+                  <md-icon
+                    v-for="idx in form.extraNodes + 1"
+                    class="md-size-2x"
+                    v-bind:id="getNodeIdByz(idx)"
                   >
+                    storage</md-icon
+                  >
+
                   [[ Number(form.extraNodes) + 1 - form.f ]] reliable system(s)
                 </div>
 
@@ -406,6 +448,13 @@
                   >Train</md-button
                 >
               </form>
+
+              <br /><br /><br />
+              <hr />
+              <p class="md-caption">
+                ¹ Although, as discussed, Garfield can work with any type of
+                behavior.
+              </p>
             </md-app-content>
           </md-app>
         </md-step>
@@ -421,9 +470,9 @@
               <p>
                 As briefly mentioned in the introduction, Garfield is designed
                 to develop distributed ML algorithms, and provides means to
-                handle system failures, all the while preserving the model
-                accuracy as much as possible. In other words, Garfield makes our
-                algorithms transparently <em>Byzantine-resilient</em>.
+                handle system failures, while preserving the model accuracy as
+                much as possible. In other words, Garfield makes our algorithms
+                transparently <em>Byzantine-resilient</em>.
               </p>
               <p>
                 The way Garfield achieves this is by using robust rules to
@@ -449,7 +498,7 @@
                 machines being unreliable, so depending on your parameter
                 choices you will observe varying degrees of success. Feel free
                 to go back a few steps, change the parameters and rerun the
-                trainings if you wish to eperiment different scenarios.
+                trainings if you wish to experiment different scenarios.
               </p>
               <p>
                 Please also note that, due to the different computation used in
@@ -467,7 +516,7 @@
                 <md-icon
                   v-for="idx in form.extraNodes + 1"
                   class="md-size-2x"
-                  v-bind:id="getNodeId(idx)"
+                  v-bind:id="getNodeIdByz(idx)"
                 >
                   storage</md-icon
                 >[[ Number(form.extraNodes) + 1 - form.f ]] reliable system(s)
@@ -579,7 +628,7 @@
             <md-card-header
               ><div class="md-body-2">
                 [[ Number(form.extraNodes) + 1 ]] systems, [[ Number(form.f) ]]
-                of which unreliable
+                of which unreliable, without byzantine-tolerance
               </div></md-card-header
             >
             <md-card-content>
@@ -707,14 +756,20 @@
             }
             this.currentStep = this.steps[idx];
           },
-          setN: function (idx) {
-            this.form.extraNodes = idx;
-            this.form.f = 1;
-            this.clearResults();
+          incExtraNodes: function (delta = 1) {
+            const newVal = this.form.extraNodes + delta;
+            if (newVal >= 1 && newVal <= this.maxExtraNodes) {
+              this.form.extraNodes = newVal;
+              this.clearResults();
+              this.form.f = Math.min(this.form.f, newVal);
+            }
           },
-          setF: function (idx) {
-            this.form.f = idx;
-            this.clearResults();
+          incF: function (delta = 1) {
+            const newVal = this.form.f + delta;
+            if (newVal >= 1 && newVal <= this.form.extraNodes) {
+              this.form.f = newVal;
+              this.clearResults();
+            }
           },
           formatDiff: function (val1, val2) {
             const diff = Number(val2.toFixed(1)) - Number(val1.toFixed(1));
@@ -727,7 +782,12 @@
               return `(+${diff.toFixed(1)}%)`;
             }
           },
-          getNodeId: function (idx) {
+          getNodeIdAdd: function (idx) {
+            return idx <= this.form.extraNodes
+              ? "reliable-node"
+              : "disabled-node";
+          },
+          getNodeIdByz: function (idx) {
             return idx <= this.form.f ? "byzantine-node" : "reliable-node";
           },
           sendTrainingQuery: async function (query) {
