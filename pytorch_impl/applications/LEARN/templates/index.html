@@ -100,7 +100,7 @@
       .user-select {
         display: flex;
         flex-flow: column;
-        align-items: end;
+        align-items: flex-end;
       }
     </style>
   </head>
@@ -395,8 +395,8 @@
             <md-app-content>
               <p>
                 In this step, to simulate failures, we will have some of the
-                systems return random data¹ in place of the model updates when
-                exchanging data during training. We will not change the
+                systems return random data in place of the model updates when
+                exchanging data during training¹. We will not change the
                 computation, which "naively" assumes all systems are reliable,
                 and does not attempt to compensate for unexpected behavior.
               </p>
