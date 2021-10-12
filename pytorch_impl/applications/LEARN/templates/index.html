@@ -100,7 +100,7 @@
       .user-select {
         display: flex;
         flex-flow: column;
-        align-items: end;
+        align-items: flex-end;
       }
     </style>
   </head>
@@ -395,8 +395,8 @@
             <md-app-content>
               <p>
                 In this step, to simulate failures, we will have some of the
-                systems return random data¹ in place of the model updates when
-                exchanging data during training. We will not change the
+                systems return random data in place of the model updates when
+                exchanging data during training¹. We will not change the
                 computation, which "naively" assumes all systems are reliable,
                 and does not attempt to compensate for unexpected behavior.
               </p>
@@ -554,8 +554,8 @@
                 trade-offs.
               </p>
               <p>
-                For example, with Garfield, even though only model updates are
-                shared between systems,
+                For example, with Garfield and the decentralized architecture,
+                even though only model updates are shared between systems,
                 <a
                   target="_blank"
                   href="https://export.arxiv.org/pdf/2004.04676"
@@ -567,18 +567,27 @@
               </p>
               <p>
                 By contrast, SPINDLE uses Secure Multiparty Computation and
-                Homomorphic Encryption to provide more privacy-preserving
-                guarantees. On the other hand, this comes with limitations:
-                these techniques are much more CPU-intensive and require
-                enormous amounts of storage, making them currently difficult to
-                use with very large datasets.
+                Homomorphic Encryption to provide much stronger
+                privacy-preserving guarantees, but is not Byzantine-tolerant.
+                These techniques are also much more CPU-intensive and require
+                large amounts of storage, making them currently difficult to use
+                with very large datasets.
               </p>
               <p>
-                Depending on your needs, you will find one or the other method
-                more appropriate for your application. We will be happy to
-                discuss with you in further details the pros and cons of each of
-                these solutions, and help you in your decision. Don't hesitate
-                to <a href="mailto:factory@c4dt.org">contact us</a>!
+                A
+                <a href="https://arxiv.org/abs/2006.04747">recent paper</a>
+                proposes a combination of Byzantine-tolerance and Secure
+                Multiparty Computation to address these problems simultaneously.
+                The Distributed Computing Lab has a project implementing this
+                approach using Garfield, showing the flexibility of its
+                architecture.
+              </p>
+              <p>
+                Depending on your needs, you will find one of these methods more
+                appropriate for your application. We will be happy to discuss
+                with you in further details the pros and cons of each of these
+                solutions, and help you in your decision. Don't hesitate to
+                <a href="mailto:factory@c4dt.org">contact us</a>!
               </p>
             </md-app-content>
           </md-app>
