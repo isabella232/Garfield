@@ -193,7 +193,7 @@
               </p>
               <p>
                 This demonstrator will focus on the
-                <em>decentralized architecture</em>. It will guide you through
+                <em>decentralized architecture</em> (the third diagram above). It will guide you through
                 training a model, examining how learning evolves when we add
                 more machines, what impact failures can have, and how Garfield
                 helps to manage them.
@@ -222,13 +222,16 @@
                 diabetes.
               </p>
               <p>
-                To determine how good a model is, we proceed as follows. First,
-                we train it over a subset of the available data. After that, we
-                use another subset to measure the accuracy. More precisely, we
-                use the model, computed over the first subset, to predict the
-                diabetes diagnostic on data from the second subset. By comparing
-                these predictions with the actual known information, we can
-                estimate the model's <em>accuracy</em>.
+                To determine how good a model is, we proceed as follows:
+                <ul>
+                    <li>we train the model over a first subset of the available data;</li>
+                    <li>we use another subset to measure the model's accuracy.</li>
+                </ul>
+                More precisely, we use the model, computed over the first
+                subset, to predict the diabetes diagnostic on data from the
+                second subset. By comparing these predictions with the actual
+                known information, we can estimate the model's
+                <em>accuracy</em>.
               </p>
             </md-app-drawer>
 
@@ -276,12 +279,12 @@
                 than with a single machine.
               </p>
               <p>
-                In some situations, however, it is
-                <em>not possible nor desirable</em> to combine all the data
-                centrally. For example, patient medical data from different
-                hospitals cannot generally be combined, due to the requirements
-                to preserve patient privacy. Similarly, different financial
-                institutions will not share their data for business or
+                In some situations, however, it is <em>not possible nor
+                    desirable</em> to combine all the data centrally. For
+                example, patient medical data from different hospitals cannot
+                generally be combined, due to the requirements to preserve
+                patient privacy. Similarly, different financial institutions
+                will not share their data for business confidentiality or
                 competitive reasons.
               </p>
               <p>
@@ -568,7 +571,7 @@
               <p>
                 By contrast, SPINDLE uses Secure Multiparty Computation and
                 Homomorphic Encryption to provide much stronger
-                privacy-preserving guarantees, but is not Byzantine-tolerant.
+                privacy-preserving guarantees, but is not Byzantine-resilient.
                 These techniques are also much more CPU-intensive and require
                 large amounts of storage, making them currently difficult to use
                 with very large datasets.
@@ -578,7 +581,7 @@
                 <a target="_blank" href="https://arxiv.org/abs/2006.04747"
                   >recent paper</a
                 >
-                proposes a combination of Byzantine-tolerance and Secure
+                proposes a combination of Byzantine resilience and Secure
                 Multiparty Computation to address these problems simultaneously.
                 The Distributed Computing Lab has recently implemented such a
                 private and Byzantine-resilient algorithm using Garfield,
@@ -639,7 +642,7 @@
             <md-card-header
               ><div class="md-body-2">
                 [[ Number(form.extraNodes) + 1 ]] systems, [[ Number(form.f) ]]
-                of which unreliable, without byzantine-tolerance
+                of which unreliable, without byzantine resilience
               </div></md-card-header
             >
             <md-card-content>
@@ -658,7 +661,7 @@
             <md-card-header
               ><div class="md-body-2">
                 [[ Number(form.extraNodes) + 1 ]] systems, [[ Number(form.f) ]]
-                of which unreliable, with byzantine-tolerance
+                of which unreliable, with byzantine resilience
               </div></md-card-header
             >
             <md-card-content>
