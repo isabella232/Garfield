@@ -1,43 +1,33 @@
-import os
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.distributed.rpc as rpc
-import torch.optim as optim
-from torch.distributed.rpc import RRef, rpc_async, remote
-from time import time, sleep
-import argparse
-import sys
-import json
-import threading
-
-import garfieldpp
-from garfieldpp.worker import Worker
-from garfieldpp.byzWorker import ByzWorker
-from garfieldpp.server import Server
-from garfieldpp.tools import get_bytes_com, convert_to_gbit, adjust_learning_rate
-from garfieldpp.datasets import DatasetManager
-
-import aggregators
+"""
+Garfield Demonstrator
+"""
+import asyncio
 from math import log2, ceil
-
 import multiprocessing as mp
 import queue
-import asyncio
-from quart import (
-    Quart,
-    request,
-    session,
-    abort,
-    render_template,
-    url_for,
-    make_response,
-)
 import threading
-import json
+from time import time, sleep
 
 import logging
 import logging.config
+
+import torch
+import torch.nn.functional as F
+import torch.distributed.rpc as rpc
+
+from garfieldpp.worker import Worker
+from garfieldpp.byzWorker import ByzWorker
+from garfieldpp.server import Server
+from garfieldpp.datasets import DatasetManager
+
+import aggregators
+
+from quart import (
+    Quart,
+    request,
+    render_template,
+    make_response,
+)
 
 # The following fixes a `RuntimeError: received 0 items of ancdata` error, see:
 #   https://github.com/pytorch/pytorch/issues/973#issuecomment-449756587
@@ -86,15 +76,15 @@ logger = logging.getLogger(__name__)
 
 def avg_agree(ps, gar, aggr_grad, num_iter, num_wait_ps, f):
     """Execute the average agreement protocol as in the paper
-     Basically, exchange and aggregate gradients for log2(t) time
-     Args
-        ps		the local server object
-        gar		GAR used for aggregation
-        aggr_grad	the initial aggregated gradient
-        num_iter	the number of iterations to be done; should be log2(t)
-        num_wait_ps	the number of servers that should be waited for
-        f               the number of byzantine servers
-  """
+    Basically, exchange and aggregate gradients for log2(t) time
+    Args
+       ps              the local server object
+       gar             GAR used for aggregation
+       aggr_grad       the initial aggregated gradient
+       num_iter        the number of iterations to be done; should be log2(t)
+       num_wait_ps     the number of servers that should be waited for
+       f               the number of byzantine servers
+    """
     for _ in range(num_iter):
         ps.latest_aggr_grad = aggr_grad
         aggr_grads = ps.get_aggr_grads(num_wait_ps)
@@ -120,20 +110,19 @@ def node(
     q,
     port,
 ):
-    logger.debug(f"**** SETUP AT NODE {rank} ***")
-    logger.debug(f"Number of nodes: {n}")
-    logger.debug(f"Number of declared Byzantine nodes: {f}")
-    logger.debug(f"GAR: {gar}")
-    logger.debug(f"Dataset: {dataset}")
-    logger.debug(f"Model: {model}")
-    logger.debug(f"Batch size: {batch}")
-    logger.debug(f"Loss function: {loss}")
-    logger.debug(f"Optimizer: {optimizer}")
-    logger.debug(f"Optimizer Args: {opt_args}")
-    logger.debug(f"Assume Non-iid data? {non_iid}")
-    logger.debug(f"------------------------------------")
+    logger.debug("**** SETUP AT NODE %s ***", rank)
+    logger.debug("Number of nodes: %d", n)
+    logger.debug("Number of declared Byzantine nodes: %d", f)
+    logger.debug("GAR: %s", gar)
+    logger.debug("Dataset: %s", dataset)
+    logger.debug("Model: %s", model)
+    logger.debug("Batch size: %s", batch)
+    logger.debug("Loss function: %s", loss)
+    logger.debug("Optimizer: %s", optimizer)
+    logger.debug("Optimizer Args: %s", opt_args)
+    logger.debug("Assume Non-iid data? %s", non_iid)
+    logger.debug("------------------------------------")
 
-    lr = opt_args["lr"]
     gar = aggregators.gars.get(gar)
 
     torch.manual_seed(1234)  # For reproducibility
@@ -196,9 +185,6 @@ def node(
     sleep(5)  # works as a synchronization step
     logger.debug("Sleep done")
 
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(
-        ps.optimizer, milestones=[150, 250, 350], gamma=0.1
-    )  # This line shows sophisticated stuff that can be done out of the Garfield++ library
     start_time = time()
 
     dataset_size = len(
@@ -208,9 +194,9 @@ def node(
     iter_per_epoch = ceil(
         dataset_size / (n * batch)
     )  # this value records how many iteration per sample
-    logger.debug(f"One EPOCH consists of {iter_per_epoch} iterations")
+    logger.debug("One EPOCH consists of %d iterations", iter_per_epoch)
     num_iter = nb_epochs * iter_per_epoch
-    logger.debug(f"Doing {num_iter} iterations to cover {nb_epochs} epochs")
+    logger.debug("Doing %d iterations to cover %d epochs", num_iter, nb_epochs)
 
     q.put({"rank": rank, "progress": 0})
 
@@ -241,13 +227,11 @@ def node(
             acc = ps.compute_binary_accuracy()
             num_epochs = (i + 1) / iter_per_epoch
             logger.debug(
-                "Epoch: {} Accuracy: {} Time: {}".format(
-                    num_epochs, acc, time() - start_time
-                )
+                "Epoch: %d Accuracy: %f Time: %d", num_epochs, acc, time() - start_time
             )
 
         if (i + 1) % 10 == 0:
-            logger.debug(f"[{rank}@{port}]: {(i + 1) * 100 // num_iter}%")
+            logger.debug("[%d@%d]: %d%%", rank, port, (i + 1) * 100 // num_iter)
         q.put({"rank": rank, "progress": (i + 1) * 100 // num_iter})
 
     final_acc = ps.compute_binary_accuracy()
@@ -274,6 +258,8 @@ class Trainer:
         self.port = port
 
         self.lock = threading.Lock()
+        self.status = None
+        self.fut = None
 
     def train(self):
         logger.info(f">>> Training run start: n={self.n} ; f={self.f}")
@@ -289,7 +275,7 @@ class Trainer:
 
         ps = []
         for rank in range(self.n):
-            logger.info(f"Starting process with rank {rank}")
+            logger.info("Starting process with rank %d", rank)
             p = mp.Process(
                 target=node,
                 kwargs=dict(
@@ -335,14 +321,14 @@ class Trainer:
 
             logger.exception("Timeout occurred while waiting for progress")
 
-            raise Exception("Timeout while waiting for progress")
+            raise Exception("Timeout while waiting for progress") from exc
 
         for p in ps:
             p.join(timeout=self.TIMEOUT_TERMINATE_SEC)
             if p.exitcode is None:
-                logger.warning(f"Process {p} did not terminate")
+                logger.warning("Process %s did not terminate", p)
 
-        logger.info(f"Final accuracies: {acc}")
+        logger.info("Final accuracies: %s", acc)
 
         logger.info("<<< Training run end")
 
@@ -363,7 +349,7 @@ class Trainer:
             with self.lock:
                 status = {"progress": sum(self.status.values()) // len(self.status)}
 
-        logger.debug(f"Returning status: {status}")
+        logger.debug("Returning status: %s", status)
 
         return status
 
@@ -378,7 +364,7 @@ class PortManager:
             port = self.port
             self.port += 1
 
-        logger.debug(f"Returning port: {port}")
+        logger.debug("Returning port: %d", port)
         return port
 
 
