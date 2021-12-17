@@ -540,21 +540,23 @@
           <md-app>
             <md-app-content>
               <p>
-                This concludes the demonstrator, which hopefully gave you a feel
-                of what Garfield can achieve and how it can help you develop
-                more robust distributed ML applications.
+                This concludes the demonstrator, which hopefully gave you a
+                feel of what Garfield can achieve and how it can help you
+                develop more robust distributed ML applications.
               </p>
               <p>
                 For training a model over several datasets in a
                 privacy-preserving context, other approaches are possible.
                 Depending on your use-case and your requirements, it might be
-                worth to also take a look at a solution such as
+                worth also taking a look at a solution such as
                 <a
                   target="_blank"
                   href="https://factory.c4dt.org/showcase/spindle"
                   >SPINDLE</a
-                >, which employs different techniques and makes other
-                trade-offs.
+                >, which relies on advanced cryptography and makes other
+                trade-offs. You may also be interested in <a target="_blank"
+                    href="https://factory.c4dt.org/showcase/poseidon">Poseidon</a>,
+                an extension of SPINDLE concepts to neural networks.¹
               </p>
               <p>
                 For example, with Garfield and the decentralized architecture,
@@ -569,12 +571,12 @@
                 system's data solely by analyzing the exchanged model updates.
               </p>
               <p>
-                By contrast, SPINDLE uses Secure Multiparty Computation and
-                Homomorphic Encryption to provide much stronger
-                privacy-preserving guarantees, but is not Byzantine-resilient.
-                These techniques are also much more CPU-intensive and require
-                large amounts of storage, making them currently difficult to use
-                with very large datasets.
+                By contrast, SPINDLE and Poseidon use Secure Multiparty
+                Computation and Homomorphic Encryption to provide much stronger
+                privacy-preserving guarantees, but Byzantine-resilience still
+                needs to be implemented.  These techniques are also much more
+                CPU-intensive and require large amounts of storage, making them
+                currently difficult to use with very large datasets.
               </p>
               <p>
                 A
@@ -582,10 +584,11 @@
                   >recent paper</a
                 >
                 proposes a combination of Byzantine resilience and Secure
-                Multiparty Computation to address these problems simultaneously.
-                The Distributed Computing Lab has recently implemented such a
-                private and Byzantine-resilient algorithm using Garfield,
-                showing that both aspects can be combined using this library.
+                Multiparty Computation to address these problems
+                simultaneously. It is limited to two servers.  The Distributed
+                Computing Lab has recently implemented such a private and
+                Byzantine-resilient algorithm using Garfield, showing that both
+                aspects can be combined using this library.
               </p>
               <p>
                 Depending on your needs, you will find one of these methods more
@@ -593,6 +596,12 @@
                 with you in further details the pros and cons of each of these
                 solutions, and help you in your decision. Don't hesitate to
                 <a href="mailto:factory@c4dt.org">contact us</a>!
+              </p>
+              <br /><br /><br />
+              <hr />
+              <p class="md-caption">
+                ¹ An exclusive license of SPINDLE and Poseidon has been granted
+                to Tune Insight.
               </p>
             </md-app-content>
           </md-app>
